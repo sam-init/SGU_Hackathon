@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Details about Employee for SabKoKam</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cemployee_followup.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SabKoKam</div>
+            <h1>Employee Information Details</h1>
+            <p>Please complete your profile information below</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="employeeInfoForm">
+                <h2 class="section-title">Contact Information</h2>
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <h2 class="section-title">Professional Information</h2>
+                
+                <div class="form-group full-width">
+                    <label for="skills">Professional Skills</label>
+                    <textarea id="skills" name="skills" placeholder="Describe your skills, expertise and professional experience here..." required></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="additionalInfo">Additional Information</label>
+                    <textarea id="additionalInfo" name="additionalInfo" placeholder="Tell us more about yourself, your hobbies, interests or any other information you would like to share..."></textarea>
+                </div>
+                
+                <h2 class="section-title">Resume/CV Upload</h2>
+                
+                <div class="form-group full-width">
+                    <div class="file-upload" id="resumeUploadArea">
+                        <input type="file" id="resumeUpload" name="resumeUpload" accept=".pdf,.doc,.docx" required>
+                        <div class="file-upload-icon">📄</div>
+                        <h3>Upload your Resume/CV</h3>
+                        <p>Click or drag and drop your file here</p>
+                        <p>Accepted formats: PDF, DOC, DOCX</p>
+                        <div class="file-name" id="fileName"></div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Information</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/Cemployee_followup.js') }}"></script>
+</body>
+</html>
