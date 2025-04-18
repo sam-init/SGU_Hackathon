@@ -1,0 +1,17 @@
+def candidate_text(row):
+    return f"""
+    Candidate Name: {row['name']}.
+    Skills: {row['skills']}.
+    Experience: {row['experience']}.
+    Education: {row['education']}.
+    Location: {row['location']}.
+    Preferred Role: {row['preferred_role']}.
+    """
+
+def job_text(row):
+    return f"""
+    Job Title: {row['job_title']}.
+    Required Skills: {row['required_skills']}.
+    Experience Required: {row['experience_required']}.
+    Job Location: {row['job_location']}.
+    Job Description: {row['job_description']}.
