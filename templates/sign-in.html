@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SabKoKaam - Sign Up</title>
   <link rel="stylesheet" href="../static/css/sign-in.css" />
-  <link rel="stylesheet" href="../static/js/sign-in.js" />
 </head>
 <body>
   <div class="container">
@@ -82,6 +81,16 @@
             </select>
           </div>
         </div>
+<p><b>Select your role</b></p>
+        <!-- Radio Buttons for Role -->
+        <div class="form-group">
+          <label>
+            <input type="radio" name="role" value="Employee"> Employee
+          </label><br>
+          <label>
+            <input type="radio" name="role" value="Employer"> Employer
+          </label><br>
+        </div>
 
         <div class="form-group">
           <label for="city">City/Village <span style="color: red">*</span></label>
@@ -125,6 +134,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="../static/js/sign-in.js"></script>
 </body>
 </html>
