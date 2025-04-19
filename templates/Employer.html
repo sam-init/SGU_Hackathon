@@ -6,6 +6,7 @@
   <title>SkillMatch - HR Platform</title>
   <link rel="stylesheet" href="../static/css/Employer.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
 </head>
 <body>
   <header class="header">
@@ -39,10 +40,9 @@
     <section id="jobs" class="view">
       <div class="container">
         <div class="search-filter-container">
-          <div class="search-bar">
-            <input type="text" id="job-search" placeholder="Search jobs...">
-            <button class="search-btn"><i class="fas fa-search"></i></button>
-          </div>
+          <div style="position: relative;">
+            <input type="text" id="searchBox" placeholder="Type skills or titles..." autocomplete="on" style="width: 300px; padding: 8px;">
+            <ul id="suggestions"></ul>
           <div class="filter-options">
             <div class="filter-group">
               <label for="location-filter">Location</label>
@@ -90,22 +90,22 @@
     <section id="create-job" class="view">
       <div class="container">
         <h2>Post a New Job</h2>
-        <form id="job-form" class="form">
+        <form id="job-form" class="form" action="{{url_for('job.post_job')}}" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="job-title">Job Title *</label>
-            <input type="text" id="job-title" required>
+            <input type="text" id="job-title" name="title" required>
           </div>
           <div class="form-group">
             <label for="company">Company *</label>
-            <input type="text" id="company" required>
+            <input type="text" id="company" name="company" required>
           </div>
           <div class="form-group">
             <label for="job-location">Location *</label>
-            <input type="text" id="job-location" required>
+            <input type="text" id="job-location" name="location" required>
           </div>
           <div class="form-group">
             <label for="job-type">Job Type *</label>
-            <select id="job-type" required>
+            <select id="job-type" name="job_type" required>
               <option value="">Select Job Type</option>
               <option value="full-time">Full Time</option>
               <option value="part-time">Part Time</option>
@@ -115,19 +115,19 @@
           </div>
           <div class="form-group">
             <label for="salary-range">Salary Range</label>
-            <input type="text" id="salary-range" placeholder="e.g. ₹8,00,000 - ₹10,00,000">
+            <input type="text" id="salary-range" name="salary" placeholder="e.g. ₹8,00,000 - ₹10,00,000">
           </div>
           <div class="form-group">
             <label for="required-skills">Required Skills *</label>
-            <input type="text" id="required-skills" placeholder="Separate skills with commas" required>
+            <input type="text" id="required-skills" name="skills" placeholder="Separate skills with commas" required>
           </div>
           <div class="form-group full-width">
             <label for="job-description">Job Description *</label>
-            <textarea id="job-description" rows="6" required></textarea>
+            <textarea id="job-description" name="description" rows="6" required></textarea>
           </div>
           <div class="form-group full-width">
             <label for="requirements">Requirements</label>
-            <textarea id="requirements" rows="4"></textarea>
+            <textarea id="requirements" name="requirements" rows="4"></textarea>
           </div>
           <div class="form-actions">
             <button type="reset" class="btn btn-secondary">Reset</button>
@@ -136,6 +136,7 @@
         </form>
       </div>
     </section>
+    
 
     <!-- Applications View -->
     <section id="applications" class="view">
@@ -330,114 +331,6 @@
     </div>
   </div>
 
-  <!-- Embed the sample data in the HTML -->
-  <script id="jobs-data" type="application/json">
-  [
-    {
-      "id": 1,
-      "title": "Senior Frontend Developer",
-      "company": "TechCorp Solutions",
-      "location": "San Francisco",
-      "type": "full-time",
-      "salary": "$120,000 - $150,000",
-      "description": "We are looking for an experienced Frontend Developer to join our team. You will be responsible for building user interfaces for our web applications.",
-      "skills": ["JavaScript", "React", "TypeScript", "CSS", "HTML"],
-      "postedDate": "2025-04-05"
-    },
-    {
-      "id": 2,
-      "title": "UX/UI Designer",
-      "company": "Creative Minds Agency",
-      "location": "Remote",
-      "type": "full-time",
-      "salary": "$90,000 - $110,000",
-      "description": "Join our design team to create beautiful, intuitive user interfaces for our clients. Work closely with developers to implement your designs.",
-      "skills": ["UI Design", "Figma", "Adobe XD", "User Research"],
-      "postedDate": "2025-04-10"
-    }
-  ]
-  </script>
-
-  <script id="applications-data" type="application/json">
-  [
-    {
-      "id": 1,
-      "candidateId": 3,
-      "jobId": 1,
-      "status": "interview",
-      "appliedDate": "2025-04-06",
-      "matchScore": 92,
-      "resumeUrl": "#",
-      "coverLetter": "I am very interested in the Senior Frontend Developer position at TechCorp Solutions. With over 5 years of experience in React and TypeScript, I believe I would be a valuable addition to your team."
-    },
-    {
-      "id": 2,
-      "candidateId": 5,
-      "jobId": 1,
-      "status": "new",
-      "appliedDate": "2025-04-16",
-      "matchScore": 87,
-      "resumeUrl": "#",
-      "coverLetter": "I would like to apply for the Senior Frontend Developer position. I have worked with React for 3 years and have a strong passion for creating performant user interfaces."
-    }
-    // Add the rest of the applications here...
-  ]
-  </script>
-
-  <script id="candidates-data" type="application/json">
-  [
-    {
-      "id": 1,
-      "name": "Emily Johnson",
-      "title": "UX/UI Designer",
-      "email": "emily.johnson@example.com",
-      "location": "San Francisco",
-      "experience": "5 years",
-      "education": "BFA in Graphic Design",
-      "skills": ["UI Design", "User Research", "Figma", "Adobe XD", "Sketch"],
-      "matchScore": 78
-    },
-    {
-      "id": 2,
-      "name": "Michael Chen",
-      "title": "Backend Developer",
-      "email": "michael.chen@example.com",
-      "location": "New York",
-      "experience": "3 years",
-      "education": "BS in Computer Science",
-      "skills": ["Java", "Spring Boot", "MySQL", "NoSQL", "RESTful APIs"],
-      "matchScore": 65
-    }
-    // Add the rest of the candidates here...
-  ]
-  </script>
-
-  <script id="interviews-data" type="application/json">
-  [
-    {
-      "id": 1,
-      "applicationId": 1,
-      "candidateName": "Sarah Wilson",
-      "position": "Senior Frontend Developer",
-      "date": "2025-04-20",
-      "time": "10:00",
-      "type": "video",
-      "notes": "Focus on React experience and system design questions."
-    },
-    {
-      "id": 2,
-      "applicationId": 3,
-      "candidateName": "Emily Johnson",
-      "position": "UX/UI Designer",
-      "date": "2025-04-21",
-      "time": "14:30",
-      "type": "in-person",
-      "notes": "Ask to review portfolio and discuss design process."
-    }
-    // Add the rest of the interviews here...
-  ]
-  </script>
-
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -480,7 +373,7 @@
       </div>
     </div>
   </footer>
-
-  <script src="../static/css/Employer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.10.0/dist/instantsearch.production.min.js"></script>
+  <script src="../static/js/Employer.js"></script>
 </body>
 </html>

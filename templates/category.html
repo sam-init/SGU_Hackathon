@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Selection - Sabko Kaam</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/category.css') }}">
+</head>
+<body>
+  <div class="container pulse-animation">
+    <!-- Header Section -->
+    <header class="header">
+      <h1>Welcome to Sabko Kaam</h1>
+      <p class="slogan">Chhoti soch hatao, har haath ko rozgaar dilao</p>
+    </header>
+
+    <!-- Category Selection Section -->
+    <section class="category-selection">
+      <h2>Select Your Work Categories</h2>
+      
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search for categories..." onkeyup="searchCategories()">
+      </div>
+      
+      <form id="categoryForm" method="POST" action="{{ url_for('auth.category_selection') }}" enctype="multipart/form-data">
+        <div class="categories">
+          <!-- Original Categories -->
+          <label><input type="checkbox" name="category" value="Construction"><span>Construction</span></label>
+          <label><input type="checkbox" name="category" value="Farming"><span>Farming</span></label>
+          <label><input type="checkbox" name="category" value="Agriculture"><span>Agriculture</span></label>
+          <label><input type="checkbox" name="category" value="Cleaning"><span>Cleaning</span></label>
+          <label><input type="checkbox" name="category" value="Sweeping"><span>Sweeping</span></label>
+          <label><input type="checkbox" name="category" value="House Cleaning"><span>House Cleaning</span></label>
+          <label><input type="checkbox" name="category" value="Plumbing"><span>Plumbing</span></label>
+          <label><input type="checkbox" name="category" value="Desk Work"><span>Desk Work</span></label>
+          <label><input type="checkbox" name="category" value="Administration"><span>Administration</span></label>
+          
+          <!-- New Categories -->
+          <label><input type="checkbox" name="category" value="Crop farming"><span>Crop farming</span></label>
+          <label><input type="checkbox" name="category" value="Dairy farming"><span>Dairy farming</span></label>
+          <label><input type="checkbox" name="category" value="Poultry farming"><span>Poultry farming</span></label>
+          <label><input type="checkbox" name="category" value="Beekeeping"><span>Beekeeping</span></label>
+          <label><input type="checkbox" name="category" value="Fishing & aquaculture"><span>Fishing & aquaculture</span></label>
+          <label><input type="checkbox" name="category" value="Goat and sheep rearing"><span>Goat and sheep rearing</span></label>
+          <label><input type="checkbox" name="category" value="Organic farming"><span>Organic farming</span></label>
+          <label><input type="checkbox" name="category" value="Daily wage laborer"><span>Daily wage laborer</span></label>
+          <label><input type="checkbox" name="category" value="Brick kiln worker"><span>Brick kiln worker</span></label>
+          <label><input type="checkbox" name="category" value="Mason"><span>Mason</span></label>
+          <label><input type="checkbox" name="category" value="Road construction worker"><span>Road construction worker</span></label>
+          <label><input type="checkbox" name="category" value="Carpenter"><span>Carpenter</span></label>
+          <label><input type="checkbox" name="category" value="Electrician"><span>Electrician</span></label>
+          <label><input type="checkbox" name="category" value="Painter"><span>Painter</span></label>
+          <label><input type="checkbox" name="category" value="Pottery making"><span>Pottery making</span></label>
+          <label><input type="checkbox" name="category" value="Weaving"><span>Weaving</span></label>
+          <label><input type="checkbox" name="category" value="Blacksmithing"><span>Blacksmithing</span></label>
+          <label><input type="checkbox" name="category" value="Wood carving"><span>Wood carving</span></label>
+          <label><input type="checkbox" name="category" value="Jewelry making"><span>Jewelry making</span></label>
+          <label><input type="checkbox" name="category" value="Leatherwork"><span>Leatherwork</span></label>
+          <label><input type="checkbox" name="category" value="Street vending"><span>Street vending</span></label>
+          <label><input type="checkbox" name="category" value="Tailoring & stitching"><span>Tailoring & stitching</span></label>
+          <label><input type="checkbox" name="category" value="Bicycle or motorcycle repair"><span>Bicycle or motorcycle repair</span></label>
+          <label><input type="checkbox" name="category" value="Shop worker"><span>Shop worker</span></label>
+          <label><input type="checkbox" name="category" value="Running a tea stall or food cart"><span>Running a tea stall or food cart</span></label>
+          <label><input type="checkbox" name="category" value="Making and selling pickles, papads, and homemade food"><span>Making and selling pickles, papads, and homemade food</span></label>
+          <label><input type="checkbox" name="category" value="Candle and soap making"><span>Candle and soap making</span></label>
+          <label><input type="checkbox" name="category" value="Cattle trading"><span>Cattle trading</span></label>
+          <label><input type="checkbox" name="category" value="Housekeeping & cleaning services"><span>Housekeeping & cleaning services</span></label>
+          <label><input type="checkbox" name="category" value="Driving (auto-rickshaw, taxi, tractor)"><span>Driving (auto-rickshaw, taxi, tractor)</span></label>
+          <label><input type="checkbox" name="category" value="Security guard"><span>Security guard</span></label>
+          <label><input type="checkbox" name="category" value="Waste picking & recycling"><span>Waste picking & recycling</span></label>
+          <label><input type="checkbox" name="category" value="Babysitting or caregiving"><span>Babysitting or caregiving</span></label>
+          <label><input type="checkbox" name="category" value="Gardening & landscaping"><span>Gardening & landscaping</span></label>
+          <label><input type="checkbox" name="category" value="Domestic help"><span>Domestic help</span></label>
+          <label><input type="checkbox" name="category" value="Rural school assistant"><span>Rural school assistant</span></label>
+          <label><input type="checkbox" name="category" value="Community health worker"><span>Community health worker</span></label>
+          <label><input type="checkbox" name="category" value="Post office or banking correspondent"><span>Post office or banking correspondent</span></label>
+        </div>
+        <div class="submit-btn-container">
+          <button type="submit" class="submit-btn">Submit</button>
+        </div>
+      </form>
+    </section>
+
+  </div>
+  <script src="{{ url_for('static', filename='js/category.js') }}"></script>
+
+</body>
+</html>
