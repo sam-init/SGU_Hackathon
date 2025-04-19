@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)  
 
 
+
 # Register Blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(job_bp, url_prefix='/job')
