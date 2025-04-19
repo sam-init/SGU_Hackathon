@@ -1,9 +1,13 @@
 import pandas as pd
-import gspread
 import re
-from google.oauth2.service_account import Credentials
-from vertexai.language_models import TextEmbeddingModel
+import gspread
 from sklearn.metrics.pairwise import cosine_similarity
+from vertexai.preview.language_models import TextEmbeddingModel
+from google.oauth2.service_account import Credentials
+import vertexai
+
+# ==== VERTEX INIT ====
+vertexai.init(project="vertex-ai-456914", location="us-central1")
 
 # ==== CONFIG ====
 SPREADSHEET_ID = "1p7zEfbYhyuxdiKDjW0iT5dptkENHtg0YU4X8rlJdshk"
@@ -25,6 +29,9 @@ df_jobs = pd.DataFrame(sheet.worksheet(SHEET_HR).get_all_records())
 model = TextEmbeddingModel.from_pretrained("text-embedding-005")
 
 # ==== UTILS ====
+def sanitize_title(title):
+    return re.sub(r'\W+', '_', title.strip()).lower()
+
 def candidate_text(row):
     return f"""
     Candidate Name: {row['name']}.
@@ -35,7 +42,7 @@ def candidate_text(row):
     Preferred Role: {row['preferred_role']}.
     """
 
-def job_text(row):
+def job_text_fn(row):
     return f"""
     Job Title: {row['job_title']}.
     Required Skills: {row['required_skills']}.
@@ -44,40 +51,34 @@ def job_text(row):
     Job Description: {row['job_description']}.
     """
 
-# ==== EMBEDDING CANDIDATES ONCE ====
+# ==== EMBED CANDIDATES ====
 candidate_texts = df_candidates.apply(candidate_text, axis=1).tolist()
 candidate_embeddings = model.get_embeddings(candidate_texts)
+candidate_names = df_candidates['name'].tolist()
 
-import re
-
-def sanitize_title(title):
-    return re.sub(r'\W+', '_', title.strip()).lower()
-
-# Loop through jobs and compute match + write results
-for _, job in jobs_df.iterrows():
-    job_id = job['job_id'] if 'job_id' in job else sanitize_title(job['title'])
-    job_text = build_job_text(job)
-    job_embedding = model.get_embeddings([job_text])[0].values
+# ==== JOB MATCHING LOOP ====
+for _, job in df_jobs.iterrows():
+    job_id = job['job_id'] if 'job_id' in job else sanitize_title(job['job_title'])
+    job_embed = model.get_embeddings([job_text_fn(job)])[0].values
 
     results = []
+    for idx, cand_row in df_candidates.iterrows():
+        cand_embed = candidate_embeddings[idx].values
+        score = cosine_similarity([cand_embed], [job_embed])[0][0]
+        results.append({
+            'Candidate Name': candidate_names[idx],
+            'Match Score': round(score, 4)
+        })
 
-    for _, cand in candidates_df.iterrows():
-        cand_text = build_candidate_text(cand)
-        cand_embedding = model.get_embeddings([cand_text])[0].values
-        score = cosine_similarity([cand_embedding], [job_embedding])[0][0]
-        results.append({'Candidate Name': cand['name'], 'Match Score': round(score, 4)})
+    results = sorted(results, key=lambda x: x['Match Score'], reverse=True)
 
-    # Sort by match score
-    ranked_results = sorted(results, key=lambda x: x['Match Score'], reverse=True)
-
-    # Create new sheet or overwrite
     sheet_name = f"match_result_{job_id}"
     try:
-        worksheet = sh.worksheet(sheet_name)
-        sh.del_worksheet(worksheet)
+        ws = sheet.worksheet(sheet_name)
+        sheet.del_worksheet(ws)
     except:
         pass
 
-    worksheet = sh.add_worksheet(title=sheet_name, rows=100, cols=2)
-    worksheet.update([["Candidate Name", "Match Score"]] + [[r['Candidate Name'], r['Match Score']] for r in ranked_results])
+    ws = sheet.add_worksheet(title=sheet_name, rows=100, cols=2)
+    ws.update([["Candidate Name", "Match Score"]] + [[r['Candidate Name'], r['Match Score']] for r in results])
     print(f"✅ Match results written to tab: {sheet_name}")
