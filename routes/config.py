@@ -1,23 +1,41 @@
+import os
+from dotenv import load_dotenv 
+load_dotenv()
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Blueprint
-import requests
+import gspread
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
-config_bp=Blueprint('config',__name__)
+config_bp = Blueprint('config', __name__)
 
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate('./flask-62adb-firebase-adminsdk-fbsvc-5a7c22f9cc.json')
+# Firebase Admin SDK
+firebase_cred_path = os.getenv('FIREBASE_ADMIN_CRED')
+cred = credentials.Certificate(firebase_cred_path)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-# Use environment variable for API key (replace with your actual key)
-FIREBASE_WEB_API_KEY = 'AIzaSyCMgg2THs0owNzhyfb_xmil3dapbmCLRgk'
+# Google Service Account for GDrive + Sheets
+SCOPES = os.getenv('GOOGLE_SCOPES').split()
+google_cred_path = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
+google_creds = service_account.Credentials.from_service_account_file(google_cred_path, scopes=SCOPES)
+gc = gspread.authorize(google_creds)
 
-# Helper function for Firebase sign-in
-def sign_in_with_email_password(email, password):
-    response = requests.post(
-        f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_WEB_API_KEY}",
-        json={"email": email, "password": password, "returnSecureToken": True}
-    )
-    response.raise_for_status()
-    return response.json()
+# Sheets
+sheet = gc.open_by_key(os.getenv("SHEET_KEY"))
+SHEET1 = sheet.worksheet(os.getenv("SHEET1_NAME"))
+SHEET2 = sheet.worksheet(os.getenv("SHEET2_NAME"))
+
+# Drive
+drive_service = build('drive', 'v3', credentials=google_creds)
+FOLDER_ID = os.getenv('GDRIVE_FOLDER_ID')
+
+# Algolia
+ALGOLIA_APP_ID = os.getenv('ALGOLIA_APP_ID')
+ALGOLIA_API_KEY = os.getenv('ALGOLIA_API_KEY')
+ALGOLIA_INDEX_NAME = os.getenv('ALGOLIA_INDEX_NAME')
+
+# Firebase Web API key
+FIREBASE_WEB_API_KEY = os.getenv('FIREBASE_WEB_API_KEY')
