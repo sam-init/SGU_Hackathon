@@ -58,35 +58,7 @@
                 }
             });
             
-<<<<<<< HEAD
-<<<<<<< HEAD
           
-=======
-=======
->>>>>>> origin/samarth
-            // Form submission
-            signupForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Validate required fields
-                const requiredFields = signupForm.querySelectorAll('[required]');
-                let isValid = true;
-                
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        field.style.borderColor = 'red';
-                        isValid = false;
-                    } else {
-                        field.style.borderColor = '';
-                    }
-                });
-<<<<<<< HEAD
->>>>>>> f51d4bcb1a821131ee632c145d119a1d52e02afc
-=======
-=======
-          
->>>>>>> origin
->>>>>>> origin/samarth
                 
                 // Check DOB for age verification
                 if (dobInput.value) {
@@ -154,13 +126,6 @@
                         errorMessage.style.display = 'none';
                     }, 3000);
                 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            });
-        });
-=======
->>>>>>> origin/samarth
             
         });
 
@@ -181,11 +146,3 @@
             const audio = new Audio(audioUrl);
             audio.play();
           }
-<<<<<<< HEAD
-=======
-            });
-        });
->>>>>>> f51d4bcb1a821131ee632c145d119a1d52e02afc
-=======
->>>>>>> origin
->>>>>>> origin/samarth

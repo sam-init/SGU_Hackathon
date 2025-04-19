@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sign In Page</title>
-    <link rel="stylesheet" href="../static/css/Cemployee_signin.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cemployee_signin.css') }}" />
 </head>
 <body>
     <div class="container">
@@ -15,7 +15,7 @@
 
         
         <div class="form-container">
-            <form id="signInForm">
+            <form id="signInForm" action="{{url_for('auth.employer_form')}}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" id="fullName" name="fullName" required />
@@ -50,6 +50,17 @@
                     <div id="passwordMatch" class="password-match"></div>
                 </div>
 
+                <p><b>Select your role</b></p>
+                <!-- Radio Buttons for Role -->
+                <div class="form-group">
+                  <label>
+                    <input type="radio" name="role" value="Employee"> Employee
+                  </label><br>
+                  <label>
+                    <input type="radio" name="role" value="Employer"> Employer
+                  </label><br>
+                </div>
+
                 <div class="form-group">
                     <label for="aadhar">Aadhar Number</label>
                     <input type="text" id="aadhar" name="aadhar" required placeholder="XXXX XXXX XXXX" />
@@ -66,34 +77,55 @@
                         <select id="country" name="country" required>
                             <option value="">Select Country</option>
                             <option value="india">India</option>
-                            <option value="usa">United States</option>
-                            <option value="uk">United Kingdom</option>
-                            <option value="canada">Canada</option>
-                            <option value="australia">Australia</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="state">State</label>
                         <select id="state" name="state" required>
-                            <option value="">Select State</option>
+                            <option value="andhra-pradesh">Andhra Pradesh</option>
+                            <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                            <option value="assam">Assam</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="chhattisgarh">Chhattisgarh</option>
+                            <option value="goa">Goa</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="haryana">Haryana</option>
+                            <option value="himachal-pradesh">Himachal Pradesh</option>
+                            <option value="jharkhand">Jharkhand</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="madhya-pradesh">Madhya Pradesh</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="manipur">Manipur</option>
+                            <option value="meghalaya">Meghalaya</option>
+                            <option value="mizoram">Mizoram</option>
+                            <option value="nagaland">Nagaland</option>
+                            <option value="odisha">Odisha</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="sikkim">Sikkim</option>
+                            <option value="tamil-nadu">Tamil Nadu</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="tripura">Tripura</option>
+                            <option value="uttar-pradesh">Uttar Pradesh</option>
+                            <option value="uttarakhand">Uttarakhand</option>
+                            <option value="west-bengal">West Bengal</option>
+
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="District">District Name</label>
+                        <input type="text" id="district" name="District" required />
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="district">District</label>
-                    <select id="district" name="district" required>
-                        <option value="">Select District</option>
-                    </select>
-                </div>
-
                 <div class="button-group">
-                    <button type="button" class="create-account-btn">Create Account</button>
+                    <button type="submit" class="create-account-btn">Create Account</button>
                 </div>
             </form>
         </div>
     </div>
-    <script src="../static/js/Cemployee_sign-in.js"></script>
+    
 </body>
 </html>

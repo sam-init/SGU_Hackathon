@@ -1,62 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Employee Dashboard | JobSensei</title>
-  <link rel="stylesheet" href="../static/css/coop_emp.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SabKoKaam - Chhoti soch hatao, har haath ko rozgaar dilao</title>
+    <style>
+        :root {
+            --primary: #1b5e20;
+            --secondary: #2E86AB;
+            --dark: #333;
+            --light: #f8f8f8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .download-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #1b5e20;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .slogan {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .option-btn {
+            padding: 20px 40px;
+            background-color: white;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--primary);
+            min-width: 220px;
+        }
+        
+        .option-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .join-text {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+
+        .logo {
+    display: flex;
+    align-items: center;
+        }
+
+        .logo img {
+            width: 150px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="navbar-container">
-        <a href="/" class="navbar-logo">
-        <span>TechCorp</span>
-        </a>
-        
-        <button class="navbar-toggle" id="navbar-toggle">
-        ☰
-        </button>
-        
-        <ul class="navbar-menu" id="navbar-menu">
-        <li class="navbar-item"><a href="/" class="active">Home</a></li>
-        <li class="navbar-item"><a href="/dashboard">Dashboard</a></li>
-        <li class="navbar-item"><a href="/jobs">Jobs</a></li>
-        <li class="navbar-item"><a href="/courses">Courses</a></li>
-        <li class="navbar-item"><a href="/profile">Profile</a></li>
-        </ul>
-    </div>
-  </nav>
-  <div id="sidebar">
-    <h2>JobSensei</h2>
-    <ul>
-      <li><a href="#profile">Profile</a></li>
-      <li><a href="#skills">Skill Assessment</a></li>
-      <li><a href="#jobs">Job Recommendations</a></li>
-      <li><a href="#courses">Learning</a></li>
-    </ul>
-  </div>
-
-  <div id="main">
-    <!-- 👤 Profile Section -->
-    <section id="profile">
-      <h3>Welcome, <span id="emp-name">Employee Name</span></h3>
-      <p><strong>Location:</strong> <span id="emp-location">City</span></p>
-      <p><strong>Education:</strong> <span id="emp-education">Degree</span></p>
-      <p><strong>Preferred Role:</strong> <span id="emp-role">Full Stack Developer</span></p>
-    </section>
-
-    <!-- 🧠 Skill Assessment -->
-    <section id="skills">
-      <h3>Skill Assessment</h3>
-      <div class="skill-list">
-        <!-- Skill blocks -->
-        <div class="skill-block" data-skill="Python">
-          <span>Python</span>
-          <div class="bar-container"><div class="bar" style="width: 90%"></div></div>
-          <span class="percent">90%</span>
+    <!-- Remove the header section completely -->
+    
+    <section class="hero">
+        <div class="container">
+            <!-- Add SabKoKaam here -->
+            <h1 class="site-name">SabKoKaam</h1>
+            
+            <div class="slogan">Chhoti soch hatao, har haath ko rozgaar dilao</div>
+            
+            <h1>Connecting Enterprises Like Never Before</h1>
+            
+            <p>Whether you're looking for work or need to hire workers, SabKoKaam connects rural India like never before</p>
+            
+            <div class="options">
+                <button class="option-btn">LABOUR</button>
+                <button class="option-btn">CO-OPERATE</button>
+            </div>
+            
+            <div class="join-text">Join SabKoKaam Today</div>
         </div>
-        <!-- More skill blocks to be dynamically added -->
-      </div>
     </section>
 
     <!-- 💼 Job Recommendations -->
