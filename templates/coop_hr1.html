@@ -713,282 +713,85 @@
     </div>
   </div>
   
-  <!-- Main Content -->
-  <div class="main-container">
-    <!-- Filters Section -->
-    <div class="filters-container">
-      <div class="filters-header">
-        <h2 class="filters-title">Filter Jobs</h2>
-        <div class="search-container">
-          <span class="search-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <div style="position: relative;">
-            <input type="text" id="searchBox" placeholder="Type skills or titles..." autocomplete="on" style="width: 300px; padding: 8px;">
-            <ul id="suggestions"></ul>
-          </div>
-        </div>
-      </div>
-      <form class="filters-form">
-        <div class="filter-group">
-          <label for="filter-status">Status</label>
-          <select id="filter-status">
-            <option value="all">All Statuses</option>
-            <option value="active">Active</option>
-            <option value="closed">Closed</option>
-            <option value="draft">Draft</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="filter-department">Department</label>
-          <select id="filter-department">
-            <option value="all">All Departments</option>
-            <option value="engineering">Engineering</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
-            <option value="sales">Sales</option>
-            <option value="hr">Human Resources</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="filter-location">Location</label>
-          <select id="filter-location">
-            <option value="all">All Locations</option>
-            <option value="remote">Remote</option>
-            <option value="sf">San Francisco, CA</option>
-            <option value="ny">New York, NY</option>
-            <option value="london">London, UK</option>
-          </select>
-        </div>
-        <div class="filter-actions">
-          <button type="submit" class="btn btn-outline btn-small">Apply Filters</button>
-        </div>
-      </form>
-    </div>
-    
-    <!-- Jobs List -->
-    <div class="jobs-container">
-      <div class="jobs-header">
-        <div class="jobs-count">
-          <strong>10</strong> job posts found
-        </div>
-        <div class="jobs-sort">
-          <span>Sort by:</span>
-          <select>
-            <option value="date-desc">Date (Newest)</option>
-            <option value="date-asc">Date (Oldest)</option>
-            <option value="title">Job Title</option>
-            <option value="applications">Most Applications</option>
-          </select>
-        </div>
-      </div>
-      
-      <ul class="jobs-list">
-        <!-- Job Item 1 -->
-        <li class="job-item">
-          <div class="job-info">
-            <span class="status-badge status-active">Active</span>
-            <h3 class="job-title"><a href="#">Senior Frontend Developer</a></h3>
-            <div class="job-meta">
-              <div class="job-meta-item">
-                <span class="meta-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 21V5C19 3.89543 18.1046 3 17 3H7C5.89543 3 5 3.89543 5 5V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                Engineering
-              </div>
-              <div class="job-meta-item">
-                <span class="meta-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                San Francisco, CA
-              </div>
-              <div class="job-meta-item">
-                <span class="meta-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 8V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                Posted 5 days ago
-              </div>
-              <div class="job-meta-item">
-                <span class="meta-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                3-5 years experience
-              </div>
-            </div>
-            <div class="job-skills">
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">CSS</span>
-              <span class="skill-tag">Redux</span>
-            </div>
-          </div>
-          
-          <div class="job-stats">
-            <div class="stat-item">
-              <div class="stat-value">27</div>
-              <div class="stat-label">Applicants</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">8</div>
-              <div class="stat-label">Shortlisted</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">3</div>
-              <div class="stat-label">Interviewed</div>
-            </div>
-          </div>
-          
-          <div class="job-actions">
-            <a href="#" class="btn btn-outline btn-small">
-              <span class="btn-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M19.4 15C19.1277 15.8031 18.7668 16.5668 18.3296 17.2796C17.8924 17.9925 17.3818 18.6457 16.8103 19.2222C16.2388 19.7988 15.6105 20.2935 14.9377 20.6937C14.2648 21.0939 13.5544 21.3953 12.8215 21.5913C12.0886 21.7873 11.3385 21.8759 10.5858 21.8546C9.8331 21.8333 9.08841 21.7022 8.36822 21.4651C7.64803 21.2279 6.9583 20.8868 6.31591 20.4527C5.67353 20.0187 5.08523 19.4952 4.56496 18.8953" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M4.56496 5.10474C5.08523 4.50482 5.67353 3.98132 6.31591 3.54726C6.9583 3.1132 7.64803 2.77211 8.36822 2.53495C9.08841 2.29779 9.8331 2.16671 10.5858 2.1454C11.3385 2.12409 12.0886 2.21.0886 2.2104 12.8215 2.40644C13.5544 2.60248 14.2648 2.90386 14.9377 3.30405C15.6105 3.70424 16.2388 4.19895 16.8103 4.77549C17.3818 5.35202 17.8924 6.00519 18.3296 6.71805C18.7668 7.4309 19.1277 8.19456 19.4 8.99762" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              View Details
-            </a>
-            <button class="btn btn-danger btn-small">Close Job</button>
-          </div>
-        </li>
-
-        <!-- You can add more <li class="job-item"> here dynamically using JavaScript or server-side rendering -->
+  <main>
+    <section class="job-filter">
+      <h2>Select a Role</h2>
+      <ul class="role-list" id="roleList">
+        <!-- Roles will be inserted dynamically from backend -->
       </ul>
-    </div>
+    </section>
 
-    <!-- Pagination (Optional JS integration for logic) -->
-    <div class="pagination">
-      <div class="pagination-item">&laquo;</div>
-      <div class="pagination-item active">1</div>
-      <div class="pagination-item">2</div>
-      <div class="pagination-item">3</div>
-      <div class="pagination-item">&raquo;</div>
-    </div>
-
-  </div>
+    <section class="job-results">
+      <h2>Matched Candidates</h2>
+      <ul class="jobs-list" id="jobList">
+        <!-- Dynamic job cards rendered here -->
+      </ul>
+    </section>
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.10.0/dist/instantsearch.production.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById('searchBox');
-    const suggestions = document.getElementById('suggestions');
-    const jobListings = document.querySelector('.job-listings');
-  
-    const locationFilter = document.getElementById('location-filter');
-    const skillFilter = document.getElementById('skill-filter');
-    const jobTypeFilter = document.getElementById('job-type-filter');
-    const clearBtn = document.getElementById('filter-clear');
-  
-    let timer = null;
-  
-    // Fetch and render jobs
-    async function fetchJobs(query = '') {
-      const res = await fetch(`/job/api/search?q=${encodeURIComponent(query)}`);
-      const jobs = await res.json();
-      renderJobs(jobs);
+    const jobList = document.getElementById('jobList');
+    const roleList = document.getElementById('roleList');
+    const searchInput = document.getElementById('searchInput');
+
+    let allJobs = [];
+    let allRoles = [];
+
+    async function fetchJobsFromBackend() {
+      try {
+        const res = await fetch('/api/hr/jobs'); // <-- Backend route needed
+        const data = await res.json();
+        allJobs = data;
+        allRoles = [...new Set(data.map(job => job.title))];
+        renderRoles(allRoles);
+        renderJobs(allJobs);
+      } catch (error) {
+        console.error('Failed to fetch jobs:', error);
+      }
     }
-  
-    // Render job cards
-    function renderJobs(jobs) {
-      jobListings.innerHTML = '';
-  
-      const filtered = jobs.filter(job => {
-        const loc = locationFilter.value;
-        const skill = skillFilter.value;
-        const type = jobTypeFilter.value;
-  
-        const locationMatch = !loc || (job.location && job.location.toLowerCase() === loc);
-        const skillMatch = !skill || (job.skills && job.skills.includes(skill.toLowerCase()));
-        const typeMatch = !type || (job.job_type && job.job_type.toLowerCase() === type);
-  
-        return locationMatch && skillMatch && typeMatch;
+
+    function renderRoles(roles) {
+      roleList.innerHTML = '';
+      roles.forEach(role => {
+        const li = document.createElement('li');
+        li.textContent = role;
+        li.className = 'role-item';
+        li.addEventListener('click', () => {
+          const filtered = allJobs.filter(j => j.title === role);
+          renderJobs(filtered);
+        });
+        roleList.appendChild(li);
       });
-  
-      if (filtered.length === 0) {
-        jobListings.innerHTML = '<p>No jobs match your criteria.</p>';
-        return;
-      }
-  
-      for (const job of filtered) {
-        const card = document.createElement('div');
-        card.className = 'job-card';
-        card.innerHTML = `
-          <h3>${job.title}</h3>
-          <p><strong>Company:</strong> ${job.company}</p>
-          <p><strong>Location:</strong> ${job.location}</p>
-          <p><strong>Type:</strong> ${job.job_type}</p>
-          <p><strong>Skills:</strong> ${job.skills.join(', ')}</p>
-          <p>${job.description}</p>
-        `;
-        jobListings.appendChild(card);
-      }
     }
-  
-    // Search suggestions with debounce
-    input.addEventListener('input', () => {
-      clearTimeout(timer);
-      const query = input.value.trim();
-  
-      if (!query) {
-        suggestions.innerHTML = '';
-        return;
-      }
-  
-      timer = setTimeout(async () => {
-        const res = await fetch(`/job/api/search?q=${encodeURIComponent(query)}`);
-        const hits = await res.json();
-  
-        suggestions.innerHTML = hits.map(h =>
-          `<li data-id="${h.id}">${h.title}</li>`
-        ).join('');
-      }, 300);
+
+    function renderJobs(jobs) {
+      jobList.innerHTML = '';
+      jobs.forEach(job => {
+        const li = document.createElement('li');
+        li.className = 'job-item';
+        li.innerHTML = `
+          <div class="job-info">
+            <h3 class="job-title">${job.title}</h3>
+            <div class="job-meta">
+              <div class="job-meta-item">${job.location}</div>
+              <div class="job-meta-item">${job.job_type || 'Full-time'}</div>
+            </div>
+            <div class="job-skills">
+              ${(job.skills || []).map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+          </div>
+        `;
+        jobList.appendChild(li);
+      });
+    }
+
+    searchInput.addEventListener('input', e => {
+      const searchValue = e.target.value.toLowerCase();
+      const filteredRoles = allRoles.filter(r => r.toLowerCase().includes(searchValue));
+      renderRoles(filteredRoles);
     });
-  
-    // Suggestion click: trigger search
-    suggestions.addEventListener('click', e => {
-      if (e.target.tagName === 'LI') {
-        input.value = e.target.textContent;
-        suggestions.innerHTML = '';
-        fetchJobs(input.value);
-      }
-    });
-  
-    // Close suggestions when clicking outside
-    document.addEventListener('click', e => {
-      if (!input.contains(e.target) && !suggestions.contains(e.target)) {
-        suggestions.innerHTML = '';
-      }
-    });
-  
-    // Filter change triggers re-render
-    [locationFilter, skillFilter, jobTypeFilter].forEach(filter =>
-      filter.addEventListener('change', () => fetchJobs(input.value))
-    );
-  
-    // Clear filters
-    clearBtn.addEventListener('click', () => {
-      locationFilter.value = '';
-      skillFilter.value = '';
-      jobTypeFilter.value = '';
-      fetchJobs(input.value);
-    });
-  
-    // Initial job fetch
-    fetchJobs();
-  });
+
+    fetchJobsFromBackend();
   </script>
 </body>
 </html>
