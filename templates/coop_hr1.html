@@ -885,7 +885,7 @@
     document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('searchBox');
     const suggestions = document.getElementById('suggestions');
-    const jobListings = document.querySelector('.job-listings');
+    const jobListings = document.querySelector('.jobs-list');
   
     const locationFilter = document.getElementById('location-filter');
     const skillFilter = document.getElementById('skill-filter');
@@ -923,15 +923,19 @@
       }
   
       for (const job of filtered) {
-        const card = document.createElement('div');
-        card.className = 'job-card';
+        const card = document.createElement('li');
+        card.className = 'job-item';
         card.innerHTML = `
-          <h3>${job.title}</h3>
-          <p><strong>Company:</strong> ${job.company}</p>
-          <p><strong>Location:</strong> ${job.location}</p>
-          <p><strong>Type:</strong> ${job.job_type}</p>
-          <p><strong>Skills:</strong> ${job.skills.join(', ')}</p>
-          <p>${job.description}</p>
+          <div class="job-info">
+            <h3 class="job-title"><a href="#">${job.title}</a></h3>
+            <div class="job-meta">
+              <div class="job-meta-item">${job.location}</div>
+              <div class="job-meta-item">${job.job_type}</div>
+            </div>
+            <div class="job-skills">
+              ${job.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+          </div>
         `;
         jobListings.appendChild(card);
       }
