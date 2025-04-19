@@ -8,3 +8,4 @@ gspread
 python-dotenv
 requests
 algoliasearch
+gunicorn
