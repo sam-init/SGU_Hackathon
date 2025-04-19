@@ -1,0 +1,13 @@
+hr_name – HR’s identifier (used to name the output tab)
+
+job_id – Unique job ID
+
+job_title – Title of the job
+
+skills_required – Required skills as a comma-separated string
+
+experience_required – Experience range
+
+location – Job location
+
+job_description – Brief description of the job
