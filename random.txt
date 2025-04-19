@@ -1,17 +1,13 @@
-def candidate_text(row):
-    return f"""
-    Candidate Name: {row['name']}.
-    Skills: {row['skills']}.
-    Experience: {row['experience']}.
-    Education: {row['education']}.
-    Location: {row['location']}.
-    Preferred Role: {row['preferred_role']}.
-    """
+hr_name – HR’s identifier (used to name the output tab)
 
-def job_text(row):
-    return f"""
-    Job Title: {row['job_title']}.
-    Required Skills: {row['required_skills']}.
-    Experience Required: {row['experience_required']}.
-    Job Location: {row['job_location']}.
-    Job Description: {row['job_description']}.
+job_id – Unique job ID
+
+job_title – Title of the job
+
+skills_required – Required skills as a comma-separated string
+
+experience_required – Experience range
+
+location – Job location
+
+job_description – Brief description of the job
