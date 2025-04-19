@@ -1,306 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SabKoKaam - Chhoti soch hatao, har haath ko rozgaar dilao</title>
-    <style>
-        :root {
-            --primary: #1b5e20;
-            --secondary: #2E86AB;
-            --dark: #333;
-            --light: #f8f8f8;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            font-size: 24px;
-        }
-        
-        .logo-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-        
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary);
-        }
-        
-        .download-btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s;
-        }
-        
-        .download-btn:hover {
-            background-color: #1b5e20;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-        
-        .hero p {
-            font-size: 20px;
-            color: #555;
-            margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .slogan {
-            font-size: 24px;
-            color: var(--primary);
-            font-weight: bold;
-            margin-bottom: 40px;
-        }
-        
-        .options {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .option-btn {
-            padding: 20px 40px;
-            background-color: white;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--primary);
-            min-width: 220px;
-        }
-        
-        .option-btn:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .join-text {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            color: var(--dark);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-        }
-        
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column ul li a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-column ul li a:hover {
-            color: var(--primary);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 60px;
-            color: #aaa;
-            font-size: 14px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 32px;
-            }
-            
-            .options {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-
-        .logo {
-    display: flex;
-    align-items: center;
-        }
-
-        .logo img {
-            width: 150px;
-            margin-right: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSensei - Employee Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #E1EEBC;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #328E6E;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #90C67C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .sidebar {
+      background-color: #328E6E;
+      border-radius: 15px;
+      padding: 1rem;
+    }
+    .sidebar h3 {
+      color: white;
+      margin-top: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #90C67C;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin: 1rem 0;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .sidebar ul li:hover {
+      background-color: rgba(50, 142, 110, 0.2);
+      color: #90C67C;
+      transform: scale(1.02);
+      transition: 0.6s;
+    }
+    .sidebar ul li.active {
+      background-color: rgba(50, 142, 110, 0.3);
+      font-weight: bold;
+    }
+    .main-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section h2 {
+      color: #328E6E;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card {
+      background-color: #67AE6E;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .profile-card {
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .btn {
+      background-color: #328E6E;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    .btn:hover {
+      background-color: #276f58;
+    }
+    .badge {
+      background-color: #E1EEBC;
+      color: #328E6E;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin-right: 5px;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+    .skill-bar {
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      height: 8px;
+      margin-bottom: 15px;
+      margin-top: 5px;
+    }
+    .skill-level {
+      background-color: #328E6E;
+      border-radius: 5px;
+      height: 8px;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #90C67C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: bold;
+    }
+    .profile-info h3 {
+      margin: 0;
+      color: #328E6E;
+      font-size: 1.8rem;
+    }
+    .profile-info p {
+      margin: 5px 0;
+      color: #666;
+    }
+    .skill-groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .assessment-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .assessment-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .assessment-card h3 {
+      color: #328E6E;
+      margin-top: 0;
+    }
+    .job-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid #328E6E;
+    }
+    .job-card h3 {
+      color: #328E6E;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+    .job-card p {
+      margin: 5px 0;
+      color: #666;
+    }
+    .match-score {
+      background-color: #67AE6E;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-left: 10px;
+    }
+    .course-card {
+      display: flex;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .course-thumbnail {
+      width: 160px;
+      height: 90px;
+      background-color: #ddd;
+      border-radius: 4px;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .course-details {
+      flex: 1;
+    }
+    .course-details h3 {
+      color: #328E6E;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .course-details p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .chart-container {
+      height: 300px;
+      margin-top: 2rem;
+    }
+    .assessment-result {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .assessment-result .skill-name {
+      width: 40%;
+    }
+    .assessment-result .skill-bar-container {
+      width: 50%;
+    }
+    .assessment-result .skill-percentage {
+      width: 10%;
+      text-align: right;
+      color: #328E6E;
+      font-weight: bold;
+    }
+    .tab-container {
+      margin-bottom: 1.5rem;
+    }
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .tab-button {
+      background-color: #f0f0f0;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #666;
+    }
+    .tab-button.active {
+      background-color: #328E6E;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <!-- Remove the header section completely -->
+  <header>
+    <div class="logo">JobSensei Employee Dashboard</div>
+    <div class="user-info">
+      <span>Alex Johnson</span>
+      <div class="user-avatar">AJ</div>
+    </div>
+  </header>
+  
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <h3>Navigation</h3>
+      <ul>
+        <li id="nav-profile" class="active" onclick="showSection('profile')">Profile</li>
+        <li id="nav-skills" onclick="showSection('skills')">Skill Assessment</li>
+        <li id="nav-career" onclick="showSection('career')">Job Recommendations</li>
+        <li id="nav-learning" onclick="showSection('learning')">Course Suggestions</li>
+      </ul>
+    </aside>
     
-    <section class="hero">
-        <div class="container">
-            <!-- Add SabKoKaam here -->
-            <h1 class="site-name">SabKoKaam</h1>
-            
-            <div class="slogan">Chhoti soch hatao, har haath ko rozgaar dilao</div>
-            
-            <h1>Connecting Enterprises Like Never Before</h1>
-            
-            <p>Whether you're looking for work or need to hire workers, SabKoKaam connects rural India like never before</p>
-            
-            <div class="options">
-                <button class="option-btn">LABOUR</button>
-                <button class="option-btn">CO-OPERATE</button>
-            </div>
-            
-            <div class="join-text">Join SabKoKaam Today</div>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container footer-container">
-            <div class="footer-column">
-                <h3>SabKoKaam</h3>
-                <p>Connecting rural workers with meaningful employment opportunities across India.</p>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">How It Works</a></li>
-                    <li><a href="#">Success Stories</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>For Workers</h3>
-                <ul>
-                    <li><a href="#">Find Jobs</a></li>
-                    <li><a href="#">Create Profile</a></li>
-                    <li><a href="#">Skill Development</a></li>
-                    <li><a href="#">Safety Tips</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>For Employers</h3>
-                <ul>
-                    <li><a href="#">Post Jobs</a></li>
-                    <li><a href="#">Find Workers</a></li>
-                    <li><a href="#">Verification Process</a></li>
-                    <li><a href="#">Employer Guidelines</a></li>
-                </ul>
-            </div>
+    <main class="main-content">
+      <!-- Profile Section -->
+      <div id="profile" class="section">
+        <h2>
+          My Profile
+          <button class="btn" onclick="editProfile()">Edit Profile</button>
+        </h2>
+        
+        <div class="profile-header">
+          <div class="profile-pic">AJ</div>
+          <div class="profile-info">
+            <h3>Alex Johnson</h3>
+            <p>Frontend Developer at TechCorp</p>
+            <p>Bangalore, India</p>
+            <p>alex.johnson@example.com</p>
+          </div>
         </div>
         
-        <div class="copyright">
-            &copy; 2025 SabKoKaam. All rights reserved.
+        <div class="tab-container">
+          <div class="tab-buttons">
+            <button class="tab-button active" onclick="openTab('about')">About</button>
+            <button class="tab-button" onclick="openTab('experience')">Experience</button>
+            <button class="tab-button" onclick="openTab('education')">Education</button>
+          </div>
+          
+          <div id="about" class="tab-content active">
+            <div class="profile-card">
+              <h3>About Me</h3>
+              <p>Frontend developer with 3+ years of experience specializing in React ecosystem. Passionate about creating intuitive user interfaces and optimized web applications. Strong teamwork and communication skills with a proven track record of delivering projects on time.</p>
+              
+              <h3>Skills Overview</h3>
+              <div>
+                <span class="badge">React</span>
+                <span class="badge">JavaScript</span>
+                <span class="badge">TypeScript</span>
+                <span class="badge">HTML/CSS</span>
+                <span class="badge">Redux</span>
+                <span class="badge">Node.js</span>
+                <span class="badge">Git</span>
+                <span class="badge">Responsive Design</span>
+              </div>
+            </div>
+          </div>
+          
+          <div id="experience" class="tab-content">
+            <div class="profile-card">
+              <h3>TechCorp</h3>
+              <p>Frontend Developer | Jan 2023 - Present</p>
+              <p>Developing and maintaining web applications using React, TypeScript, and Redux. Collaborating with UX designers to implement responsive designs and improve user experience.</p>
+            </div>
+            
+            <div class="profile-card">
+              <h3>WebSolutions Inc</h3>
+              <p>Junior Developer | May 2021 - Dec 2022</p>
+              <p>Assisted in developing frontend components using JavaScript and jQuery. Implemented responsive layouts and fixed cross-browser compatibility issues.</p>
+            </div>
+          </div>
+          
+          <div id="education" class="tab-content">
+            <div class="profile-card">
+              <h3>Bachelor of Technology, Computer Science</h3>
+              <p>National Institute of Technology | 2017 - 2021</p>
+              <p>Specialized in Web Development and Software Engineering</p>
+            </div>
+            
+            <div class="profile-card">
+              <h3>Certifications</h3>
+              <p>- Advanced React Patterns (Frontend Masters)</p>
+              <p>- Complete TypeScript Developer (Udemy)</p>
+              <p>- UI/UX Fundamentals (Coursera)</p>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+      
+      <!-- Skills Assessment Section -->
+      <div id="skills" class="section" style="display:none;">
+        <h2>
+          Skill Assessment
+          <button class="btn" onclick="startAssessment()">Start New Assessment</button>
+        </h2>
+        
+        <div class="profile-card">
+          <h3>Current Skill Profile</h3>
+          <p>Last assessment completed: April 15, 2025</p>
+          <p>Powered by Vertex AI Technology</p>
+          
+          <div style="margin-top: 20px;">
+            <div class="assessment-result">
+              <div class="skill-name">React</div>
+              <div class="skill-bar-container">
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 90%"></div>
+                </div>
+              </div>
+              <div class="skill-percentage">90%</div>
+            </div>
+            
+            <div class="assessment-result">
+              <div class="skill-name">JavaScript</div>
+              <div class="skill-bar-container">
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="skill-percentage">85%</div>
+            </div>
+            
+            <div class="assessment-result">
+              <div class="skill-name">TypeScript</div>
+              <div class="skill-bar-container">
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 75%"></div>
+                </div>
+              </div>
+              <div class="skill-percentage">75%</div>
+            </div>
+            
+            <div class="assessment-result">
+              <div class="skill-name">HTML/CSS</div>
+              <div class="skill-bar-container">
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 88%"></div>
+                </div>
+              </div>
+              <div class="skill-percentage">88%</div>
+            </div>
+            
+            <div class="assessment-result">
+              <div class="skill-name">Node.js</div>
+              <div class="skill-bar-container">
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 65%"></div>
+                </div>
+              </div>
+              <div class="skill-percentage">65%</div>
+            </div>
+            
+            <div class="assessment-result">
+              <div class="skill-name">Redux</div>
+              <div class="skill-bar-container">
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 80%"></div>
+                </div>
+              </div>
+              <div class="skill-percentage">80%</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="assessment-container">
+          <div class="assessment-card">
+            <h3>Skills Growth</h3>
+            <p>Your skill improvement over the last 6 months</p>
+            <div class="chart-container">
+              <img src="/api/placeholder/400/320" alt="Skills Growth Chart" />
+            </div>
+          </div>
+          
+          <div class="assessment-card">
+            <h3>Industry Benchmark</h3>
+            <p>How your skills compare to industry standards</p>
+            <div class="chart-container">
+              <img src="/api/placeholder/400/320" alt="Industry Benchmark Chart" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Career/Job Recommendations Section -->
+      <div id="career" class="section" style="display:none;">
+        <h2>
+          Job Recommendations
+          <button class="btn" onclick="refreshRecommendations()">Refresh</button>
+        </h2>
+        
+        <p>Based on your skills and experience, we've found these job matches for you:</p>
+        
+        <div class="job-card">
+          <h3>Senior Frontend Developer <span class="match-score">95% Match</span></h3>
+          <p><strong>TechVision Inc</strong> - Bangalore, India (Hybrid)</p>
+          <p>₹ 20L - 30L per annum</p>
+          <p>Looking for an experienced React developer to lead frontend development for our product team.</p>
+          <div>
+            <span class="badge">React</span>
+            <span class="badge">TypeScript</span>
+            <span class="badge">Redux</span>
+            <span class="badge">GraphQL</span>
+          </div>
+          <button class="btn" onclick="viewJobDetails('Senior Frontend Developer')">View Details</button>
+          <button class="btn" onclick="applyForJob('Senior Frontend Developer')">Apply Now</button>
+        </div>
+        
+        <div class="job-card">
+          <h3>Frontend Team Lead <span class="match-score">88% Match</span></h3>
+          <p><strong>Innovation Labs</strong> - Remote</p>
+          <p>₹ 25L - 35L per annum</p>
+          <p>Seeking a frontend team lead with strong React expertise to manage a team of 5 developers.</p>
+          <div>
+            <span class="badge">React</span>
+            <span class="badge">Team Management</span>
+            <span class="badge">TypeScript</span>
+            <span class="badge">CI/CD</span>
+          </div>
+          <button class="btn" onclick="viewJobDetails('Frontend Team Lead')">View Details</button>
+          <button class="btn" onclick="applyForJob('Frontend Team Lead')">Apply Now</button>
+        </div>
+        
+        <div class="job-card">
+          <h3>Full Stack Developer <span class="match-score">82% Match</span></h3>
+          <p><strong>SoftTech Solutions</strong> - Hyderabad, India (On-site)</p>
+          <p>₹ 18L - 28L per annum</p>
+          <p>Looking for a developer with both frontend and backend skills to work on our enterprise application.</p>
+          <div>
+            <span class="badge">React</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">MongoDB</span>
+            <span class="badge">Express</span>
+          </div>
+          <button class="btn" onclick="viewJobDetails('Full Stack Developer')">View Details</button>
+          <button class="btn" onclick="applyForJob('Full Stack Developer')">Apply Now</button>
+        </div>
+        
+        <div class="job-card">
+          <h3>UI/UX Developer <span class="match-score">75% Match</span></h3>
+          <p><strong>DesignFirst Inc</strong> - Pune, India (Hybrid)</p>
+          <p>₹ 15L - 25L per annum</p>
+          <p>Seeking a developer with strong UI/UX skills and experience with modern frontend frameworks.</p>
+          <div>
+            <span class="badge">UI/UX</span>
+            <span class="badge">React</span>
+            <span class="badge">Figma</span>
+            <span class="badge">CSS</span>
+          </div>
+          <button class="btn" onclick="viewJobDetails('UI/UX Developer')">View Details</button>
+          <button class="btn" onclick="applyForJob('UI/UX Developer')">Apply Now</button>
+        </div>
+      </div>
+      
+      <!-- Learning/Course Suggestions Section -->
+      <div id="learning" class="section" style="display:none;">
+        <h2>
+          Course Suggestions
+          <button class="btn" onclick="updateLearningPreferences()">Update Preferences</button>
+        </h2>
+        
+        <p>Based on your skills profile and career goals, we recommend these courses:</p>
+        
+        <div class="tab-container">
+          <div class="tab-buttons">
+            <button class="tab-button active" onclick="openLearningTab('skill-gap')">Skill Gap</button>
+            <button class="tab-button" onclick="openLearningTab('trending')">Trending</button>
+            <button class="tab-button" onclick="openLearningTab('career-growth')">Career Growth</button>
+          </div>
+          
+          <div id="skill-gap" class="tab-content active">
+            <div class="course-card">
+              <div class="course-thumbnail">
+                <img src="/api/placeholder/160/90" alt="Advanced TypeScript" />
+              </div>
+              <div class="course-details">
+                <h3>Advanced TypeScript Masterclass</h3>
+                <p>Instructor: Tech Academy</p>
+                <p>Duration: 4.5 hours | Rating: 4.8/5</p>
+                <p>Take your TypeScript skills to the next level with advanced patterns and techniques.</p>
+                <button class="btn" onclick="viewCourse('Advanced TypeScript Masterclass')">View Course</button>
+              </div>
+            </div>
+            
+            <div class="course-card">
+              <div class="course-thumbnail">
+                <img src="/api/placeholder/160/90" alt="Node.js for Frontend Devs" />
+              </div>
+              <div class="course-details">
+                <h3>Node.js for Frontend Developers</h3>
+                <p>Instructor: Dev Masters</p>
+                <p>Duration: 6 hours | Rating: 4.7/5</p>
+                <p>Learn Node.js from a frontend developer's perspective and build full-stack applications.</p>
+                <button class="btn" onclick="viewCourse('Node.js for Frontend Developers')">View Course</button>
+              </div>
+            </div>
+          </div>
+          
+          <div id="trending" class="tab-content">
+            <div class="course-card">
+              <div class="course-thumbnail">
+                <img src="/api/placeholder/160/90" alt="Next.js 14 Course" />
+              </div>
+              <div class="course-details">
+                <h3>Complete Next.js 14 Course</h3>
+                <p>Instructor: Web Ninjas</p>
+                <p>Duration: 8 hours | Rating: 4.9/5</p>
+                <p>Master Next.js 14 with server components, app router, and new rendering patterns.</p>
+                <button class="btn" onclick="viewCourse('Complete Next.js 14 Course')">View Course</button>
+              </div>
+            </div>
+            
+            <div class="course-card">
+              <div class="course-thumbnail">
+                <img src="/api/placeholder/160/90" alt="WebAssembly Fundamentals" />
+              </div>
+              <div class="course-details">
+                <h3>WebAssembly Fundamentals for JS Developers</h3>
+                <p>Instructor: WASM Pro</p>
+                <p>Duration: 5 hours | Rating: 4.6/5</p>
+                <p>Learn how to use WebAssembly to supercharge your JavaScript applications.</p>
+                <button class="btn" onclick="viewCourse('WebAssembly Fundamentals for JS Developers')">View Course</button>
+              </div>
+            </div>
+          </div>
+          
+          <div id="career-growth" class="tab-content">
+            <div class="course-card">
+              <div class="course-thumbnail">
+                <img src="/api/placeholder/160/90" alt="Frontend Leadership" />
+              </div>
+              <div class="course-details">
+                <h3>Frontend Tech Leadership</h3>
+                <p>Instructor: Lead Developer Academy</p>
+                <p>Duration: 7 hours | Rating: 4.8/5</p>
+                <p>Transition from a frontend developer to a technical lead with this comprehensive course.</p>
+                <button class="btn" onclick="viewCourse('Frontend Tech Leadership')">View Course</button>
+              </div>
+            </div>
+            
+            <div class="course-card">
+              <div class="course-thumbnail">
+                <img src="/api/placeholder/160/90" alt="System Design" />
+              </div>
+              <div class="course-details">
+                <h3>System Design for Frontend Developers</h3>
+                <p>Instructor: Architecture Pro</p>
+                <p>Duration: 6.5 hours | Rating: 4.7/5</p>
+                <p>Learn how to design scalable frontend architectures for complex applications.</p>
+                <button class="btn" onclick="viewCourse('System Design for Frontend Developers')">View Course</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="profile-card">
+          <h3>Learning Statistics</h3>
+          <p>Based on YouTube Data API insights:</p>
+          <div class="assessment-result">
+            <div class="skill-name">Learning Hours</div>
+            <div class="skill-bar-container">
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 70%"></div>
+              </div>
+            </div>
+            <div class="skill-percentage">42h</div>
+          </div>
+          <div class="assessment-result">
+            <div class="skill-name">Courses Completed</div>
+            <div class="skill-bar-container">
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 60%"></div>
+              </div>
+            </div>
+            <div class="skill-percentage">12</div>
+          </div>
+          <div class="assessment-result">
+            <div class="skill-name">Certifications</div>
+            <div class="skill-bar-container">
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 30%"></div>
+              </div>
+            </div>
+            <div class="skill-percentage">3</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    // Navigation functionality
+    function showSection(id) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      
+      // Show selected section
+      document.getElementById(id).style.display = 'block';
+      
+      // Update active nav item
+      document.querySelectorAll('.sidebar li').forEach(item => item.classList.remove('active'));
+      document.getElementById('nav-' + id).classList.add('active');
+    }
+    
+    // Tab functionality
+    function openTab(tabName) {
+      // Hide all tab content
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      
+      // Show selected tab content
+      document.getElementById(tabName).classList.add('active');
+      
+      // Update active tab button
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+    
+    // Learning tab functionality
+    function openLearningTab(tabName) {
+      // Hide all learning tab content
+      document.querySelectorAll('#learning .tab-content').forEach(tab => tab.classList.remove('active'));
+      
+      // Show selected learning tab content
+      document.getElementById(tabName).classList.add('active');
+      
+      // Update active learning tab button
+      document.querySelectorAll('#learning .tab-button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+    
+    // Profile actions
+    function editProfile() {
+      alert("This would open a profile editing form in a real application.");
+    }
+    
+    // Skills assessment functions
+    function startAssessment() {
+      alert("This would launch the Vertex AI powered skill assessment in a real application.");
+    }
+    
+    // Job functions
+    function refreshRecommendations() {
+      alert("This would refresh job recommendations based on the latest skills data.");
+    }
+    
+    function viewJobDetails(jobTitle) {
+      alert(`This would show detailed information about the ${jobTitle} position.`);
+    }
+    
+    function applyForJob(jobTitle) {
+      alert(`This would initiate the application process for the ${jobTitle} position.`);
+    }
+    
+    // Learning functions
+    function updateLearningPreferences() {
+      alert("This would open a dialog to update your learning preferences.");
+    }
+    
+    function viewCourse(courseTitle) {
+      alert(`This would open the course '${courseTitle}' or direct you to the platform where it's hosted.`);
+    }
+  </script>
 </body>
 </html>
