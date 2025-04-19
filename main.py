@@ -21,8 +21,15 @@ app.register_blueprint(config_bp, url_prefix='/config')
 # Default route
 @app.route('/')
 def index():
-    return render_template('landing.html')
+    return redirect(url_for('job.post_job'))
 
+@app.route('/option')
+def option():
+    return render_template('coop_emp.html')
+
+@app.route('/jobsa')
+def jobsa():
+    return render_template('coop_hr1.html')
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)

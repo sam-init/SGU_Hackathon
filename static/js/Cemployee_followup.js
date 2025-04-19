@@ -8,8 +8,3 @@ document.getElementById('resumeUpload').addEventListener('change', function(e) {
     }
 });
 
-// Form submission handler
-document.getElementById('employeeInfoForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Employee information submitted successfully!');
-});

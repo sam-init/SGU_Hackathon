@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sign In Page</title>
-    <link rel="stylesheet" href="../static/css/Cemployee_signin.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cemployee_signin.css') }}" />
 </head>
 <body>
     <div class="container">
@@ -15,7 +15,7 @@
 
         
         <div class="form-container">
-            <form id="signInForm">
+            <form id="signInForm" action="{{url_for('auth.employer_form')}}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input type="text" id="fullName" name="fullName" required />
@@ -48,6 +48,17 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" required />
                     <div id="passwordMatch" class="password-match"></div>
+                </div>
+
+                <p><b>Select your role</b></p>
+                <!-- Radio Buttons for Role -->
+                <div class="form-group">
+                  <label>
+                    <input type="radio" name="role" value="Employee"> Employee
+                  </label><br>
+                  <label>
+                    <input type="radio" name="role" value="Employer"> Employer
+                  </label><br>
                 </div>
 
                 <div class="form-group">
@@ -103,20 +114,27 @@
 
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="District">District Name</label>
+                        <input type="text" id="district" name="District" required />
+                    </div>
                 </div>
 
+<<<<<<< HEAD
                 <div class="form-group">
                     <label for="District">District Name</label>
                     <input type="text" id="district" name="District" required />
                 </div>
                 </div>
 
+=======
+>>>>>>> origin
                 <div class="button-group">
-                    <button type="button" class="create-account-btn">Create Account</button>
+                    <button type="submit" class="create-account-btn">Create Account</button>
                 </div>
             </form>
         </div>
     </div>
-    <script src="../static/js/Cemployee_sign-in.js"></script>
+    
 </body>
 </html>

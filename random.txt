@@ -1,13 +1,14 @@
 hr_name – HR’s identifier (used to name the output tab)
-
 job_id – Unique job ID
-
 job_title – Title of the job
-
 skills_required – Required skills as a comma-separated string
-
 experience_required – Experience range
-
 location – Job location
-
 job_description – Brief description of the job
+
+#328E6E (dark green)
+#67AE6E
+#90C67C
+#E1EEBC (light grean)
+
+https://chatgpt.com/share/68030ac8-7a10-8013-8353-41a55423e6dd

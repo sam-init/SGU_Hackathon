@@ -131,34 +131,3 @@
                 passwordMatch.className = 'password-match';
             }
         }
-
-        // Form submission
-        signInForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            if (passwordInput.value !== confirmPasswordInput.value) {
-                alert('Passwords do not match. Please try again.');
-                return;
-            }
-            
-            // In a real application, you would send the form data to a server here
-            // For demo purposes, just show a success message
-            alert('Form submitted successfully!');
-            this.reset();
-            passwordStrength.textContent = '';
-            passwordMatch.textContent = '';
-        });
-
-        // Create account button
-        createAccountBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to create a new account?')) {
-                // In a real application, you would handle account creation here
-                alert('Account creation process initiated!');
-                
-                // For demo purposes, you could redirect to a new page or show a success message
-                signInForm.reset();
-                passwordStrength.textContent = '';
-                passwordMatch.textContent = '';
-            }
-        });
