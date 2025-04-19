@@ -1,4 +1,4 @@
-from flask import Flask,redirect,url_for
+from flask import Flask,redirect,url_for,render_template
 from routes.auth_routes  import auth_bp 
 from routes.job_routes  import job_bp  
 from routes.tts_routes  import tts_bp  
@@ -21,7 +21,11 @@ app.register_blueprint(config_bp, url_prefix='/config')
 # Default route
 @app.route('/')
 def index():
-    return redirect(url_for('auth.employer_form'))
+    return render_template('Cemployee_followup.html')
+
+@app.route('/option')
+def option():
+    return render_template('coop_emp.html')
 
 # Run the app
 if __name__ == '__main__':

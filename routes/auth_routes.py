@@ -1,14 +1,15 @@
-from flask import Flask,Blueprint, request, render_template, redirect, url_for,flash,jsonify,session
+from flask import Blueprint, request, render_template, redirect, url_for,flash,jsonify,session
 from firebase_admin import auth,firestore
 import requests
-from google.oauth2 import service_account
+from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.discovery import build
-from routes.config import FIREBASE_WEB_API_KEY,db,SCOPES,google_creds,SHEET1,FOLDER_ID
+from routes.config import FIREBASE_WEB_API_KEY,db,SCOPES,google_creds,SHEET1,SHEET3,FOLDER_ID,drive_service
+from werkzeug.utils import secure_filename
+import os, uuid,io
+from googleapiclient.http import MediaIoBaseUpload
 
 import gspread
 auth_bp=Blueprint('auth',__name__)
-
-
 
 
 
@@ -50,6 +51,7 @@ def register():
                 "uid": user.uid,  # Firebase UID for the user
                 "created_at": firestore.SERVER_TIMESTAMP  # Timestamp for when user was created
             }
+
 
             # Add user data to Firestore (create a new document for the user)
             user_ref = db.collection('users').document(user.uid)  # Use UID as document ID
@@ -144,7 +146,7 @@ def login():
         except Exception as e:
             flash(f"Login error: {str(e)}", 'error')
 
-    return render_template('login.html')
+    return render_template('lb_login.html')
 
 
 @auth_bp.route('/category-selection', methods=['GET', 'POST'])
@@ -181,18 +183,18 @@ def employer_form():
             print("👉 Received POST request")
 
             # Extracting form data
-            full_name = request.form['fullName']
-            email = request.form['email']
-            password = request.form['password']
-            confirm_password = request.form['confirmPassword']
-            dob = request.form['dob']
-            contact_number = request.form['contactNumber']
-            aadhar = request.form['aadhar']
-            address = request.form['address']
-            country = request.form['country']
-            state = request.form['state']
-            district = request.form['district']
-            role = request.form['role']
+            full_name = request.form.get('fullName')
+            email = request.form.get('email')
+            password = request.form.get('password')
+            confirm_password = request.form.get('confirmPassword')
+            dob = request.form.get('dob')
+            contact_number = request.form.get('contactNumber')
+            aadhar = request.form.get('aadhar')
+            address = request.form.get('address')
+            country = request.form.get('country')
+            state = request.form.get('state')
+            district = request.form.get('district')
+            role = request.form.get('role')
 
             print(f"📧 User: {email}, Role: {role}")
 
@@ -219,7 +221,7 @@ def employer_form():
             }
 
             # Save to Firestore
-            collection = 'employers' if role == 'Employer' else 'employees'
+            collection = 'Cemployers' if role == 'Employer' else 'Cemployees'
             db.collection(collection).document(user.uid).set(user_data)
             print(f"📦 Data stored in Firestore -> {collection}")
 
@@ -242,13 +244,68 @@ def employer_form():
             if role == 'Employer':
                 return redirect(url_for('auth.login'))
             else:
-                return redirect(url_for('auth.employee_dashboard'))
+                return redirect(url_for('auth.employee_info'))
 
         except Exception as e:
             print("❌ Exception caught:", e)
             flash(f"Error while processing the form: {str(e)}", "error")
 
     return render_template('Cemployee_signin.html')
+
+
+
+@auth_bp.route('/employee-info', methods=['GET', 'POST'])
+def employee_info():
+    if request.method == 'POST':
+        try:
+            print("📥 Form POST received")
+
+            # Get form data
+            full_name = request.form.get('fullName')
+            contact_number = request.form.get('contactNumber')
+            email = request.form.get('email')
+            skills = request.form.get('skills')
+            additional_info = request.form.get('additionalInfo')
+
+             # ✅ Check if email exists in Firestore
+            users_ref = db.collection('Cemployees')
+            query = users_ref.where('email', '==', email).limit(1).get()
+
+            if not query:
+                flash("Email not registered. Please sign up first.", "error")
+                return redirect(url_for('auth.employee_info'))
+
+            user_data = query[0].to_dict()
+            print("✅ Email authenticated:", user_data['email'])
+
+            # ✅ Handle Resume Upload
+            resume = request.files.get('resumeUpload')
+            file_metadata = {
+                 'name': f"{uuid.uuid4()}_{resume.filename}",
+                 'parents': [FOLDER_ID]  # Specify the folder ID where you want the photo uploaded
+             }
+            media = MediaIoBaseUpload(io.BytesIO(resume.read()), mimetype=resume.mimetype)
+            drive_file = drive_service.files().create(body=file_metadata, media_body=media, fields='id, webViewLink').execute()
+            resume_url = drive_file.get('webViewLink')  # Photo link in Google Drive
+
+            # ✅ Append to Google Sheet
+            header_row = SHEET3.row_values(1)
+            if not header_row or "Full Name" not in header_row:
+                SHEET3.insert_row(["Full Name", "Email", "Contact", "Skills", "Additional Info", "Resume URL"], 1)
+            SHEET3.append_row([full_name, email, contact_number, skills, additional_info, resume_url])
+            print("📊 Data appended to Google Sheet")
+
+            flash("Form submitted successfully! Resume uploaded.", "success")
+            return redirect(url_for('auth.employee_info'))
+
+        except Exception as e:
+            print("❌ Error:", str(e))
+            flash(f"Error: {str(e)}", "error")
+            return redirect(url_for('auth.employee_info'))
+
+    return render_template('Cemployee_followup.html')
+
+
 
 
 

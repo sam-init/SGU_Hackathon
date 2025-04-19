@@ -145,6 +145,7 @@
             transition: all 0.3s;
             color: var(--primary);
             min-width: 220px;
+            text-decoration: none;
         }
         
         .option-btn:hover {
@@ -252,8 +253,13 @@
             <p>Whether you're looking for work or need to hire workers, SabKoKaam connects rural India like never before</p>
             
             <div class="options">
-                <button class="option-btn">LABOUR</button>
-                <button class="option-btn">CO-OPERATE</button>
+                <a href="{{ url_for('auth.register') }}" class="option-btn">
+                    LABOUR
+                  </a>
+                  
+                  <a href="{{ url_for('auth.employer_form') }}" class="option-btn" >
+                    CORPORATE
+                  </a>
             </div>
             
             <div class="join-text">Join SabKoKaam Today</div>

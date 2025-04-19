@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Sabko Kaam</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/log-in.css') }}">
+</head>
+<body>
+  <div class="container pulse-animation">
+    <!-- Header Section -->
+    <header class="header">
+      <h1>SabkoKaam</h1>
+      <p class="slogan">Chhoti soch hatao, har haath ko rozgaar dilao</p>
+    </header>
+
+    <!-- Login Form Section -->
+    <section class="login-section">
+      <form class="login-form" id="loginForm" method="post" action="{{url_for('auth.login')}}">
+        <div class="form-group">
+          <label for="user-input">Email / Phone Number</label>
+          <input type="email" id="user-input" class="form-control" name="email" placeholder="Enter your email or phone number" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="forgot-password">
+          <a href="#">Forgot Password?</a>
+        </div>
+        
+        <div class="button-group">
+          <button type="button" class="btn btn-signin" ><a href="{{url_for('auth.register')}}">Sign Up </a></button>
+          <button type="submit" class="btn" >Login</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/log-in.js') }}"></script>
+</body>
+</html>
