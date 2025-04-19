@@ -21,7 +21,7 @@ app.register_blueprint(config_bp, url_prefix='/config')
 # Default route
 @app.route('/')
 def index():
-    return redirect(url_for('auth.register'))
+    return redirect(url_for('auth.employer_form'))
 
 # Run the app
 if __name__ == '__main__':
