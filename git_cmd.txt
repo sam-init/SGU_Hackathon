@@ -1,6 +1,6 @@
 # Clone the repository
-git clone https://github.com/sam-init/SabKoKaam_Returns.git
-cd SabKoKaam_Returns
+git clone https://github.com/sam-init/SGU_Hackathon.git
+cd SGU_Hackathon
 
 # Set up Git identity (Run once if not done)
 git config --global user.name "your-name"

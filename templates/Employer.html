@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillMatch - HR Platform</title>
+  <link rel="stylesheet" href="../static/css/Employer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <h1>Skill<span>Match</span></h1>
+      </div>
+      <nav class="nav">
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-menu">
+          <li><a href="#" class="active" data-view="jobs">Jobs</a></li>
+          <li><a href="#" data-view="create-job">Post a Job</a></li>
+          <li><a href="#" data-view="applications">Applications</a></li>
+          <li><a href="#" data-view="interviews">Interviews</a></li>
+          <li><a href="#" data-view="candidates">Candidates</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <button class="btn btn-secondary login-btn">Log In</button>
+        <button class="btn btn-primary signup-btn">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Jobs View -->
+    <section id="jobs" class="view">
+      <div class="container">
+        <div class="search-filter-container">
+          <div class="search-bar">
+            <input type="text" id="job-search" placeholder="Search jobs...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="filter-options">
+            <div class="filter-group">
+              <label for="location-filter">Location</label>
+              <select id="location-filter">
+                <option value="">All Locations</option>
+                <option value="remote">Remote</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="bangalore">Bangalore</option>
+                <option value="delhi">Delhi</option>
+                <option value="hyderabad">Hyderabad</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="skill-filter">Skills</label>
+              <select id="skill-filter">
+                <option value="">All Skills</option>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="ui-design">UI Design</option>
+                <option value="data-science">Data Science</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="job-type-filter">Job Type</label>
+              <select id="job-type-filter">
+                <option value="">All Types</option>
+                <option value="full-time">Full Time</option>
+                <option value="part-time">Part Time</option>
+                <option value="contract">Contract</option>
+                <option value="internship">Internship</option>
+              </select>
+            </div>
+            <button id="filter-clear" class="btn btn-secondary">Clear Filters</button>
+          </div>
+        </div>
+
+        <div class="job-listings">
+          <!-- Jobs will be loaded here dynamically by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Create Job View -->
+    <section id="create-job" class="view">
+      <div class="container">
+        <h2>Post a New Job</h2>
+        <form id="job-form" class="form">
+          <div class="form-group">
+            <label for="job-title">Job Title *</label>
+            <input type="text" id="job-title" required>
+          </div>
+          <div class="form-group">
+            <label for="company">Company *</label>
+            <input type="text" id="company" required>
+          </div>
+          <div class="form-group">
+            <label for="job-location">Location *</label>
+            <input type="text" id="job-location" required>
+          </div>
+          <div class="form-group">
+            <label for="job-type">Job Type *</label>
+            <select id="job-type" required>
+              <option value="">Select Job Type</option>
+              <option value="full-time">Full Time</option>
+              <option value="part-time">Part Time</option>
+              <option value="contract">Contract</option>
+              <option value="internship">Internship</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="salary-range">Salary Range</label>
+            <input type="text" id="salary-range" placeholder="e.g. ₹8,00,000 - ₹10,00,000">
+          </div>
+          <div class="form-group">
+            <label for="required-skills">Required Skills *</label>
+            <input type="text" id="required-skills" placeholder="Separate skills with commas" required>
+          </div>
+          <div class="form-group full-width">
+            <label for="job-description">Job Description *</label>
+            <textarea id="job-description" rows="6" required></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label for="requirements">Requirements</label>
+            <textarea id="requirements" rows="4"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-primary">Post Job</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Applications View -->
+    <section id="applications" class="view">
+      <div class="container">
+        <h2>Manage Applications</h2>
+        <div class="applications-filter-bar">
+          <div class="search-bar">
+            <input type="text" id="application-search" placeholder="Search applications...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="filter-group">
+            <label for="status-filter">Status</label>
+            <select id="status-filter">
+              <option value="">All Statuses</option>
+              <option value="new">New</option>
+              <option value="reviewing">Reviewing</option>
+              <option value="interview">Interview</option>
+              <option value="offer">Offer</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+        <div class="applications-table-container">
+          <table class="applications-table">
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Position</th>
+                <th>Applied Date</th>
+                <th>Status</th>
+                <th>Match Score</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="applications-table-body">
+              <!-- Applications will be loaded here by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interviews View -->
+    <section id="interviews" class="view">
+      <div class="container">
+        <h2>Interview Scheduler</h2>
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <button id="prev-month" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></button>
+            <h3 id="current-month">April 2025</h3>
+            <button id="next-month" class="btn btn-secondary"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="calendar" id="interview-calendar">
+            <!-- Calendar will be generated by JavaScript -->
+          </div>
+        </div>
+        <div class="scheduled-interviews">
+          <h3>Upcoming Interviews</h3>
+          <div id="upcoming-interviews" class="interview-list">
+            <!-- Upcoming interviews will be loaded here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Candidates View -->
+    <section id="candidates" class="view">
+      <div class="container">
+        <h2>Candidate Matching</h2>
+        <div class="candidate-search-container">
+          <div class="search-bar">
+            <input type="text" id="candidate-search" placeholder="Search candidates...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="filter-group">
+            <label for="candidate-skill-filter">Skills</label>
+            <select id="candidate-skill-filter">
+              <option value="">All Skills</option>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="ui-design">UI Design</option>
+              <option value="data-science">Data Science</option>
+            </select>
+          </div>
+          <button id="ai-match-btn" class="btn btn-primary">
+            <i class="fas fa-robot"></i> AI Match
+          </button>
+        </div>
+        <div class="candidates-grid" id="candidates-container">
+          <!-- Candidates will be loaded here by JavaScript -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Application Details Modal -->
+  <div class="modal" id="application-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Application Details</h2>
+      <div class="application-details">
+        <!-- Will be populated by JavaScript -->
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary reject-btn">Reject</button>
+        <button class="btn btn-primary schedule-interview-btn">Schedule Interview</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schedule Interview Modal -->
+  <div class="modal" id="schedule-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Schedule Interview</h2>
+      <form id="schedule-form" class="form">
+        <div class="form-group">
+          <label for="interview-candidate">Candidate</label>
+          <input type="text" id="interview-candidate" readonly>
+        </div>
+        <div class="form-group">
+          <label for="interview-position">Position</label>
+          <input type="text" id="interview-position" readonly>
+        </div>
+        <div class="form-group">
+          <label for="interview-date">Date</label>
+          <input type="date" id="interview-date" required>
+        </div>
+        <div class="form-group">
+          <label for="interview-time">Time</label>
+          <input type="time" id="interview-time" required>
+        </div>
+        <div class="form-group">
+          <label for="interview-type">Interview Type</label>
+          <select id="interview-type" required>
+            <option value="video">Video Call</option>
+            <option value="phone">Phone</option>
+            <option value="in-person">In Person</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label for="interview-notes">Notes</label>
+          <textarea id="interview-notes" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Schedule</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- AI Match Modal -->
+  <div class="modal" id="ai-match-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>AI Candidate Matching</h2>
+      <form id="ai-match-form" class="form">
+        <div class="form-group full-width">
+          <label for="job-requirements">Job Requirements</label>
+          <textarea id="job-requirements" rows="4" placeholder="Enter job requirements or paste job description..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="experience-level">Experience Level</label>
+          <select id="experience-level">
+            <option value="entry">Entry Level</option>
+            <option value="mid" selected>Mid Level</option>
+            <option value="senior">Senior Level</option>
+            <option value="executive">Executive</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="location-preference">Location Preference</label>
+          <select id="location-preference">
+            <option value="any">Any Location</option>
+            <option value="remote-only">Remote Only</option>
+            <option value="on-site">On-site Only</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Find Matches</button>
+        </div>
+      </form>
+      <div class="ai-match-results">
+        <h3>Top Matches</h3>
+        <div id="ai-match-results-container">
+          <!-- AI match results will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h2>Skill<span>Match</span></h2>
+          <p>The smart way to find the perfect fit</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Press</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">API</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Connect</h3>
+            <ul>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">LinkedIn</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SkillMatch. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../static/css/Employer.js"></script>
+</body>
+</html>
