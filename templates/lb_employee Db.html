@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - SabKoKaam</title>
+    <link rel="stylesheet" href="../static/css/lb_employee DB.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <div class="welcome-message">
+                <div class="welcome-text">
+                    <h1>Welcome, Rajesh Kumar</h1>
+                    <p>Here are your job suggestions based on your skills</p>
+                </div>
+                <div class="dashboard-avatar">RK</div>
+            </div>
+            
+            <div class="dashboard-section">
+                <h3>Your Selected Categories</h3>
+                <div class="skill-categories">
+                    <span class="skill-tag">Construction</span>
+                    <span class="skill-tag">Carpentry</span>
+                    <span class="skill-tag">Masonry</span>
+                    <span class="skill-tag">Painting</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-section">
+            <h2 class="section-title">Job Suggestions</h2>
+            <div class="job-grid">
+                <!-- Job Card 1 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-picture">🏗️</div>
+                        <h3 class="job-title">Construction Worker Needed</h3>
+                        <p class="job-company">Sharma Constructions</p>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-detail">
+                            <div class="job-icon">💰</div>
+                            <div class="job-info">₹800 - ₹950 per day</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">⏰</div>
+                            <div class="job-info">Full-time, 8 AM - 5 PM</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">📍</div>
+                            <div class="job-info">Link</div>
+                        </div>
+                        
+                        <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
+                        <button class="apply-button" onclick="toggleContact(this)">Contact Employer</button>
+
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">👤</div>
+                                <div class="contact-text">Mr. Anil Sharma</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📱</div>
+                                <div class="contact-text">+91 98765 43210</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">💬</div>
+                                <div class="contact-text">
+                                    <a href="https://wa.me/919876543210">WhatsApp: +91 98765 43210</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <div class="contact-text">sharma.constructions@example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-footer">
+                        <div class="job-categories">
+                            <span class="job-category">Construction</span>
+                            <span class="job-category">Masonry</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Job Card 2 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-picture">🪚</div>
+                        <h3 class="job-title">Skilled Carpenter Required</h3>
+                        <p class="job-company">Home Interior Solutions</p>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-detail">
+                            <div class="job-icon">💰</div>
+                            <div class="job-info">₹1000 - ₹1200 per day</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">⏰</div>
+                            <div class="job-info">Contract-based</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">📍</div>
+                            <div class="job-info">LInk</div>
+                        </div>
+                        
+                        <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
+                        <button class="apply-button" onclick="toggleContact(this)">Contact Employer</button>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">👤</div>
+                                <div class="contact-text">Mrs. Priya Desai</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📱</div>
+                                <div class="contact-text">+91 87654 32109</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">💬</div>
+                                <div class="contact-text">
+                                    <a href="https://wa.me/918765432109">WhatsApp: +91 87654 32109</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <div class="contact-text">home.interior@example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-footer">
+                        <div class="job-categories">
+                            <span class="job-category">Carpentry</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Job Card 3 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-picture">🎨</div>
+                        <h3 class="job-title">Residential Painting Project</h3>
+                        <p class="job-company">Vibrant Homes</p>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-detail">
+                            <div class="job-icon">💰</div>
+                            <div class="job-info">₹750 - ₹900 per day</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">⏰</div>
+                            <div class="job-info">15-day project</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">📍</div>
+                            <div class="job-info">link</div>
+                        </div>
+                        <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
+                        <button class="apply-button" onclick="toggleContact(this)">Contact Employer</button>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">👤</div>
+                                <div class="contact-text">Mr. Ravi Verma</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📱</div>
+                                <div class="contact-text">+91 76543 21098</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">💬</div>
+                                <div class="contact-text">
+                                    <a href="https://wa.me/917654321098">WhatsApp: +91 76543 21098</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <div class="contact-text">vibrant.homes@example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-footer">
+                        <div class="job-categories">
+                            <span class="job-category">Painting</span>
+                            <span class="job-category">Construction</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Job Card 4 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-picture">🏢</div>
+                        <h3 class="job-title">Commercial Building Project</h3>
+                        <p class="job-company">Mega Builders Ltd.</p>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-detail">
+                            <div class="job-icon">💰</div>
+                            <div class="job-info">₹850 - ₹1000 per day</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">⏰</div>
+                            <div class="job-info">3-month contract</div>
+                        </div>
+                        <div class="job-detail">
+                            <div class="job-icon">📍</div>
+                            <div class="job-info">link</div>
+                        </div>
+                        <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
+                        <button class="apply-button" onclick="toggleContact(this)">Contact Employer</button>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">👤</div>
+                                <div class="contact-text">Mr. Suresh Patel</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📱</div>
+                                <div class="contact-text">+91 65432 10987</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">💬</div>
+                                <div class="contact-text">
+                                    <a href="https://wa.me/916543210987">WhatsApp: +91 65432 10987</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📧</div>
+                                <div class="contact-text">mega.builders@example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-footer">
+                        <div class="job-categories">
+                            <span class="job-category">Construction</span>
+                            <span class="job-category">Masonry</span>
+                            <span class="job-category">Carpentry</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/lb_employee DB.js"></script>
+</body>
+</html>
