@@ -179,41 +179,70 @@ def employer_form():
     if request.method == 'POST':
         try:
             print("👉 Received POST request")
-            name = request.form['name']
+
+            # Extracting form data
+            full_name = request.form['fullName']
             email = request.form['email']
             password = request.form['password']
-            print(f"📧 Got user: {email}")
-
+            confirm_password = request.form['confirmPassword']
+            dob = request.form['dob']
+            contact_number = request.form['contactNumber']
+            aadhar = request.form['aadhar']
+            address = request.form['address']
             country = request.form['country']
             state = request.form['state']
             district = request.form['district']
-            phone = request.form['phone']
             role = request.form['role']
-            company = request.form['company']
-            job_title = request.form['job_title']
 
-            print("✅ All form fields retrieved")
+            print(f"📧 User: {email}, Role: {role}")
+
+            if password != confirm_password:
+                flash("Passwords do not match!", "error")
+                return render_template('Cemployee_signin.html')
 
             # Create Firebase user
-            user = auth.create_user(email=email, password=password, display_name=name)
+            user = auth.create_user(email=email, password=password, display_name=full_name)
             print("🔥 Firebase user created")
 
-            # Google Sheet Header Setup
+            # Data to be stored
+            user_data = {
+                'fullName': full_name,
+                'email': email,
+                'dob': dob,
+                'contactNumber': contact_number,
+                'aadhar': aadhar,
+                'address': address,
+                'country': country,
+                'state': state,
+                'district': district,
+                'role': role
+            }
+
+            # Save to Firestore
+            collection = 'employers' if role == 'Employer' else 'employees'
+            db.collection(collection).document(user.uid).set(user_data)
+            print(f"📦 Data stored in Firestore -> {collection}")
+
+            # Save to Google Sheet (optional)
             values = SHEET1.get_all_values()
             if not values or not values[0]:
                 SHEET1.insert_row([
-                    "Name", "Email", "Country", "State", "District", "Phone", "Role", "Company", "Job Title"
+                    "Full Name", "Email", "DOB", "Contact Number", "Aadhar", "Address", "Country", "State", "District", "Role"
                 ], index=1)
                 print("📝 Headers added to Sheet")
 
-            # Append to Sheet
             SHEET1.append_row([
-                name, email, country, state, district, phone, role, company, job_title,
+                full_name, email, dob, contact_number, aadhar, address, country, state, district, role
             ])
             print("✅ Data appended to Google Sheet")
 
             flash("Form submitted and user registered successfully!", "success")
-            return render_template('Cemployee_followup.html')
+            
+            # Redirect based on role
+            if role == 'Employer':
+                return redirect(url_for('auth.login'))
+            else:
+                return redirect(url_for('auth.employee_dashboard'))
 
         except Exception as e:
             print("❌ Exception caught:", e)
