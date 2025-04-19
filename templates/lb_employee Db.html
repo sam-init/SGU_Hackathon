@@ -4,9 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard - SabKoKaam</title>
-    <link rel="stylesheet" href="../static/css/lb_employee DB.css" />
+    <link rel="stylesheet" href="..static/css/lb_employee.css"/>
+    <style>
+        .location-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .location-prompt {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+        }
+        
+        .location-prompt h2 {
+            margin-top: 0;
+        }
+        
+        .location-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 16px;
+        }
+        
+        .location-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .location-status {
+            margin-top: 16px;
+            font-style: italic;
+        }
+        
+        .job-location {
+            cursor: pointer;
+            color: #0066cc;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+    <!-- Location Permission Overlay -->
+    <div class="location-overlay" id="locationOverlay">
+        <div class="location-prompt">
+            <h2>Enable Location</h2>
+            <p>Please allow access to your location to see job opportunities near you and get directions.</p>
+            <button id="enableLocationBtn" class="location-btn">Enable Location</button>
+            <p id="locationStatus" class="location-status"></p>
+        </div>
+    </div>
+
     <div class="container">
         <div class="dashboard-header">
             <div class="welcome-message">
@@ -49,7 +112,7 @@
                         </div>
                         <div class="job-detail">
                             <div class="job-icon">📍</div>
-                            <div class="job-info">Link</div>
+                            <div class="job-info job-location" data-location="Dadar, Mumbai, Maharashtra">Dadar, Mumbai, Maharashtra</div>
                         </div>
                         
                         <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
@@ -103,7 +166,7 @@
                         </div>
                         <div class="job-detail">
                             <div class="job-icon">📍</div>
-                            <div class="job-info">LInk</div>
+                            <div class="job-info job-location" data-location="Koregaon Park, Pune, Maharashtra">Koregaon Park, Pune, Maharashtra</div>
                         </div>
                         
                         <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
@@ -155,7 +218,7 @@
                         </div>
                         <div class="job-detail">
                             <div class="job-icon">📍</div>
-                            <div class="job-info">link</div>
+                            <div class="job-info job-location" data-location="Vashi, Navi Mumbai, Maharashtra">Vashi, Navi Mumbai, Maharashtra</div>
                         </div>
                         <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
                         <button class="apply-button" onclick="toggleContact(this)">Contact Employer</button>
@@ -207,7 +270,7 @@
                         </div>
                         <div class="job-detail">
                             <div class="job-icon">📍</div>
-                            <div class="job-info">link</div>
+                            <div class="job-info job-location" data-location="MIDC Aurangabad, Maharashtra">MIDC Aurangabad, Maharashtra</div>
                         </div>
                         <button type="button" class="submit-button" onclick="handleSubmit()">Submit</button>
                         <button class="apply-button" onclick="toggleContact(this)">Contact Employer</button>
@@ -244,6 +307,108 @@
             </div>
         </div>
     </div>
-    <script src="../static/js/lb_employee DB.js"></script>
+    <script>
+        // Variables to store user location
+        let userLatitude;
+        let userLongitude;
+        let locationPermissionGranted = false;
+        
+        // DOM elements
+        const locationOverlay = document.getElementById('locationOverlay');
+        const enableLocationBtn = document.getElementById('enableLocationBtn');
+        const locationStatus = document.getElementById('locationStatus');
+        const jobLocations = document.querySelectorAll('.job-location');
+        
+        // Request user's location when button is clicked
+        enableLocationBtn.addEventListener('click', requestLocation);
+        
+        // Function to request location
+        function requestLocation() {
+            locationStatus.textContent = "Requesting location access...";
+            
+            if (!navigator.geolocation) {
+                locationStatus.textContent = "Geolocation is not supported by your browser";
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                // Success callback
+                function(position) {
+                    userLatitude = position.coords.latitude;
+                    userLongitude = position.coords.longitude;
+                    locationPermissionGranted = true;
+                    locationStatus.textContent = "Location access granted!";
+                    
+                    // Hide overlay after a short delay
+                    setTimeout(() => {
+                        locationOverlay.style.display = "none";
+                    }, 1500);
+                },
+                // Error callback
+                function(error) {
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            locationStatus.textContent = "Location permission denied. Some features may not work.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            locationStatus.textContent = "Location information is unavailable.";
+                            break;
+                        case error.TIMEOUT:
+                            locationStatus.textContent = "The request to get location timed out.";
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            locationStatus.textContent = "An unknown error occurred.";
+                            break;
+                    }
+                    
+                    // Hide overlay even if permission is denied after a longer delay
+                    setTimeout(() => {
+                        locationOverlay.style.display = "none";
+                    }, 3000);
+                }
+            );
+        }
+        
+        // Add click event listeners to all job locations
+        jobLocations.forEach(location => {
+            location.addEventListener('click', function() {
+                const destinationAddress = this.getAttribute('data-location');
+                openGoogleMapsDirections(destinationAddress);
+            });
+        });
+        
+        // Function to open Google Maps with directions
+        function openGoogleMapsDirections(destination) {
+            if (locationPermissionGranted && userLatitude && userLongitude) {
+                // Use current location coordinates
+                const origin = `${userLatitude},${userLongitude}`;
+                const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+                window.open(mapsUrl, '_blank');
+            } else {
+                // Use generic "my location" which Google Maps will resolve on its end
+                const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=my+location&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+                window.open(mapsUrl, '_blank');
+            }
+        }
+        
+        // Original function for toggling contact info
+        function toggleContact(button) {
+            const jobCard = button.closest('.job-card');
+            const contactInfo = jobCard.querySelector('.contact-info');
+            
+            if (contactInfo.style.display === 'block') {
+                contactInfo.style.display = 'none';
+                button.textContent = 'Contact Employer';
+            } else {
+                contactInfo.style.display = 'block';
+                button.textContent = 'Hide Contact Info';
+            }
+        }
+        
+        // Function for handling job submission
+        function handleSubmit() {
+            alert('Your application has been submitted successfully!');
+        }
+    </script>
 </body>
 </html>
