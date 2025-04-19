@@ -59,8 +59,11 @@
             });
             
 <<<<<<< HEAD
+<<<<<<< HEAD
           
 =======
+=======
+>>>>>>> origin/samarth
             // Form submission
             signupForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -77,7 +80,13 @@
                         field.style.borderColor = '';
                     }
                 });
+<<<<<<< HEAD
 >>>>>>> f51d4bcb1a821131ee632c145d119a1d52e02afc
+=======
+=======
+          
+>>>>>>> origin
+>>>>>>> origin/samarth
                 
                 // Check DOB for age verification
                 if (dobInput.value) {
@@ -146,6 +155,12 @@
                     }, 3000);
                 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            });
+        });
+=======
+>>>>>>> origin/samarth
             
         });
 
@@ -166,7 +181,11 @@
             const audio = new Audio(audioUrl);
             audio.play();
           }
+<<<<<<< HEAD
 =======
             });
         });
 >>>>>>> f51d4bcb1a821131ee632c145d119a1d52e02afc
+=======
+>>>>>>> origin
+>>>>>>> origin/samarth
