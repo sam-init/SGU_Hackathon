@@ -21,7 +21,7 @@ app.register_blueprint(config_bp, url_prefix='/config')
 # Default route
 @app.route('/')
 def index():
-    return redirect(url_for('job.post_job'))
+    return render_template('landing.html')
 
 @app.route('/option')
 def option():
