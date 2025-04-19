@@ -11,3 +11,8 @@ experience_required – Experience range
 location – Job location
 
 job_description – Brief description of the job
+
+git checkout vtboss 
+git pull origin main  # Make sure main is up to date
+git merge main        # Merge main into vtboss      
+git push origin vtbossackathon>
