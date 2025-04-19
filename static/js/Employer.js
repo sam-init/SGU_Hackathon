@@ -1,170 +1,175 @@
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
-  // Navigation
-  const navLinks = document.querySelectorAll('.nav-menu a');
-  const views = document.querySelectorAll('.view');
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const nav = document.querySelector('.nav');
-  
-  // Calendar Elements
-  const prevMonthBtn = document.getElementById('prev-month');
-  const nextMonthBtn = document.getElementById('next-month');
-  const currentMonthElement = document.getElementById('current-month');
-  const calendarContainer = document.getElementById('interview-calendar');
-  
-  // View Management
-  function showView(viewId) {
-    views.forEach(view => {
-      view.classList.remove('active');
-    });
+    // Navigation
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    const views = document.querySelectorAll('.view');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('.nav');
     
-    const targetView = document.getElementById(viewId);
-    if (targetView) {
-      targetView.classList.add('active');
-    }
-    
-    // Close mobile menu after view change
-    nav.classList.remove('open');
-    
-    // Load data for the view based on which view is active
-    switch(viewId) {
-      case 'jobs':
-        // Jobs view loading logic would go here
-        break;
-      case 'applications':
-        // Applications view loading logic would go here
-        break;
-      case 'interviews':
-        // Interviews view loading logic would go here
-        renderCalendar();
-        break;
-      case 'candidates':
-        // Candidates view loading logic would go here
-        break;
-    }
-  }
-  
-  // Calendar Functions
-  function renderCalendar() {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
-    
-    renderMonth(currentYear, currentMonth);
-  }
-  
-  function renderMonth(year, month) {
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDayOfWeek = firstDay.getDay(); // 0 = Sunday, 1 = Monday, etc.
-    
-    // Update month display
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    currentMonthElement.textContent = `${monthNames[month]} ${year}`;
-    
-    // Clear calendar
-    calendarContainer.innerHTML = '';
-    
-    // Add day headers
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    dayNames.forEach(day => {
-      const dayHeader = document.createElement('div');
-      dayHeader.className = 'calendar-day-header';
-      dayHeader.textContent = day;
-      calendarContainer.appendChild(dayHeader);
-    });
-    
-    // Add empty cells for days before the first day of the month
-    for (let i = 0; i < startingDayOfWeek; i++) {
-      const emptyDay = document.createElement('div');
-      emptyDay.className = 'calendar-day inactive';
-      calendarContainer.appendChild(emptyDay);
-    }
-    
-    // Add days of the month
-    const today = new Date();
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      
-      const calendarDay = document.createElement('div');
-      calendarDay.className = 'calendar-day';
-      
-      if (today.getDate() === day && today.getMonth() === month && today.getFullYear() === year) {
-        calendarDay.classList.add('today');
-      }
-      
-      calendarDay.innerHTML = `<span class="calendar-day-number">${day}</span>`;
-      calendarDay.setAttribute('data-date', dateStr);
-      
-      calendarDay.addEventListener('click', function() {
-        const selectedDate = this.getAttribute('data-date');
-        alert(`Selected date: ${selectedDate}`);
-        // In a full app, this would show events for the selected date
+    // View Management
+    function showView(viewId) {
+      views.forEach(view => {
+        view.classList.remove('active');
       });
       
-      calendarContainer.appendChild(calendarDay);
-    }
-  }
-  
-  function navigateMonth(direction) {
-    const currentMonthText = currentMonthElement.textContent;
-    const [monthName, year] = currentMonthText.split(' ');
-    
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    let month = monthNames.indexOf(monthName);
-    let yearNum = parseInt(year);
-    
-    if (direction === 'prev') {
-      if (month === 0) {
-        month = 11;
-        yearNum--;
-      } else {
-        month--;
+      const targetView = document.getElementById(viewId);
+      if (targetView) {
+        targetView.classList.add('active');
       }
-    } else {
-      if (month === 11) {
-        month = 0;
-        yearNum++;
-      } else {
-        month++;
+      
+      // Close mobile menu after view change
+      nav.classList.remove('open');
+      
+      // Load data for the view based on which view is active
+      switch(viewId) {
+        case 'jobs':
+          // Jobs view loading logic would go here
+          break;
+        case 'applications':
+          // Applications view loading logic would go here
+          break;
+        case 'interviews':
+          // Interviews view loading logic would go here
+          break;
+        case 'candidates':
+          // Candidates view loading logic would go here
+          break;
       }
     }
     
-    renderMonth(yearNum, month);
-  }
-  
-  // Navigation Event Listeners
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      navLinks.forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-      
-      const viewId = this.getAttribute('data-view');
-      showView(viewId);
+    // Navigation Event Listeners
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        const viewId = this.getAttribute('data-view');
+        showView(viewId);
+      });
     });
+    
+    // Mobile Menu Toggle
+    mobileMenuToggle.addEventListener('click', function() {
+      nav.classList.toggle('open');
+    });
+    
+    // Initial view
+    showView('jobs');
   });
+
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('searchBox');
+    const suggestions = document.getElementById('suggestions');
+    const jobListings = document.querySelector('.job-listings');
   
-  // Mobile Menu Toggle
-  mobileMenuToggle.addEventListener('click', function() {
-    nav.classList.toggle('open');
+    const locationFilter = document.getElementById('location-filter');
+    const skillFilter = document.getElementById('skill-filter');
+    const jobTypeFilter = document.getElementById('job-type-filter');
+    const clearBtn = document.getElementById('filter-clear');
+  
+    let timer = null;
+  
+    // Fetch and render jobs
+    async function fetchJobs(query = '') {
+      const res = await fetch(`/job/api/search?q=${encodeURIComponent(query)}`);
+      const jobs = await res.json();
+      renderJobs(jobs);
+    }
+  
+    // Render job cards
+    function renderJobs(jobs) {
+      jobListings.innerHTML = '';
+  
+      const filtered = jobs.filter(job => {
+        const loc = locationFilter.value;
+        const skill = skillFilter.value;
+        const type = jobTypeFilter.value;
+  
+        const locationMatch = !loc || (job.location && job.location.toLowerCase() === loc);
+        const skillMatch = !skill || (job.skills && job.skills.includes(skill.toLowerCase()));
+        const typeMatch = !type || (job.job_type && job.job_type.toLowerCase() === type);
+  
+        return locationMatch && skillMatch && typeMatch;
+      });
+  
+      if (filtered.length === 0) {
+        jobListings.innerHTML = '<p>No jobs match your criteria.</p>';
+        return;
+      }
+  
+      for (const job of filtered) {
+        const card = document.createElement('div');
+        card.className = 'job-card';
+        card.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <p><strong>Type:</strong> ${job.job_type}</p>
+          <p><strong>Skills:</strong> ${job.skills.join(', ')}</p>
+          <p>${job.description}</p>
+        `;
+        jobListings.appendChild(card);
+      }
+    }
+  
+    // Search suggestions with debounce
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      const query = input.value.trim();
+  
+      if (!query) {
+        suggestions.innerHTML = '';
+        return;
+      }
+  
+      timer = setTimeout(async () => {
+        const res = await fetch(`/job/api/search?q=${encodeURIComponent(query)}`);
+        const hits = await res.json();
+  
+        suggestions.innerHTML = hits.map(h =>
+          `<li data-id="${h.id}">${h.title}</li>`
+        ).join('');
+      }, 300);
+    });
+  
+    // Suggestion click: trigger search
+    suggestions.addEventListener('click', e => {
+      if (e.target.tagName === 'LI') {
+        input.value = e.target.textContent;
+        suggestions.innerHTML = '';
+        fetchJobs(input.value);
+      }
+    });
+  
+    // Close suggestions when clicking outside
+    document.addEventListener('click', e => {
+      if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+        suggestions.innerHTML = '';
+      }
+    });
+  
+    // Filter change triggers re-render
+    [locationFilter, skillFilter, jobTypeFilter].forEach(filter =>
+      filter.addEventListener('change', () => fetchJobs(input.value))
+    );
+  
+    // Clear filters
+    clearBtn.addEventListener('click', () => {
+      locationFilter.value = '';
+      skillFilter.value = '';
+      jobTypeFilter.value = '';
+      fetchJobs(input.value);
+    });
+  
+    // Initial job fetch
+    fetchJobs();
   });
+
   
-  // Calendar Navigation
-  if (prevMonthBtn) {
-    prevMonthBtn.addEventListener('click', function() {
-      navigateMonth('prev');
-    });
-  }
+
   
-  if (nextMonthBtn) {
-    nextMonthBtn.addEventListener('click', function() {
-      navigateMonth('next');
-    });
-  }
-  
-  // Initial view
-  showView('jobs');
-});
+
