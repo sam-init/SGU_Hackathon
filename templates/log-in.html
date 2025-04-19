@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Sabko Kaam</title>
+  <link rel="stylesheet" href="../static/css/log-in.css">
+</head>
+<body>
+  <div class="container pulse-animation">
+    <!-- Header Section -->
+    <header class="header">
+      <h1>SabkoKaam</h1>
+      <p class="slogan">Chhoti soch hatao, har haath ko rozgaar dilao</p>
+    </header>
+
+    <!-- Login Form Section -->
+    <section class="login-section">
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="user-input">Email / Phone Number</label>
+          <input type="text" id="user-input" class="form-control" placeholder="Enter your email or phone number" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="forgot-password">
+          <a href="#">Forgot Password?</a>
+        </div>
+        
+        <div class="button-group">
+          <button type="button" class="btn btn-signin" onclick="signUp()">Sign Up</button>
+          <button type="submit" class="btn" onclick="login(event)">Login</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="../static/js/login.js"></script>
+</body>
+</html>

@@ -4,6 +4,146 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SabKoKaam - Sign Up</title>
+  <link rel="stylesheet" href="../static/css/sign-in.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="form-header">
+      <h1>Join SabKoKaam</h1>
+      <p>Create your account to find work opportunities near you</p>
+    </div>
+
+    <div class="form-body">
+      <form id="signup-form">
+        <div class="form-message success-message">Your information has been saved successfully!</div>
+        <div class="form-message error-message">Please correct the errors in the form and try again.</div>
+
+        <div class="form-group">
+          <label for="fullname">Full Name <span style="color: red">*</span></label>
+          <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of Birth <span style="color: red">*</span></label>
+          <input type="date" id="dob" name="dob" required />
+          <div class="helper-text">You must be at least 18 years old to register</div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="contact">Contact Number <span style="color: red">*</span></label>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your mobile number" required />
+            <div class="helper-text">We'll send verification code to this number</div>
+          </div>
+
+          <div class="form-group">
+            <label for="alternate-contact">Alternate Contact</label>
+            <input type="tel" id="alternate-contact" name="alternate-contact" placeholder="Enter alternate number (optional)" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span style="color: red">*</span></label>
+          <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+          <div class="helper-text">You'll use this email to login to your account</div>
+        </div>
+
+        <div class="form-group">
+          <label for="aadhar">Aadhar Number <span style="color: red">*</span></label>
+          <input type="text" id="aadhar" name="aadhar" placeholder="Enter your 12-digit Aadhar number" required maxlength="12" />
+          <div class="helper-text">This helps verify your identity and build trust with employers</div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="country">Country <span style="color: red">*</span></label>
+            <select id="country" name="country" required>
+              <option value="" disabled selected>Select your country</option>
+              <option value="india">India</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="state">State <span style="color: red">*</span></label>
+            <select id="state" name="state" required>
+              <option value="" disabled selected>Select your state</option>
+              <option value="andhra-pradesh">Andhra Pradesh</option>
+              <option value="bihar">Bihar</option>
+              <option value="gujarat">Gujarat</option>
+              <option value="karnataka">Karnataka</option>
+              <option value="madhya-pradesh">Madhya Pradesh</option>
+              <option value="maharashtra">Maharashtra</option>
+              <option value="punjab">Punjab</option>
+              <option value="rajasthan">Rajasthan</option>
+              <option value="tamil-nadu">Tamil Nadu</option>
+              <option value="uttar-pradesh">Uttar Pradesh</option>
+              <option value="west-bengal">West Bengal</option>
+            </select>
+          </div>
+        </div>
+<p><b>Select your role</b></p>
+        <!-- Radio Buttons for Role -->
+        <div class="form-group">
+          <label>
+            <input type="radio" name="role" value="Employee"> Employee
+          </label><br>
+          <label>
+            <input type="radio" name="role" value="Employer"> Employer
+          </label><br>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City/Village <span style="color: red">*</span></label>
+          <input type="text" id="city" name="city" placeholder="Enter your city or village name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Set Password <span style="color: red">*</span></label>
+          <input type="password" id="password" name="password" placeholder="Create a strong password" required />
+          <div class="password-strength">
+            Password Strength: <span id="strength-text">Not entered</span>
+            <div class="strength-meter">
+              <div class="strength-meter-fill" id="strength-meter"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Re-enter Password <span style="color: red">*</span></label>
+          <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required />
+        </div>
+
+        <div class="password-tips">
+          <strong>Important:</strong> Please write down your password or remember it securely.
+          <ul>
+            <li>Use a combination of letters, numbers, and symbols</li>
+            <li>Make it at least 8 characters long</li>
+            <li>Don't share your password with anyone</li>
+            <li>If you forget your password, you'll need access to your email to reset it</li>
+          </ul>
+        </div>
+
+        <div class="submit-container">
+          <button type="submit" class="submit-btn">Create Account</button>
+        </div>
+
+        <div class="or-login">
+          Already have an account? <a href="#" class="login-link">Login here</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../static/js/sign-in.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SabKoKaam - Sign Up</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-in.css') }}">
 </head>
 <body>
