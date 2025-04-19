@@ -9,3 +9,8 @@ python-dotenv
 requests
 algoliasearch
 gunicorn
+gspread_dataframe
+oauth2client
+scikit-learn
+vertexai
+google-generativeai
