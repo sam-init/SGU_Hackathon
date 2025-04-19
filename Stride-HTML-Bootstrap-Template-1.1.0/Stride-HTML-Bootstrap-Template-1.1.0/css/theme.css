@@ -315,7 +315,8 @@ button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
-  -webkit-appearance: button; }
+  -webkit-appearance: button;
+  appearance: button; }
   button:not(:disabled),
   [type="button"]:not(:disabled),
   [type="reset"]:not(:disabled),
@@ -362,7 +363,8 @@ legend {
 
 [type="search"] {
   outline-offset: -2px;
-  -webkit-appearance: textfield; }
+  -webkit-appearance: textfield;
+  appearance: textfield; }
 
 /* rtl:raw:
 [type="tel"],
@@ -380,7 +382,8 @@ legend {
 
 ::file-selector-button {
   font: inherit;
-  -webkit-appearance: button; }
+  -webkit-appearance: button;
+  appearance: button; }
 
 output {
   display: inline-block; }
@@ -1369,7 +1372,7 @@ progress {
     vertical-align: bottom; }
 
 .table-group-divider {
-  border-top: calc(2 * $table-border-width) solid currentcolor; }
+  border-top: calc(2 * var(--bs-border-width)) solid currentcolor; }
 
 .caption-top {
   caption-side: top; }
@@ -3661,7 +3664,7 @@ textarea.form-control-lg {
     border-color: var(--bs-pagination-disabled-border-color); }
 
 .page-item:not(:first-child) .page-link {
-  margin-left: calc($pagination-border-width * -1); }
+  margin-left: calc(var(--bs-pagination-border-width) * -1); }
 
 .page-item:first-child .page-link {
   border-top-left-radius: var(--bs-pagination-border-radius);
