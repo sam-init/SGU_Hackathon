@@ -1,116 +1,95 @@
 
 // Mock data for workers
 const workers = [
-    {
+  {
       id: 1,
-      name: "Michael Johnson",
+      name: "Kiran Patel",
       title: "Professional Handyman",
       image: "https://randomuser.me/api/portraits/men/32.jpg",
       rating: 4.8,
       reviews: 124,
-      hourlyRate: 35,
-      categories: ["home-repair", "painting"],
-      skills: ["Electrical", "Plumbing", "Carpentry"],
-      location: "Brooklyn, NY",
-      about: "With over 15 years of experience in home repairs, I can fix almost anything in your house. I specialize in electrical work, plumbing, and carpentry. I take pride in providing quality work with attention to detail.",
-      reviews: [
-        { name: "Sarah L.", date: "March 15, 2025", rating: 5, text: "Michael did an excellent job fixing my kitchen sink and installing new cabinets. Very professional and clean work." },
-        { name: "Robert T.", date: "February 28, 2025", rating: 5, text: "Great work ethic and attention to detail. Completed the job faster than expected and at a reasonable price." },
-        { name: "Jennifer K.", date: "January 10, 2025", rating: 4, text: "Fixed my electrical issues quickly. Would hire again for future projects." }
-      ]
-    },
-    {
+      location: "Belagavi, KA",
+      mapLocation: "Belagavi,Karnataka,India",
+      distance: null,
+      skills: ["Plumbing", "Electrical", "Carpentry"],
+      completedJobs: 156,
+      responseTime: "Under 1hr",
+      badge: "Top Rated"
+  },
+  {
       id: 2,
-      name: "Lisa Williams",
+      name: "Hirshita Sharma",
       title: "Expert Cleaner",
       image: "https://randomuser.me/api/portraits/women/45.jpg",
       rating: 4.9,
       reviews: 87,
-      hourlyRate: 28,
-      categories: ["cleaning"],
-      skills: ["Deep Cleaning", "Organization", "Eco-friendly"],
-      location: "Queens, NY",
-      about: "I deliver professional cleaning services for homes and small offices. I use eco-friendly products and pay special attention to details. I'm flexible with scheduling and can accommodate regular cleaning or one-time deep cleans.",
-      reviews: [
-        { name: "David M.", date: "April 2, 2025", rating: 5, text: "Lisa is amazing! My apartment has never been so clean. She's thorough and efficient." },
-        { name: "Emily R.", date: "March 20, 2025", rating: 5, text: "Very reliable and does an excellent job. I've booked her for weekly cleaning." },
-        { name: "James P.", date: "February 15, 2025", rating: 4, text: "Great work, but arrived a bit late. Otherwise very satisfied with the cleaning." }
-      ]
-    },
-    {
+      location: "Pune, MH",
+      mapLocation: "Pune,Maharashtra,India",
+      distance: null,
+      skills: ["Deep Cleaning", "Sanitization", "Office Cleaning"],
+      completedJobs: 91,
+      responseTime: "Under 2hrs",
+      badge: "Verified Pro"
+  },
+  {
       id: 3,
-      name: "Carlos Rodriguez",
+      name: "Akash Sharma",
       title: "Moving Specialist",
       image: "https://randomuser.me/api/portraits/men/67.jpg",
       rating: 4.7,
       reviews: 56,
-      hourlyRate: 40,
-      categories: ["moving"],
-      skills: ["Heavy Lifting", "Furniture Assembly", "Packing"],
-      location: "Bronx, NY",
-      about: "I specialize in residential and small office moves. I can help with packing, heavy lifting, furniture assembly, and everything in between. I bring my own tools and equipment to make your move as smooth as possible.",
-      reviews: [
-        { name: "Sophia T.", date: "March 28, 2025", rating: 5, text: "Carlos and his helper made my move so much easier. They were careful with my furniture and very efficient." },
-        { name: "Michael B.", date: "February 12, 2025", rating: 4, text: "Good service overall. Assembled my furniture quickly and correctly." },
-        { name: "Jessica L.", date: "January 5, 2025", rating: 5, text: "Carlos is strong, fast, and knows how to pack a truck efficiently. Will definitely use his services again." }
-      ]
-    },
-    {
+      location: "Dhaplapur, KA",
+      mapLocation: "Dhaplapur,Karnataka,India",
+      distance: null,
+      skills: ["Packing", "Furniture Assembly", "Home Shifting"],
+      completedJobs: 63,
+      responseTime: "Under 3hrs"
+  },
+  {
       id: 4,
-      name: "Anna Chen",
+      name: "Akastha Rao",
       title: "Landscape Designer",
       image: "https://randomuser.me/api/portraits/women/79.jpg",
       rating: 4.6,
       reviews: 43,
-      hourlyRate: 45,
-      categories: ["landscaping"],
-      skills: ["Garden Design", "Plant Care", "Lawn Maintenance"],
-      location: "Manhattan, NY",
-      about: "I offer comprehensive landscaping services including garden design, plant selection, lawn maintenance, and seasonal cleanups. I have a degree in horticulture and over 8 years of hands-on experience creating beautiful outdoor spaces.",
-      reviews: [
-        { name: "William H.", date: "April 10, 2025", rating: 5, text: "Anna transformed my backyard into a beautiful garden. She selected plants that work perfectly in my space." },
-        { name: "Karen M.", date: "March 5, 2025", rating: 4, text: "Very knowledgeable about plants and garden design. My garden looks amazing now." },
-        { name: "Thomas R.", date: "February 20, 2025", rating: 5, text: "Anna is creative and hardworking. She completed our landscaping project on time and within budget." }
-      ]
-    },
-    {
+      location: "Dharwad, KA",
+      mapLocation: "Dharwad,Karnataka,India",
+      distance: null,
+      skills: ["Garden Design", "Maintenance", "Plant Selection"],
+      completedJobs: 47,
+      responseTime: "Same Day"
+  },
+  {
       id: 5,
-      name: "James Wilson",
+      name: "Bassanguda Kumar",
       title: "Professional Painter",
       image: "https://randomuser.me/api/portraits/men/52.jpg",
       rating: 4.9,
       reviews: 78,
-      hourlyRate: 38,
-      categories: ["painting"],
-      skills: ["Interior Painting", "Exterior Painting", "Color Consultation"],
-      location: "Staten Island, NY",
-      about: "I'm a professional painter with expertise in both interior and exterior painting. I use premium paints and materials to ensure a long-lasting finish. I can help with color selection, surface preparation, and detailed finishing work.",
-      reviews: [
-        { name: "Laura B.", date: "April 5, 2025", rating: 5, text: "James did an excellent job painting my living room and kitchen. Clean lines, no mess, and finished ahead of schedule." },
-        { name: "Daniel K.", date: "March 18, 2025", rating: 5, text: "Very professional and detail-oriented. The exterior of my house looks brand new." },
-        { name: "Natalie S.", date: "February 28, 2025", rating: 4, text: "James helped me choose the perfect colors for my home office. Great work and reasonable prices." }
-      ]
-    },
-    {
+      location: "Kalaburagi, KA",
+      mapLocation: "Kalaburagi,Karnataka,India",
+      distance: null,
+      skills: ["Interior Painting", "Texture Work", "Wall Design"],
+      completedJobs: 83,
+      responseTime: "Under 2hrs",
+      badge: "Featured"
+  },
+  {
       id: 6,
-      name: "Maria Gonzalez",
+      name: "Kumari Priya",
       title: "Home Organizer",
       image: "https://randomuser.me/api/portraits/women/28.jpg",
       rating: 4.8,
       reviews: 39,
-      hourlyRate: 32,
-      categories: ["cleaning", "home-repair"],
-      skills: ["Space Optimization", "Decluttering", "Storage Solutions"],
-      location: "Queens, NY",
-      about: "I help clients transform cluttered spaces into organized, functional areas. I create customized organization systems based on your lifestyle and needs. I can organize any space from closets and kitchens to garages and home offices.",
-      reviews: [
-        { name: "Christopher L.", date: "April 15, 2025", rating: 5, text: "Maria reorganized my entire kitchen and pantry. I can finally find everything I need easily!" },
-        { name: "Amanda J.", date: "March 25, 2025", rating: 4, text: "She helped me declutter my home office and set up an efficient filing system. Great advice and hands-on help." },
-        { name: "Ryan T.", date: "February 10, 2025", rating: 5, text: "Maria has amazing organizational skills. My closets and garage have never been so organized." }
-      ]
-    }
-  ];
-  
+      location: "Pune, MH",
+      mapLocation: "Pune,Maharashtra,India",
+      distance: null,
+      skills: ["Decluttering", "Space Planning", "Storage Solutions"],
+      completedJobs: 45,
+      responseTime: "Under 4hrs"
+  }
+];
+
   // DOM Elements
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".nav-menu");

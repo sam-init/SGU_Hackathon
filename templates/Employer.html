@@ -330,6 +330,126 @@
     </div>
   </div>
 
+  <!-- Embed the sample data in the HTML -->
+  <script id="jobs-data" type="application/json">
+  [
+    {
+      "id": 1,
+      "title": "Senior Frontend Developer",
+      "company": "TechCorp Solutions",
+      "location": "San Francisco",
+      "type": "full-time",
+      "salary": "$120,000 - $150,000",
+      "description": "We are looking for an experienced Frontend Developer to join our team. You will be responsible for building user interfaces for our web applications.",
+      "skills": ["JavaScript", "React", "TypeScript", "CSS", "HTML"],
+      "postedDate": "2025-04-05"
+    },
+    {
+      "id": 2,
+      "title": "UX/UI Designer",
+      "company": "Creative Minds Agency",
+      "location": "Remote",
+      "type": "full-time",
+      "salary": "$90,000 - $110,000",
+      "description": "Join our design team to create beautiful, intuitive user interfaces for our clients. Work closely with developers to implement your designs.",
+      "skills": ["UI Design", "Figma", "Adobe XD", "User Research"],
+      "postedDate": "2025-04-10"
+    },
+    {
+      "id": 3,
+      "title": "Data Scientist",
+      "company": "Insight Analytics",
+      "location": "New York",
+      "type": "full-time",
+      "salary": "$130,000 - $160,000",
+      "description": "We're seeking a data scientist to help us analyze complex datasets and extract meaningful insights for our clients.",
+      "skills": ["Python", "SQL", "Machine Learning", "Data Analysis"],
+      "postedDate": "2025-04-08"
+    }
+    // Add the rest of the jobs here...
+  ]
+  </script>
+
+  <script id="applications-data" type="application/json">
+  [
+    {
+      "id": 1,
+      "candidateId": 3,
+      "jobId": 1,
+      "status": "interview",
+      "appliedDate": "2025-04-06",
+      "matchScore": 92,
+      "resumeUrl": "#",
+      "coverLetter": "I am very interested in the Senior Frontend Developer position at TechCorp Solutions. With over 5 years of experience in React and TypeScript, I believe I would be a valuable addition to your team."
+    },
+    {
+      "id": 2,
+      "candidateId": 5,
+      "jobId": 1,
+      "status": "new",
+      "appliedDate": "2025-04-16",
+      "matchScore": 87,
+      "resumeUrl": "#",
+      "coverLetter": "I would like to apply for the Senior Frontend Developer position. I have worked with React for 3 years and have a strong passion for creating performant user interfaces."
+    }
+    // Add the rest of the applications here...
+  ]
+  </script>
+
+  <script id="candidates-data" type="application/json">
+  [
+    {
+      "id": 1,
+      "name": "Emily Johnson",
+      "title": "UX/UI Designer",
+      "email": "emily.johnson@example.com",
+      "location": "San Francisco",
+      "experience": "5 years",
+      "education": "BFA in Graphic Design",
+      "skills": ["UI Design", "User Research", "Figma", "Adobe XD", "Sketch"],
+      "matchScore": 78
+    },
+    {
+      "id": 2,
+      "name": "Michael Chen",
+      "title": "Backend Developer",
+      "email": "michael.chen@example.com",
+      "location": "New York",
+      "experience": "3 years",
+      "education": "BS in Computer Science",
+      "skills": ["Java", "Spring Boot", "MySQL", "NoSQL", "RESTful APIs"],
+      "matchScore": 65
+    }
+    // Add the rest of the candidates here...
+  ]
+  </script>
+
+  <script id="interviews-data" type="application/json">
+  [
+    {
+      "id": 1,
+      "applicationId": 1,
+      "candidateName": "Sarah Wilson",
+      "position": "Senior Frontend Developer",
+      "date": "2025-04-20",
+      "time": "10:00",
+      "type": "video",
+      "notes": "Focus on React experience and system design questions."
+    },
+    {
+      "id": 2,
+      "applicationId": 3,
+      "candidateName": "Emily Johnson",
+      "position": "UX/UI Designer",
+      "date": "2025-04-21",
+      "time": "14:30",
+      "type": "in-person",
+      "notes": "Ask to review portfolio and discuss design process."
+    }
+    // Add the rest of the interviews here...
+  ]
+  </script>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
