@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sign In Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Cemployee_signin.css') }}" />
+    <link rel="stylesheet" href="../static/css/Cemployee_signin.css" />
 </head>
 <body>
     <div class="container">
@@ -12,6 +12,7 @@
             <h1>Sign In</h1>
             <p>Please complete the form below to register</p>
         </div>
+
         
         <div class="form-container">
             <form id="signInForm">
@@ -35,6 +36,18 @@
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required />
+                    <div id="passwordStrength" class="password-strength"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required />
+                    <div id="passwordMatch" class="password-match"></div>
                 </div>
 
                 <div class="form-group">
@@ -75,11 +88,12 @@
                     </select>
                 </div>
 
-                <button type="submit" class="submit-btn">Submit</button>
+                <div class="button-group">
+                    <button type="button" class="create-account-btn">Create Account</button>
+                </div>
             </form>
         </div>
     </div>
-
-    <script src="{{ url_for('static', filename='js/Cemployee_sign-in.js') }}"></script>
+    <script src="../static/js/Cemployee_sign-in.js"></script>
 </body>
 </html>
