@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSensei - Candidates Management</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #328E6E;
+      --secondary: #67AE6E;
+      --tertiary: #90C67C;
+      --background: #E1EEBC;
+      --light-bg: #f5f9ee;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #fff;
+      --shadow: 0 2px 10px rgba(0,0,0,0.1);
+      --border-radius: 8px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--background);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    /* Header and Navigation */
+    header {
+      background-color: var(--primary);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .logo i {
+      margin-right: 0.5rem;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-item {
+      position: relative;
+      margin-left: 1.5rem;
+    }
+    
+    .nav-link {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      color: var(--tertiary);
+    }
+    
+    .dropdown {
+      position: relative;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: var(--white);
+      min-width: 180px;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      z-index: 1;
+      top: 100%;
+      left: 0;
+    }
+    
+    .dropdown-content a {
+      color: var(--text-dark);
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: var(--light-bg);
+      color: var(--primary);
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 1.5rem;
+    }
+    
+    /* Main Content */
+    main {
+      padding: 2rem 0;
+    }
+    
+    .page-header {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      list-style: none;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb li {
+      display: flex;
+      align-items: center;
+    }
+    
+    .breadcrumb li:not(:last-child):after {
+      content: '/';
+      margin: 0 0.5rem;
+      color: var(--text-light);
+    }
+    
+    .breadcrumb a {
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    
+    .breadcrumb li:last-child {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .page-title {
+      font-size: 1.75rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-subtitle {
+      color: var(--text-light);
+    }
+    
+    /* Filters Section */
+    .filters {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .filter-group {
+      margin-bottom: 1rem;
+    }
+    
+    .filter-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .filter-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    .btn-primary {
+      background-color: var(--secondary);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary);
+    }
+    
+    /* Candidates List */
+    .candidates-list {
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    .list-header {
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .list-title {
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+    
+    .list-actions a {
+      color: var(--secondary);
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+    
+    .list-actions a:hover {
+      color: var(--primary);
+    }
+    
+    .table-responsive {
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    thead th {
+      background-color: var(--light-bg);
+      color: var(--primary);
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+    }
+    
+    tbody tr {
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s ease;
+    }
+    
+    tbody tr:hover {
+      background-color: var(--light-bg);
+    }
+    
+    td {
+      padding: 1rem;
+      vertical-align: middle;
+    }
+    
+    .match-score {
+      font-weight: bold;
+      padding: 0.3rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-block;
+      text-align: center;
+      min-width: 60px;
+    }
+    
+    .high {
+      background-color: rgba(76, 175, 80, 0.2);
+      color: #2e7d32;
+    }
+    
+    .medium {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ff8f00;
+    }
+    
+    .low {
+      background-color: rgba(244, 67, 54, 0.2);
+      color: #c62828;
+    }
+    
+    .candidate-name {
+      font-weight: 500;
+      color: var(--primary);
+    }
+    
+    .candidate-email {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      background-color: var(--tertiary);
+      color: var(--white);
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    
+    .status-badge {
+      padding: 0.3rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .status-pending {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+    
+    .status-reviewed {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+    
+    .status-shortlisted {
+      background-color: #fff8e1;
+      color: #f57f17;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .email-btn {
+        background-color: #3498db;
+        }
+
+    .remove-btn {
+        background-color: #e74c3c;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .page-info {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .page-controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .page-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: var(--white);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .page-btn.active {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+    
+    .page-btn:hover:not(.active) {
+      background-color: var(--light-bg);
+      border-color: var(--tertiary);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .filters-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        flex-direction: column;
+        background-color: var(--primary);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem 0;
+      }
+      
+      .nav-menu.active {
+        left: 0;
+      }
+      
+      .nav-item {
+        margin: 1rem 0;
+      }
+      
+      .dropdown-content {
+        position: static;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+        display: none;
+        border-radius: 0;
+      }
+      
+      .dropdown-content a {
+        color: var(--white);
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .filters-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .tag {
+        font-size: 0.7rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-buttons {
+        justify-content: space-between;
+      }
+      
+      .page-header {
+        padding: 1rem;
+      }
+      
+      .list-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .list-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+      
+      .tags {
+        display: none;
+      }
+      
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <i class="fas fa-briefcase"></i>
+          JobSensei
+        </a>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Jobs <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">View All Jobs</a>
+              <a href="#">Create New Job</a>
+              <a href="#">Archived Jobs</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link active">Candidates <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">All Candidates</a>
+              <a href="#">By Job</a>
+              <a href="#">Shortlisted</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Interviews</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Reports</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <ul class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li>Candidates Management</li>
+        </ul>
+        <h1 class="page-title">Candidates Management</h1>
+        <p class="page-subtitle">View, filter, and manage all job applications</p>
+      </div>
+
+      <div class="filters">
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label class="filter-label" for="job-filter">Job Position</label>
+            <select class="filter-input" id="job-filter">
+              <option value="">All Jobs</option>
+              <option value="1">Senior Frontend Developer</option>
+              <option value="2">UX Designer</option>
+              <option value="3">Data Scientist</option>
+              <option value="4">Product Manager</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="skill-filter">Skills</label>
+            <input type="text" class="filter-input" id="skill-filter" placeholder="e.g. React, Python">
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="status-filter">Status</label>
+            <select class="filter-input" id="status-filter">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="reviewed">Reviewed</option>
+              <option value="shortlisted">Shortlisted</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="match-filter">Min. Match Score</label>
+            <input type="number" class="filter-input" id="match-filter" min="0" max="100" placeholder="0-100">
+          </div>
+        </div>
+        <div class="filter-buttons">
+          <button class="btn btn-outline">Reset Filters</button>
+          <button class="btn btn-primary">Apply Filters</button>
+        </div>
+      </div>
+
+      <div class="candidates-list">
+        <div class="list-header">
+          <h2 class="list-title">All Candidates (28)</h2>
+          <div class="list-actions">
+            <a href="#"><i class="fas fa-file-export"></i> Export</a>
+            <a href="#"><i class="fas fa-cog"></i> Columns</a>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Skills</th>
+                <th>Applied For</th>
+                <th>Match Score</th>
+                <th>Status</th>
+                <th>Applied On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="candidate-name">Sarah Johnson</div>
+                  <div class="candidate-email">sarah.j@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">NodeJS</span>
+                  </div>
+                </td>
+                <td>Senior Frontend Developer</td>
+                <td><span class="match-score high">92%</span></td>
+                <td><span class="status-badge status-shortlisted">Shortlisted</span></td>
+                <td>Apr 15, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="candidate-name">Michael Chen</div>
+                  <div class="candidate-email">m.chen@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">ML</span>
+                    <span class="tag">PyTorch</span>
+                  </div>
+                </td>
+                <td>Data Scientist</td>
+                <td><span class="match-score high">89%</span></td>
+                <td><span class="status-badge status-reviewed">Reviewed</span></td>
+                <td>Apr 16, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="candidate-name">Emily Rodriguez</div>
+                  <div class="candidate-email">emily.r@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">Adobe XD</span>
+                  </div>
+                </td>
+                <td>UX Designer</td>
+                <td><span class="match-score high">87%</span></td>
+                <td><span class="status-badge status-shortlisted">Shortlisted</span></td>
+                <td>Apr 14, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="candidate-name">James Wilson</div>
+                  <div class="candidate-email">j.wilson@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Vue</span>
+                    <span class="tag">CSS</span>
+                  </div>
+                </td>
+                <td>Senior Frontend Developer</td>
+                <td><span class="match-score medium">74%</span></td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td>Apr 17, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="candidate-name">Aisha Patel</div>
+                  <div class="candidate-email">a.patel@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">Agile</span>
+                    <span class="tag">Jira</span>
+                    <span class="tag">Roadmapping</span>
+                  </div>
+                </td>
+                <td>Product Manager</td>
+                <td><span class="match-score high">95%</span></td>
+                <td><span class="status-badge status-reviewed">Reviewed</span></td>
+                <td>Apr 16, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="candidate-name">Luis Gomez</div>
+                  <div class="candidate-email">l.gomez@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">SQL</span>
+                  </div>
+                </td>
+                <td>Data Scientist</td>
+                <td><span class="match-score medium">68%</span></td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td>Apr 18, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="candidate-name">Olivia Smith</div>
+                  <div class="candidate-email">o.smith@example.com</div>
+                </td>
+                <td>
+                  <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Redux</span>
+                    <span class="tag">Jest</span>
+                  </div>
+                </td>
+                <td>Senior Frontend Developer</td>
+                <td><span class="match-score low">58%</span></td>
+                <td><span class="status-badge status-pending">Pending</span></td>
+                <td>Apr 18, 2025</td>
+                <td>
+                    <div class="actions">
+                        <div class="action-btn email-btn" title="Send Email"><i class="fas fa-envelope"></i></div>
+                        <div class="action-btn remove-btn" title="Remove Candidate"><i class="fas fa-trash"></i></div>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div class="page-info">
+            Showing 1-7 of 28 candidates
+          </div>
+          <div class="page-controls">
+            <div class="page-btn"><i class="fas fa-chevron-left"></i></div>
+            <div class="page-btn active">1</div>
+            <div class="page-btn">2</div>
+            <div class="page-btn">3</div>
+            <div class="page-btn">4</div>
+            <div class="page-btn"><i class="fas fa-chevron-right"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+    
+    hamburger.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+    });
+    
+    // Simulate filter functionality
+    document.querySelector(".btn-primary").addEventListener("click", function() {
+      alert("Filters applied! (This would filter the candidates in a real application)");
+    });
+    
+    document.querySelector(".btn-outline").addEventListener("click", function() {
+      // Reset filter inputs
+      document.querySelectorAll(".filter-input").forEach(input => {
+        if (input.tagName === "SELECT") {
+          input.selectedIndex = 0;
+        } else {
+          input.value = "";
+        }
+      });
+      alert("Filters reset!");
+    });
+    
+    // Simulate action buttons
+    document.querySelectorAll(".action-btn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            if (this.classList.contains("email-btn")) {
+            const candidateName = this.closest("tr").querySelector(".candidate-name").textContent;
+            const candidateEmail = this.closest("tr").querySelector(".candidate-email").textContent;
+            alert(`Sending email to ${candidateName} (${candidateEmail})`);
+            } else if (this.classList.contains("remove-btn")) {
+            if (confirm("Are you sure you want to remove this candidate?")) {
+                this.closest("tr").remove();
+                updateCandidateCount();
+            }
+            }
+        });
+    });
+    
+    // Pagination simulation
+    document.querySelectorAll(".page-btn").forEach(btn => {
+      btn.addEventListener("click", function() {
+        if (!this.classList.contains("active") && !this.querySelector("i")) {
+          document.querySelector(".page-btn.active").classList.remove("active");
+          this.classList.add("active");
+          alert("Changed to page " + this.textContent);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
