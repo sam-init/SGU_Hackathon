@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSensei - HR Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #E1EEBC;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #328E6E;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #90C67C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .sidebar {
+      background-color: #90C67C;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .sidebar h3 {
+      color: #328E6E;
+      margin-top: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #328E6E;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin: 1rem 0;
+      color: #328E6E;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .sidebar ul li:hover {
+      background-color: rgba(50, 142, 110, 0.2);
+    }
+    .sidebar ul li.active {
+      background-color: rgba(50, 142, 110, 0.3);
+      font-weight: bold;
+    }
+    .main-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section h2 {
+      color: #328E6E;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card {
+      background-color: #67AE6E;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      background-color: #328E6E;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    .btn:hover {
+      background-color: #276f58;
+    }
+    .add-btn {
+      background-color: #328E6E;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 60%;
+      max-width: 500px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: black;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #328E6E;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .stage-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .stage {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 15px;
+    }
+    .stage h3 {
+      color: #328E6E;
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #90C67C;
+      padding-bottom: 5px;
+    }
+    .candidate-card {
+      background-color: white;
+      border-left: 4px solid #67AE6E;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .candidate-card h4 {
+      margin: 0 0 5px 0;
+      color: #328E6E;
+    }
+    .candidate-card p {
+      margin: 5px 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .badge {
+      background-color: #E1EEBC;
+      color: #328E6E;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin-right: 5px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">JobSensei HR Dashboard</div>
+    <div class="user-info">
+      <span>HR Manager</span>
+      <div class="user-avatar">HR</div>
+    </div>
+  </header>
+  
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <h3>Navigation</h3>
+      <ul>
+        <li id="nav-jobs" class="active" onclick="showSection('jobs')">Job Posts</li>
+        <li id="nav-candidates" onclick="showSection('candidates')">Top Candidates</li>
+        <li id="nav-pipeline" onclick="showSection('pipeline')">Pipeline</li>
+        <li id="nav-applications" onclick="showSection('applications')">Applications</li>
+      </ul>
+    </aside>
+    
+    <main class="main-content">
+      <div id="jobs" class="section">
+        <h2>
+          Active Job Posts
+          <button class="add-btn" onclick="openModal('add-job-modal')">+ Add Job</button>
+        </h2>
+        <div class="search-bar">
+          <input type="text" id="job-search" placeholder="Search job posts..." onkeyup="searchJobs()">
+        </div>
+        <div id="jobs-container">
+          <div class="card" data-title="Frontend Developer">
+            <p><strong>Frontend Developer</strong></p>
+            <p>Location: Bangalore</p>
+            <p>Experience: 2-4 years</p>
+            <button class="btn" onclick="viewJobDetails('Frontend Developer')">View Details</button>
+            <button class="btn" onclick="viewMatches('Frontend Developer')">View Matches</button>
+          </div>
+          <div class="card" data-title="Backend Engineer">
+            <p><strong>Backend Engineer</strong></p>
+            <p>Location: Hyderabad</p>
+            <p>Experience: 3-5 years</p>
+            <button class="btn" onclick="viewJobDetails('Backend Engineer')">View Details</button>
+            <button class="btn" onclick="viewMatches('Backend Engineer')">View Matches</button>
+          </div>
+          <div class="card" data-title="UI/UX Designer">
+            <p><strong>UI/UX Designer</strong></p>
+            <p>Location: Remote</p>
+            <p>Experience: 2-6 years</p>
+            <button class="btn" onclick="viewJobDetails('UI/UX Designer')">View Details</button>
+            <button class="btn" onclick="viewMatches('UI/UX Designer')">View Matches</button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="candidates" class="section" style="display:none;">
+        <h2>
+          Top Candidates
+          <button class="add-btn" onclick="openModal('add-candidate-modal')">+ Add Candidate</button>
+        </h2>
+        <div class="search-bar">
+          <input type="text" id="candidate-search" placeholder="Search candidates..." onkeyup="searchCandidates()">
+        </div>
+        <div id="candidates-container">
+          <div class="card" data-name="Rahul S">
+            <p><strong>Rahul S</strong> - Full Stack Developer</p>
+            <p>Skills: React, Node, MySQL</p>
+            <p>Experience: 4 years</p>
+            <button class="btn" onclick="viewProfile('Rahul S')">View Profile</button>
+          </div>
+          <div class="card" data-name="Priya K">
+            <p><strong>Priya K</strong> - UI/UX Designer</p>
+            <p>Skills: Figma, Adobe XD, User Research</p>
+            <p>Experience: 3 years</p>
+            <button class="btn" onclick="viewProfile('Priya K')">View Profile</button>
+          </div>
+          <div class="card" data-name="Arun M">
+            <p><strong>Arun M</strong> - Backend Developer</p>
+            <p>Skills: Java, Spring Boot, PostgreSQL</p>
+            <p>Experience: 5 years</p>
+            <button class="btn" onclick="viewProfile('Arun M')">View Profile</button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="pipeline" class="section" style="display:none;">
+        <h2>Pipeline Overview</h2>
+        <div class="stage-container">
+          <div class="stage">
+            <h3>Application (20)</h3>
+            <div class="candidate-card">
+              <h4>Rahul S</h4>
+              <p>Frontend Developer</p>
+              <span class="badge">React</span>
+              <span class="badge">Node</span>
+            </div>
+            <div class="candidate-card">
+              <h4>Priya K</h4>
+              <p>UI/UX Designer</p>
+              <span class="badge">Figma</span>
+              <span class="badge">UX Research</span>
+            </div>
+            <div class="candidate-card">
+              <h4>Arun M</h4>
+              <p>Backend Developer</p>
+              <span class="badge">Java</span>
+              <span class="badge">Spring</span>
+            </div>
+          </div>
+          
+          <div class="stage">
+            <h3>Interview (10)</h3>
+            <div class="candidate-card">
+              <h4>Neha D</h4>
+              <p>Frontend Developer</p>
+              <span class="badge">React</span>
+              <span class="badge">Vue</span>
+            </div>
+            <div class="candidate-card">
+              <h4>Suresh P</h4>
+              <p>Backend Developer</p>
+              <span class="badge">Python</span>
+              <span class="badge">Django</span>
+            </div>
+          </div>
+          
+          <div class="stage">
+            <h3>Offer (3)</h3>
+            <div class="candidate-card">
+              <h4>Vikram S</h4>
+              <p>Full Stack Developer</p>
+              <span class="badge">MERN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="applications" class="section" style="display:none;">
+        <h2>Manage Applications</h2>
+        <div class="search-bar">
+          <input type="text" id="application-search" placeholder="Search applications..." onkeyup="searchApplications()">
+        </div>
+        <div id="applications-container">
+          <div class="card" data-applicant="Rahul S">
+            <p><strong>Rahul S</strong> - Applied for Frontend Developer</p>
+            <p>Applied: April 15, 2025</p>
+            <button class="btn" onclick="viewApplication('Rahul S')">View Application</button>
+            <button class="btn" onclick="shortlistCandidate('Rahul S')">Shortlist</button>
+            <button class="btn" onclick="rejectCandidate('Rahul S')">Reject</button>
+          </div>
+          <div class="card" data-applicant="Priya K">
+            <p><strong>Priya K</strong> - Applied for UI/UX Designer</p>
+            <p>Applied: April 14, 2025</p>
+            <button class="btn" onclick="viewApplication('Priya K')">View Application</button>
+            <button class="btn" onclick="shortlistCandidate('Priya K')">Shortlist</button>
+            <button class="btn" onclick="rejectCandidate('Priya K')">Reject</button>
+          </div>
+          <div class="card" data-applicant="Arun M">
+            <p><strong>Arun M</strong> - Applied for Backend Engineer</p>
+            <p>Applied: April 12, 2025</p>
+            <button class="btn" onclick="viewApplication('Arun M')">View Application</button>
+            <button class="btn" onclick="shortlistCandidate('Arun M')">Shortlist</button>
+            <button class="btn" onclick="rejectCandidate('Arun M')">Reject</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Add Job Modal -->
+  <div id="add-job-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('add-job-modal')">&times;</span>
+      <h2>Add New Job Post</h2>
+      <form id="add-job-form">
+        <div class="form-group">
+          <label for="job-title">Job Title</label>
+          <input type="text" id="job-title" required>
+        </div>
+        <div class="form-group">
+          <label for="job-location">Location</label>
+          <input type="text" id="job-location" required>
+        </div>
+        <div class="form-group">
+          <label for="job-experience">Experience Required</label>
+          <input type="text" id="job-experience" placeholder="e.g. 2-4 years" required>
+        </div>
+        <div class="form-group">
+          <label for="job-description">Job Description</label>
+          <textarea id="job-description" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn">Add Job</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Add Candidate Modal -->
+  <div id="add-candidate-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('add-candidate-modal')">&times;</span>
+      <h2>Add New Candidate</h2>
+      <form id="add-candidate-form">
+        <div class="form-group">
+          <label for="candidate-name">Name</label>
+          <input type="text" id="candidate-name" required>
+        </div>
+        <div class="form-group">
+          <label for="candidate-position">Position</label>
+          <input type="text" id="candidate-position" required>
+        </div>
+        <div class="form-group">
+          <label for="candidate-skills">Skills (comma separated)</label>
+          <input type="text" id="candidate-skills" required>
+        </div>
+        <div class="form-group">
+          <label for="candidate-experience">Experience (years)</label>
+          <input type="number" id="candidate-experience" required>
+        </div>
+        <button type="submit" class="btn">Add Candidate</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Navigation functionality
+    function showSection(id) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      
+      // Show selected section
+      document.getElementById(id).style.display = 'block';
+      
+      // Update active nav item
+      document.querySelectorAll('.sidebar li').forEach(item => item.classList.remove('active'));
+      document.getElementById('nav-' + id).classList.add('active');
+    }
+    
+    // Modal functionality
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    
+    // Close modal if clicked outside
+    window.onclick = function(event) {
+      document.querySelectorAll('.modal').forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    }
+    
+    // Search functionality
+    function searchJobs() {
+      const searchTerm = document.getElementById('job-search').value.toLowerCase();
+      const jobCards = document.querySelectorAll('#jobs-container .card');
+      
+      jobCards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    function searchCandidates() {
+      const searchTerm = document.getElementById('candidate-search').value.toLowerCase();
+      const candidateCards = document.querySelectorAll('#candidates-container .card');
+      
+      candidateCards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        if (name.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    function searchApplications() {
+      const searchTerm = document.getElementById('application-search').value.toLowerCase();
+      const appCards = document.querySelectorAll('#applications-container .card');
+      
+      appCards.forEach(card => {
+        const applicant = card.getAttribute('data-applicant').toLowerCase();
+        if (applicant.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    // Form submission handlers
+    document.getElementById('add-job-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const title = document.getElementById('job-title').value;
+      const location = document.getElementById('job-location').value;
+      const experience = document.getElementById('job-experience').value;
+      
+      // Create new job card
+      const newJob = document.createElement('div');
+      newJob.className = 'card';
+      newJob.setAttribute('data-title', title);
+      newJob.innerHTML = `
+        <p><strong>${title}</strong></p>
+        <p>Location: ${location}</p>
+        <p>Experience: ${experience}</p>
+        <button class="btn" onclick="viewJobDetails('${title}')">View Details</button>
+        <button class="btn" onclick="viewMatches('${title}')">View Matches</button>
+      `;
+      
+      document.getElementById('jobs-container').appendChild(newJob);
+      closeModal('add-job-modal');
+      
+      // Reset form
+      document.getElementById('add-job-form').reset();
+    });
+    
+    document.getElementById('add-candidate-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('candidate-name').value;
+      const position = document.getElementById('candidate-position').value;
+      const skills = document.getElementById('candidate-skills').value;
+      const experience = document.getElementById('candidate-experience').value;
+      
+      // Create new candidate card
+      const newCandidate = document.createElement('div');
+      newCandidate.className = 'card';
+      newCandidate.setAttribute('data-name', name);
+      newCandidate.innerHTML = `
+        <p><strong>${name}</strong> - ${position}</p>
+        <p>Skills: ${skills}</p>
+        <p>Experience: ${experience} years</p>
+        <button class="btn" onclick="viewProfile('${name}')">View Profile</button>
+      `;
+      
+      document.getElementById('candidates-container').appendChild(newCandidate);
+      closeModal('add-candidate-modal');
+      
+      // Reset form
+      document.getElementById('add-candidate-form').reset();
+    });
+    
+    // Action handlers
+    function viewJobDetails(jobTitle) {
+      alert(`Viewing details for ${jobTitle}`);
+      // In a real app, you would show job details here
+    }
+    
+    function viewMatches(jobTitle) {
+      alert(`Viewing matches for ${jobTitle}`);
+      // In a real app, you would show matching candidates
+    }
+    
+    function viewProfile(candidateName) {
+      alert(`Viewing profile for ${candidateName}`);
+      // In a real app, you would show candidate profile
+    }
+    
+    function viewApplication(candidateName) {
+      alert(`Viewing application from ${candidateName}`);
+      // In a real app, you would show application details
+    }
+    
+    function shortlistCandidate(candidateName) {
+      alert(`${candidateName} has been shortlisted`);
+      // In a real app, you would update the candidate status
+    }
+    
+    function rejectCandidate(candidateName) {
+      const confirmed = confirm(`Are you sure you want to reject ${candidateName}?`);
+      if (confirmed) {
+        alert(`${candidateName} has been rejected`);
+        // In a real app, you would update the candidate status
+      }
+    }
+  </script>
+</body>
+</html>
