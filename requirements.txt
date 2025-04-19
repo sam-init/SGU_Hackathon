@@ -1,0 +1,10 @@
+Flask
+firebase-admin
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+gspread
+python-dotenv
+requests
+algoliasearch

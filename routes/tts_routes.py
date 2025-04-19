@@ -2,9 +2,10 @@ from flask import Blueprint, request, Response
 import os
 from google.cloud import translate_v2 as translate
 from google.cloud import texttospeech
+from routes.config import GOOGLE_APPLICATION_CREDENTIALS
 
 tts_bp = Blueprint('tts', __name__)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "durable-kingdom-456901-u8-db29a531aa4f.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
 
 translate_client = translate.Client()
 tts_client = texttospeech.TextToSpeechClient()

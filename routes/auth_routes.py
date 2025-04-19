@@ -1,31 +1,16 @@
 from flask import Flask,Blueprint, request, render_template, redirect, url_for,flash,jsonify,session
-from firebase_admin import auth
+from firebase_admin import auth,firestore
 import requests
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from routes.config import FIREBASE_WEB_API_KEY,db
+from routes.config import FIREBASE_WEB_API_KEY,db,SCOPES,google_creds,SHEET1,FOLDER_ID
 
 import gspread
 auth_bp=Blueprint('auth',__name__)
 
-# Google APIs Auth
-SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/spreadsheets']
-google_creds = service_account.Credentials.from_service_account_file(
-    'flask-62adb-firebase-adminsdk-fbsvc-94d4843991.json', scopes=SCOPES)
 
-# Google Drive API
-drive_service = build('drive', 'v3', credentials=google_creds)
 
-# Google Sheets API
-gc = gspread.authorize(google_creds)
-SHEET = gc.open_by_key("1jqevTaHVGuDJTnusng_YkcpgOiOzFckt3eYWKO-qF7s").sheet1  # Correctly access your sheet
 
-# Google Drive Folder ID (the folder where you want to upload the photo)
-FOLDER_ID = '18EbrsLpGepOh5XxYoIIRExdBSjvxaUOR'  # Replace with your folder ID from Google Drive
-
-from flask import render_template, redirect, url_for, flash, request
-import uuid
-from firebase_admin import auth, firestore
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def register():
@@ -214,15 +199,15 @@ def employer_form():
             print("🔥 Firebase user created")
 
             # Google Sheet Header Setup
-            values = SHEET.get_all_values()
+            values = SHEET1.get_all_values()
             if not values or not values[0]:
-                SHEET.insert_row([
+                SHEET1.insert_row([
                     "Name", "Email", "Country", "State", "District", "Phone", "Role", "Company", "Job Title"
                 ], index=1)
                 print("📝 Headers added to Sheet")
 
             # Append to Sheet
-            SHEET.append_row([
+            SHEET1.append_row([
                 name, email, country, state, district, phone, role, company, job_title,
             ])
             print("✅ Data appended to Google Sheet")
