@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv 
 load_dotenv()
 
-import json
+import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Blueprint
 import gspread
@@ -12,21 +12,17 @@ from googleapiclient.discovery import build
 config_bp = Blueprint('config', __name__)
 
 # Firebase Admin SDK
-
-firebase_cred_json = os.getenv("FIREBASE_CRED")
-cred_dict = json.loads(firebase_cred_json)
-cred = credentials.Certificate(cred_dict)
+firebase_cred_path = os.getenv('FIREBASE_ADMIN_CRED')
+cred = credentials.Certificate(firebase_cred_path)
+firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Google Service Account for GDrive + Sheets
 SCOPES = os.getenv('GOOGLE_SCOPES').split()
-google_cred_json = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
-google_creds = service_account.Credentials.from_service_account_info(
-    json.loads(google_cred_json),
-    scopes=SCOPES
-)
+google_cred_path = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
+google_creds = service_account.Credentials.from_service_account_file(google_cred_path, scopes=SCOPES)
 gc = gspread.authorize(google_creds)
-GOOGLE_APPLICATION_CREDENTIALS = json.loads(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
+GOOGLE_APPLICATION_CREDENTIALS=os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 # Sheets
 sheet = gc.open_by_key(os.getenv("SHEET_KEY"))
 SHEET1 = sheet.worksheet(os.getenv("SHEET1_NAME"))
