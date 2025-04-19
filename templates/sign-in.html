@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SabKoKaam - Sign Up</title>
+<<<<<<< HEAD
   <link rel="stylesheet" href="../static/css/sign-in.css" />
 </head>
 <body>
@@ -15,6 +16,38 @@
 
     <div class="form-body">
       <form id="signup-form">
+=======
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-in.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="form-header" id="content">
+      <h1>Join SabKoKaam</h1>
+      <p >Create your account to find work opportunities near you</p>
+    </div>
+  
+        <!-- Language selection dropdown -->
+        <label for="language">Select Language:</label>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="kn">Kannada</option>
+          <option value="ml">Malayalam</option>
+        </select>
+     
+  
+      <!-- Button to trigger speech -->
+      <button type="button" onclick="speakText()">Speak Text</button>
+  
+      <!-- Audio element to play the speech -->
+      <audio id="audio" style="display: none" controls></audio>
+    
+  
+  
+
+    <div class="form-body">
+      <form id="signup-form" action="{{ url_for('auth.register') }}" method="post">
+>>>>>>> bd429f0713bc99892ab6aa0a18274a4950364fde
         <div class="form-message success-message">Your information has been saved successfully!</div>
         <div class="form-message error-message">Please correct the errors in the form and try again.</div>
 
@@ -81,7 +114,12 @@
             </select>
           </div>
         </div>
+<<<<<<< HEAD
 <p><b>Select your role</b></p>
+=======
+
+        <p><b>Select your role</b></p>
+>>>>>>> bd429f0713bc99892ab6aa0a18274a4950364fde
         <!-- Radio Buttons for Role -->
         <div class="form-group">
           <label>
@@ -128,11 +166,16 @@
         </div>
 
         <div class="or-login">
+<<<<<<< HEAD
           Already have an account? <a href="#" class="login-link">Login here</a>
+=======
+          Already have an account? <a href="{{url_for('auth.login')}}" class="login-link">Login here</a>
+>>>>>>> bd429f0713bc99892ab6aa0a18274a4950364fde
         </div>
       </form>
     </div>
   </div>
+<<<<<<< HEAD
 
   <script src="../static/js/sign-in.js"></script>
 </body>
@@ -293,8 +336,14 @@
       </form>
     </div>
   </div>
+=======
+>>>>>>> bd429f0713bc99892ab6aa0a18274a4950364fde
 </div>
 
   <script src="{{ url_for('static', filename='js/sign-in.js') }}"></script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> bd429f0713bc99892ab6aa0a18274a4950364fde

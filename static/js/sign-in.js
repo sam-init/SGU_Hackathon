@@ -77,7 +77,7 @@
                         field.style.borderColor = '';
                     }
                 });
->>>>>>> samarth
+>>>>>>> f51d4bcb1a821131ee632c145d119a1d52e02afc
                 
                 // Check DOB for age verification
                 if (dobInput.value) {
@@ -169,4 +169,4 @@
 =======
             });
         });
->>>>>>> samarth
+>>>>>>> f51d4bcb1a821131ee632c145d119a1d52e02afc
