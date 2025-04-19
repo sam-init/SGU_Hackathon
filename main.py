@@ -1,4 +1,4 @@
-from flask import Flask,redirect,url_for
+from flask import Flask,redirect,url_for,render_template
 from routes.auth_routes  import auth_bp 
 from routes.job_routes  import job_bp  
 from routes.tts_routes  import tts_bp  
@@ -21,7 +21,7 @@ app.register_blueprint(config_bp, url_prefix='/config')
 # Default route
 @app.route('/')
 def index():
-    return redirect(url_for('auth.register'))
+    return render_template('landing.html')
 
 # Run the app
 if __name__ == '__main__':
