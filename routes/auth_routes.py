@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for,flash,jsonify,session
-
 from firebase_admin import auth,firestore
 import requests
 from oauth2client.service_account import ServiceAccountCredentials
@@ -9,7 +8,6 @@ from werkzeug.utils import secure_filename
 import os, uuid,io
 from googleapiclient.http import MediaIoBaseUpload
 
-import gspread
 auth_bp=Blueprint('auth',__name__)
 
 
@@ -124,7 +122,7 @@ def login():
 
             # 🔍 Search for UID in all 3 collections
             db_client = firestore.client()
-            collections_to_search = ['users', 'Cemployers', 'Cemployee']
+            collections_to_search = ['users', 'Cemployers', 'Cemployees']
             user_doc = None
             found_collection = None
 
@@ -137,9 +135,6 @@ def login():
                     print(f"User found in collection: {found_collection}")
                     break  # Stop after finding the first match
 
-            if not user_doc:
-                flash("No user data found in Firestore.", 'error')
-                return render_template('login.html')
 
             # Get user data and role
             user_data = user_doc.to_dict()
@@ -149,11 +144,11 @@ def login():
             # 🔀 Redirect based on role
             if role == "LEmployee":
                 return redirect(url_for('auth.category_selection'))
-            elif role == 'LEmployer':
+            elif role == "LEmployer":
                 return redirect(url_for('lerdash'))
-            elif role == 'CEmployee':
+            elif role == "CEmployee":
                 return redirect(url_for('auth.employee_info'))
-            elif role == 'CEmployer':
+            elif role == "CEmployer":
                 return redirect(url_for('job.post_job'))
             else:
                 flash("No valid role assigned.", 'warning')
@@ -188,7 +183,7 @@ def category_selection():
         if selected_categories:
             try:
                 user_ref.set({"categories": selected_categories}, merge=True)# Save to Firestore
-                return redirect(url_for('index'))
+                return render_template('lb_employee Db.html')
             except Exception as e:
                 print(f"Error updating categories: {str(e)}", "error")
                 return render_template('map.html')
@@ -266,7 +261,7 @@ def employer_form():
             
             # Redirect based on role
             if role == 'CEmployer':
-                return redirect(url_for('auth.login'))
+                return redirect(url_for('job.post_job'))
             else:
                 return redirect(url_for('auth.employee_info'))
 
