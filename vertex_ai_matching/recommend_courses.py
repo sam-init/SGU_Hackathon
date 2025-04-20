@@ -12,7 +12,7 @@ from google.oauth2.service_account import Credentials
 SHEET_ID = "1gz85Kt6E_Lwu4GBiG-7z9jeB_iCIRE34Wtcf47aaa-0"
 SHEET_EMP = "coop_emp_yt"
 SHEET_OUT = "coop_emp_yt_op"
-SERVICE_ACCOUNT_FILE = "service_account.json"
+SERVICE_ACCOUNT_FILE = "vertex-ai-456914-c9e08f089482.json"
 
 GEMINI_MODEL = "gemini-2.5-pro-preview-03-25"
 YT_API_KEY = "AIzaSyD3WWXfZ7MVyZ7ryaPKUxHgDOCUaC6hI-U"
