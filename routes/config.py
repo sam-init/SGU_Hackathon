@@ -25,9 +25,11 @@ gc = gspread.authorize(google_creds)
 GOOGLE_APPLICATION_CREDENTIALS=os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 # Sheets
 sheet = gc.open_by_key(os.getenv("SHEET_KEY"))
+sheet2 = gc.open_by_key(os.getenv("SHEET2_KEY"))
 SHEET1 = sheet.worksheet(os.getenv("SHEET1_NAME"))
 SHEET2 = sheet.worksheet(os.getenv("SHEET2_NAME"))
 SHEET3 = sheet.worksheet(os.getenv("SHEET3_NAME"))
+SHEET4 = sheet2.worksheet(os.getenv("SHEET4_NAME"))
 
 # Drive
 drive_service = build('drive', 'v3', credentials=google_creds)
