@@ -458,66 +458,110 @@
   <div class="main-container">
     <div class="form-container">
       <form id="jobPostForm" action="{{url_for('job.post_job')}}" method="post" enctype="multipart/form-data">
+        <!-- Basic Information Section -->
         <div class="form-section">
-          <h2 class="form-section-title">Basic Job Details</h2>
-      
-          <div class="form-row">
-            <div class="form-col">
-              <div class="form-group">
-                <label for="hr_name" class="required">HR Name</label>
-                <input type="text" id="hr_name" name="hr_name" placeholder="e.g. John Doe" required>
-              </div>
-            </div>
-            <div class="form-col">
-              <div class="form-group">
-                <label for="job_id" class="required">Job ID</label>
-                <input type="text" id="job_id" name="job_id" placeholder="e.g. JOB12345" required>
-              </div>
-            </div>
-          </div>
-      
+          <h2 class="form-section-title">Basic Information</h2>
           <div class="form-row">
             <div class="form-col">
               <div class="form-group">
                 <label for="job_title" class="required">Job Title</label>
-                <input type="text" id="job_title" name="job_title" placeholder="e.g. Software Engineer" required>
+                <input type="text" id="job_title" name="job_title" placeholder="e.g. Senior Software Engineer" required>
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
-                <label for="required_skills" class="required">Required Skills</label>
-                <input type="text" id="required_skills" name="required_skills" placeholder="e.g. Python, SQL, Django" required>
+                <label for="job_type">Job Type</label>
+                <select id="job_type" name="job_type">
+                  <option value="full-time">Full-time</option>
+                  <option value="part-time">Part-time</option>
+                  <option value="contract">Contract</option>
+                  <option value="internship">Internship</option>
+                </select>
               </div>
             </div>
           </div>
-      
+          
           <div class="form-row">
             <div class="form-col">
               <div class="form-group">
-                <label for="experience_required" class="required">Experience Required (in years)</label>
-                <input type="number" id="experience_required" name="experience_required" min="0" placeholder="e.g. 2" required>
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="e.g. Engineering">
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
-                <label for="job_location" class="required">Job Location</label>
-                <input type="text" id="job_location" name="job_location" placeholder="e.g. Bangalore" required>
+                <label for="experience_required" class="required">Experience Required (years)</label>
+                <input type="number" id="experience_required" name="experience_required" min="0" placeholder="e.g. 3" required>
               </div>
             </div>
           </div>
-      
-          <div class="form-group">
-            <label for="job_description" class="required">Job Description</label>
-            <textarea id="job_description" name="job_description" placeholder="Brief about the job, expectations, responsibilities..." required></textarea>
+          
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-group">
+                <label for="job_location" class="required">Job Location</label>
+                <input type="text" id="job_location" name="job_location" placeholder="e.g. San Francisco, CA or Remote" required>
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label for="application_deadline">Application Deadline</label>
+                <input type="date" id="application_deadline" name="application_deadline">
+              </div>
+            </div>
           </div>
         </div>
-      
+        
+        <!-- Skills & Requirements Section -->
+        <div class="form-section">
+          <h2 class="form-section-title">Skills & Requirements</h2>
+          <div class="form-group">
+            <label for="required_skills" class="required">Required Skills</label>
+            <input type="text" id="required_skills" name="required_skills" placeholder="e.g. JavaScript, React, Node.js" required>
+            <span class="helper-text">Separate skills with commas for better AI matching</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="preferred_skills">Preferred Skills (Optional)</label>
+            <input type="text" id="preferred_skills" name="preferred_skills" placeholder="e.g. TypeScript, AWS, Docker">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-group">
+                <label for="education">Education Requirements</label>
+                <input type="text" id="education" name="education" placeholder="e.g. Bachelor's degree in Computer Science">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label for="salary_range">Salary Range (Optional)</label>
+                <input type="text" id="salary_range" name="salary_range" placeholder="e.g. $80,000 - $100,000">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Description Section -->
+        <div class="form-section">
+          <h2 class="form-section-title">Job Description</h2>
+          <div class="form-group">
+            <label for="job_description" class="required">Job Description</label>
+            <textarea id="job_description" name="job_description" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="benefits">Benefits & Perks (Optional)</label>
+            <textarea id="benefits" name="benefits" placeholder="List benefits such as health insurance, 401(k), flexible work hours, etc."></textarea>
+          </div>
+        </div>
+        
+        <!-- Buttons -->
         <div class="btn-container">
           <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
           <button type="submit" class="btn btn-primary">Create Job Post</button>
         </div>
       </form>
-      
     </div>
   </div>
   
