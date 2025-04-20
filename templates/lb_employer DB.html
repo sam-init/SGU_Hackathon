@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SabKoKaam - Employer Dashboard</title>
+    <link rel="stylesheet" href="../static/css/lb_employer DB.css">""""
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="/api/placeholder/40/40" alt="SabKoKaam Logo"> SabKoKaam
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-name">Ramesh Industries</div>
+                    <div class="user-type">Employer Account</div>
+                </div>
+                <div class="profile-circle">RI</div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#">Post Jobs</a></li>
+                <li><a href="#">My Jobs</a></li>
+                <li><a href="#">Messages</a></li>
+                <li><a href="#">Transactions</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+            <div class="search-notifications">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="notifications">
+                    <span>🔔</span>
+                    <span class="notification-count">3</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <section class="dashboard-section">
+                <h2 class="section-title">Employer Dashboard</h2>
+                
+                <div class="employer-info">
+                    <h3 class="employer-name">Welcome, Ramesh Industries</h3>
+                    <div class="job-categories">
+                        <h4 class="subtitle">Your Job Post Categories:</h4>
+                        <div class="category-tags">
+                            <span class="category-tag">Construction</span>
+                            <span class="category-tag">Carpentry</span>
+                            <span class="category-tag">Masonry</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h4 class="filter-title">Filter Matched Profiles</h4>
+                    <div class="filter-options">
+                        <div class="filter-group">
+                            <label for="location">Location</label>
+                            <select id="location">
+                                <option value="">All Locations</option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="pune">Pune</option>
+                                <option value="nagpur">Nagpur</option>
+                                <option value="nashik">Nashik</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="salary">Max Expected Salary (₹/day)</label>
+                            <input type="number" id="salary" placeholder="Any salary">
+                        </div>
+                        <div class="filter-group">
+                            <label for="experience">Experience (Years)</label>
+                            <select id="experience">
+                                <option value="">Any Experience</option>
+                                <option value="0-2">0-2 years</option>
+                                <option value="3-5">3-5 years</option>
+                                <option value="5+">5+ years</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="reset-filter">Reset</button>
+                        <button class="apply-filter">Apply Filters</button>
+                    </div>
+                </div>
+                
+                <h3 class="matches-title">Matched Employee Profiles (12)</h3>
+                <div class="profile-grid">
+                    <!-- Employee Profile 1 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="/api/placeholder/400/400" alt="Employee Profile" class="profile-img">
+                            <div class="profile-info">
+                                <h2 class="profile-name">Rajesh Kumar</h2>
+                                <p class="profile-match">98% Match</p>
+                                <p>Experienced in construction for 7+ years</p>
+                            </div>
+                        </div>
+                        <div class="profile-body">
+                            <div class="profile-detail">
+                                <span class="detail-label">Skills/Categories:</span>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">Construction</span>
+                                    <span class="skill-tag">Masonry</span>
+                                    <span class="skill-tag">Carpentry</span>
+                                    <span class="skill-tag">Painting</span>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Preferred Location:</span>
+                                <p>Mumbai, Maharashtra</p>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Expected Salary:</span>
+                                <p>₹750 - ₹900 per day</p>
+                            </div>
+                            
+                            <button class="contact-button" onclick="toggleContact(this)">View Contact Info</button>
+                            
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon">📱</div>
+                                    <div class="contact-text">+91 98765 43210</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📧</div>
+                                    <div class="contact-text">rajesh.k@example.com</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📅</div>
+                                    <div class="contact-text">Available: Immediately</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Employee Profile 2 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="/api/placeholder/400/400" alt="Employee Profile" class="profile-img">
+                            <div class="profile-info">
+                                <h2 class="profile-name">Sunil Patil</h2>
+                                <p class="profile-match">95% Match</p>
+                                <p>Expert in carpentry with 5 years experience</p>
+                            </div>
+                        </div>
+                        <div class="profile-body">
+                            <div class="profile-detail">
+                                <span class="detail-label">Skills/Categories:</span>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">Carpentry</span>
+                                    <span class="skill-tag">Furniture Making</span>
+                                    <span class="skill-tag">Construction</span>
+                                    <span class="skill-tag">Woodworking</span>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Preferred Location:</span>
+                                <p>Thane, Maharashtra</p>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Expected Salary:</span>
+                                <p>₹800 - ₹950 per day</p>
+                            </div>
+                            
+                            <button class="contact-button" onclick="toggleContact(this)">View Contact Info</button>
+                            
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon">📱</div>
+                                    <div class="contact-text">+91 87654 32109</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📧</div>
+                                    <div class="contact-text">sunil.p@example.com</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📅</div>
+                                    <div class="contact-text">Available: In 1 week</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Employee Profile 3 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="/api/placeholder/400/400" alt="Employee Profile" class="profile-img">
+                            <div class="profile-info">
+                                <h2 class="profile-name">Dinesh Sharma</h2>
+                                <p class="profile-match">92% Match</p>
+                                <p>Specialized in masonry and bricklaying</p>
+                            </div>
+                        </div>
+                        <div class="profile-body">
+                            <div class="profile-detail">
+                                <span class="detail-label">Skills/Categories:</span>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">Masonry</span>
+                                    <span class="skill-tag">Bricklaying</span>
+                                    <span class="skill-tag">Construction</span>
+                                    <span class="skill-tag">Plastering</span>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Preferred Location:</span>
+                                <p>Mumbai, Maharashtra</p>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Expected Salary:</span>
+                                <p>₹700 - ₹850 per day</p>
+                            </div>
+                            
+                            <button class="contact-button" onclick="toggleContact(this)">View Contact Info</button>
+                            
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon">📱</div>
+                                    <div class="contact-text">+91 76543 21098</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📧</div>
+                                    <div class="contact-text">dinesh.s@example.com</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📅</div>
+                                    <div class="contact-text">Available: Immediately</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Employee Profile 4 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <img src="/api/placeholder/400/400" alt="Employee Profile" class="profile-img">
+                            <div class="profile-info">
+                                <h2 class="profile-name">Anil Verma</h2>
+                                <p class="profile-match">89% Match</p>
+                                <p>Multi-skilled worker with construction experience</p>
+                            </div>
+                        </div>
+                        <div class="profile-body">
+                            <div class="profile-detail">
+                                <span class="detail-label">Skills/Categories:</span>
+                                <div class="skills-tags">
+                                    <span class="skill-tag">Construction</span>
+                                    <span class="skill-tag">Painting</span>
+                                    <span class="skill-tag">Basic Carpentry</span>
+                                    <span class="skill-tag">Tiling</span>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Preferred Location:</span>
+                                <p>Navi Mumbai, Maharashtra</p>
+                            </div>
+                            
+                            <div class="profile-detail">
+                                <span class="detail-label">Expected Salary:</span>
+                                <p>₹650 - ₹800 per day</p>
+                            </div>
+                            
+                            <button class="contact-button" onclick="toggleContact(this)">View Contact Info</button>
+                            
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon">📱</div>
+                                    <div class="contact-text">+91 65432 10987</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📧</div>
+                                    <div class="contact-text">anil.v@example.com</div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon">📅</div>
+                                    <div class="contact-text">Available: In 2 days</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SabKoKaam</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>For Employers</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Post a Job
+                        <li><a href="#">Post a Job</a></li>
+                        <li><a href="#">Browse Workers</a></li>
+                        <li><a href="#">Pricing Plans</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Employer FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>For Workers</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Find Jobs</a></li>
+                        <li><a href="#">Create Profile</a></li>
+                        <li><a href="#">Skill Development</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Worker FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info-footer">
+                        <div><i>📍</i> 123 Work Street, Mumbai, MH 400001</div>
+                        <div><i>📞</i> +91 1800-123-4567</div>
+                        <div><i>📧</i> support@sabkokaam.com</div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">t</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">ig</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 SabKoKaam. All rights reserved. | <a href="#" style="color: #ddd; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #ddd; text-decoration: none;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../static/js/lb_employer DB.js"></script>
+</body>
+</html>
