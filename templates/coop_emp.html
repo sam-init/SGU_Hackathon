@@ -1,106 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Employee Dashboard | JobSensei</title>
-  <link rel="stylesheet" href="../static/css/coop_emp.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coop Employee Dashboard</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #0053a6;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        /* Main Content Styles */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: #0053a6;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        /* Profile Section */
+        .profile {
+            grid-column: 1 / -1;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .profile-content {
+                grid-template-columns: 200px 1fr;
+            }
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #0053a6;
+            margin: 0 auto;
+        }
+        
+        .profile-info h2 {
+            margin-bottom: 10px;
+            color: #0053a6;
+        }
+        
+        .profile-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .profile-details {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .detail-item {
+            margin-bottom: 10px;
+        }
+        
+        .detail-item strong {
+            display: block;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        /* Skills Tags */
+        .skills-list {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background-color: #e6f0f9;
+            color: #0053a6;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Course Section */
+        .course-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .course-card h3 {
+            color: #0053a6;
+            margin-bottom: 10px;
+        }
+        
+        .course-card p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background-color: #0053a6;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .link-button:hover {
+            background-color: #003b75;
+        }
+        
+        /* Job Section */
+        .job-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .job-header {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .job-title {
+            color: #0053a6;
+            margin-bottom: 5px;
+        }
+        
+        .job-company {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .job-body {
+            padding: 15px;
+        }
+        
+        .job-details p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .job-match {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .match-score {
+            font-weight: bold;
+            font-size: 18px;
+            color: #0053a6;
+            margin-right: 10px;
+            width: 50px;
+        }
+        
+        .match-bar {
+            flex-grow: 1;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .match-fill {
+            height: 100%;
+            background-color: #0053a6;
+        }
+        
+        .job-apply {
+            display: block;
+            background-color: #0053a6;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .job-apply:hover {
+            background-color: #003b75;
+        }
+        
+        /* Loading and Error States */
+        .loading, .error {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .loading {
+            color: #666;
+        }
+        
+        .error {
+            color: #d9534f;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="navbar-container">
-        <a href="/" class="navbar-logo">
-        <span>TechCorp</span>
-        </a>
-        
-        <button class="navbar-toggle" id="navbar-toggle">
-        ☰
-        </button>
-        
-        <ul class="navbar-menu" id="navbar-menu">
-        <li class="navbar-item"><a href="/" class="active">Home</a></li>
-        <li class="navbar-item"><a href="/dashboard">Dashboard</a></li>
-        <li class="navbar-item"><a href="/jobs">Jobs</a></li>
-        <li class="navbar-item"><a href="/courses">Courses</a></li>
-        <li class="navbar-item"><a href="/profile">Profile</a></li>
-        </ul>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Coop Employee Dashboard</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="dashboard">
+            <!-- Profile Section -->
+            <div class="card profile">
+                <div class="card-header">Employee Profile</div>
+                <div class="card-body">
+                    <div class="profile-content">
+                        <div class="profile-image">RS</div>
+                        <div class="profile-info">
+                            <h2>Rahul S</h2>
+                            <div class="profile-details">
+                                <div>
+                                    <div class="detail-item">
+                                        <strong>Location</strong>
+                                        <span>Mumbai, India</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Education</strong>
+                                        <span>B.Tech Computer Science</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Experience</strong>
+                                        <span>3 years</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="detail-item">
+                                        <strong>Preferred Role</strong>
+                                        <span>Full Stack Developer</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Skills</strong>
+                                        <div class="skills-list">
+                                            <span class="skill-tag">JavaScript</span>
+                                            <span class="skill-tag">React</span>
+                                            <span class="skill-tag">Node.js</span>
+                                            <span class="skill-tag">Python</span>
+                                            <span class="skill-tag">MongoDB</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommended Courses Section -->
+            <div class="card">
+                <div class="card-header">Recommended Courses</div>
+                <div class="card-body">
+                    <div id="coursesLoading" class="loading">Loading courses...</div>
+                    <div id="coursesError" class="error"></div>
+                    <div id="coursesList"></div>
+                </div>
+            </div>
+            
+            <!-- Job Matches Section -->
+            <div class="card">
+                <div class="card-header">Job Matches</div>
+                <div class="card-body">
+                    <div id="jobsLoading" class="loading">Loading job matches...</div>
+                    <div id="jobsError" class="error"></div>
+                    <div id="jobsList"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
-  <div id="sidebar">
-    <h2>JobSensei</h2>
-    <ul>
-      <li><a href="#profile">Profile</a></li>
-      <li><a href="#skills">Skill Assessment</a></li>
-      <li><a href="#jobs">Job Recommendations</a></li>
-      <li><a href="#courses">Learning</a></li>
-    </ul>
-  </div>
+    
+    <script>
+        // Sample data for Rahul S - replace with API call in production
 
-  <div id="main">
-    <!-- 👤 Profile Section -->
-    <section id="profile">
-      <h3>Welcome, <span id="emp-name">Employee Name</span></h3>
-      <p><strong>Location:</strong> <span id="emp-location">City</span></p>
-      <p><strong>Education:</strong> <span id="emp-education">Degree</span></p>
-      <p><strong>Preferred Role:</strong> <span id="emp-role">Full Stack Developer</span></p>
-    </section>
+        // Sample data for Rahul S - replace with API call in production
+        const rahulData = {
+            name: "Rahul S",
+            location: "Mumbai, India",
+            education: "B.Tech Computer Science",
+            experience: "3 years",
+            preferred_role: "Full Stack Developer",
+            skills: ["JavaScript", "React", "Node.js", "Python", "MongoDB"]
+        };
 
-    <!-- 🧠 Skill Assessment -->
-    <section id="skills">
-      <h3>Skill Assessment</h3>
-      <div class="skill-list">
-        <!-- Skill blocks -->
-        <div class="skill-block" data-skill="Python">
-          <span>Python</span>
-          <div class="bar-container"><div class="bar" style="width: 90%"></div></div>
-          <span class="percent">90%</span>
-        </div>
-        <!-- More skill blocks to be dynamically added -->
-      </div>
-    </section>
+        // Use a real YouTube link for Rahul's course
+        const rahulCourse = {
+            title: "Advanced React Development",
+            summary: "Master advanced React concepts including Hooks, Context API, and Redux integration for building scalable applications.",
+            video_link: "https://www.youtube.com/watch?v=w7ejDZ8SWv8", // Real React tutorial
+            for_employee: "Rahul S"
+        };
 
-    <!-- 💼 Job Recommendations -->
-    <section id="jobs">
-      <h3>Recommended Jobs</h3>
-      <div id="job-list">
-        <!-- Template job card -->
-        <div class="job-card template" style="display: none;">
-          <h4 class="job-title">Frontend Developer</h4>
-          <p class="company">Company Name</p>
-          <span class="location">Location</span>
-          <span class="score">Match: 92%</span>
-        </div>
-        <!-- Cards will be cloned here -->
-      </div>
-    </section>
+        // Function to load courses for Rahul S
+        function loadCourses() {
+            const coursesList = document.getElementById('coursesList');
+            const loading = document.getElementById('coursesLoading');
+            const error = document.getElementById('coursesError');
+            
+            try {
+                loading.style.display = 'none';
+                
+                // Create course card for Rahul
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                
+                courseCard.innerHTML = `
+                    <h3>${rahulCourse.title}</h3>
+                    <p>${rahulCourse.summary}</p>
+                    <a href="${rahulCourse.video_link}" class="link-button" target="_blank">Watch Video</a>
+                `;
+                
+                coursesList.appendChild(courseCard);
+            } catch (err) {
+                console.error('Error rendering course data:', err);
+                loading.style.display = 'none';
+                error.textContent = `Error loading courses: ${err.message}`;
+                error.style.display = 'block';
+            }
+        }
 
-    <!-- 🎓 Learning Suggestions -->
-    <section id="courses">
-      <h3>Learning Resources</h3>
-      <div id="course-list">
-        <!-- Template course card -->
-        <div class="course-card template" style="display: none;">
-          <h4 class="course-title">Intro to React</h4>
-          <p class="source">YouTube - freeCodeCamp</p>
-          <a href="#" class="btn">Watch</a>
-        </div>
-        <!-- Courses will be added here -->
-      </div>
-    </section>
-  </div>
-  <script> src="../static/js/coop_emp.js"</script>
-  <!-- JS to hook into API or backend -->
-  <script>
-    // TODO: Replace this with real API endpoint
-    fetch('/api/employee/profile?email=rahul@example.com')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('emp-name').innerText = data.name;
-        document.getElementById('emp-location').innerText = data.location;
-        document.getElementById('emp-education').innerText = data.education;
-        document.getElementById('emp-role').innerText = data.preferred_role;
-        // You can populate skill bars, job and course cards here too
-      });
-  </script>
+        // Function to load job matches using a more reliable method
+        function loadJobMatches() {
+            const jobsList = document.getElementById('jobsList');
+            const loading = document.getElementById('jobsLoading');
+            const error = document.getElementById('jobsError');
+            
+            // Since direct Google Sheets API fetching is causing issues in the browser environment,
+            // let's use hardcoded data from the coop_hr sheet for now
+            const jobsData = [
+                {
+                    job_id: "JD001",
+                    job_title: "Senior Frontend Developer",
+                    company_name: "Tech Cooperative",
+                    job_location: "Mumbai, India",
+                    experience_required: "3+ years",
+                    required_skills: "JavaScript, React, Redux, HTML5, CSS3",
+                    job_description: "Looking for an experienced frontend developer to build responsive web applications."
+                },
+                {
+                    job_id: "JD002",
+                    job_title: "Full Stack Developer",
+                    company_name: "Digital Solutions Coop",
+                    job_location: "Remote",
+                    experience_required: "2-4 years",
+                    required_skills: "JavaScript, Node.js, React, MongoDB",
+                    job_description: "Join our team to develop end-to-end solutions for our clients."
+                },
+                {
+                    job_id: "JD003",
+                    job_title: "Backend Engineer",
+                    company_name: "CloudCoop",
+                    job_location: "Bangalore, India",
+                    experience_required: "3+ years",
+                    required_skills: "Python, Django, PostgreSQL, AWS",
+                    job_description: "Build robust backend services for our cloud-based platform."
+                }
+            ];
+            
+            try {
+                loading.style.display = 'none';
+                
+                // Create job cards
+                jobsData.forEach((job, index) => {
+                    // Match scores for Rahul based on skills alignment
+                    let matchScore;
+                    if (job.job_title.includes("Full Stack")) {
+                        matchScore = 0.95; // Best match for his preferred role
+                    } else if (job.job_title.includes("Frontend")) {
+                        matchScore = 0.85; // Good match based on skills
+                    } else {
+                        matchScore = 0.75; // Lower match for backend
+                    }
+                    
+                    const jobCard = createJobCard(job, matchScore);
+                    jobsList.appendChild(jobCard);
+                });
+            } catch (err) {
+                console.error('Error displaying job data:', err);
+                loading.style.display = 'none';
+                error.textContent = `Error loading jobs: ${err.message}`;
+                error.style.display = 'block';
+            }
+        }
+
+        // Create a job card element
+        function createJobCard(job, matchScore) {
+            const card = document.createElement('div');
+            card.className = 'job-card';
+            
+            // Format the match score as percentage
+            const scorePercent = Math.round(matchScore * 100);
+            
+            card.innerHTML = `
+                <div class="job-header">
+                    <h3 class="job-title">${job.job_title || 'Untitled Position'}</h3>
+                    <p class="job-company">${job.company_name || 'Cooperative'}</p>
+                </div>
+                <div class="job-body">
+                    <div class="job-details">
+                        <p><strong>Location:</strong> ${job.job_location || 'Remote'}</p>
+                        <p><strong>Experience Required:</strong> ${job.experience_required || 'Entry Level'}</p>
+                        <p><strong>Required Skills:</strong> ${job.required_skills || 'Various Skills'}</p>
+                        <p><strong>Description:</strong> ${job.job_description || 'No description available.'}</p>
+                    </div>
+                    <div class="job-match">
+                        <div class="match-score">${scorePercent}%</div>
+                        <div class="match-bar">
+                            <div class="match-fill" style="width: ${scorePercent}%"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="job-apply" onclick="alert('Application submitted for ${job.job_title}!'); return false;">Apply Now</a>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load courses and jobs
+            loadCourses();
+            loadJobMatches();
+        });
+    </script>
 </body>
 </html>
