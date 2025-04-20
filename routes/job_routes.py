@@ -9,12 +9,6 @@ from routes.config import ALGOLIA_APP_ID, ALGOLIA_API_KEY,ALGOLIA_INDEX_NAME,SHE
 job_bp=Blueprint('job',__name__)
 
 
-
-
-
-
-
-
 # create the sync client
 algolia_client = SearchClientSync(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
 from flask import render_template, request, redirect, url_for, flash
@@ -109,8 +103,7 @@ def post_job():
 @job_bp.route('/results')
 def results():
     query = request.args.get('query', '')
-    if not query:
-        return render_template('results.html', jobs=[])
+    
 
     # 1) Perform the search (multi-query format, but you only have one request)
     res = algolia_client.search({
@@ -129,7 +122,7 @@ def results():
         hits = data["results"][0].get("hits", [])
 
     # 4) Pass these hits to your template
-    return render_template('results.html', jobs=hits)
+    return render_template('coop_hr1.html', jobs=hits)
 
 @job_bp.route('/api/search')
 def api_search():
