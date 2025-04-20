@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSensei - Interview Management</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* 
+      * Color Variables
+      * These match the color scheme from the Candidates Management page
+      * for consistent branding across the JobSensei platform
+    */
+    :root {
+      --primary: #328E6E;
+      --secondary: #67AE6E;
+      --tertiary: #90C67C;
+      --background: #E1EEBC;
+      --light-bg: #f5f9ee;
+      --text-dark: #333;
+      --text-light: #666;
+      --white: #fff;
+      --shadow: 0 2px 10px rgba(0,0,0,0.1);
+      --border-radius: 8px;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --success: #28a745;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--background);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    /* Header and Navigation - consistent with other JobSensei pages */
+    header {
+      background-color: var(--primary);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    .logo i {
+      margin-right: 0.5rem;
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-item {
+      position: relative;
+      margin-left: 1.5rem;
+    }
+    
+    .nav-link {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      color: var(--tertiary);
+    }
+    
+    .dropdown {
+      position: relative;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: var(--white);
+      min-width: 180px;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      z-index: 1;
+      top: 100%;
+      left: 0;
+    }
+    
+    .dropdown-content a {
+      color: var(--text-dark);
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: var(--light-bg);
+      color: var(--primary);
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 1.5rem;
+    }
+    
+    /* Main Content */
+    main {
+      padding: 2rem 0;
+    }
+    
+    .page-header {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      list-style: none;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb li {
+      display: flex;
+      align-items: center;
+    }
+    
+    .breadcrumb li:not(:last-child):after {
+      content: '/';
+      margin: 0 0.5rem;
+      color: var(--text-light);
+    }
+    
+    .breadcrumb a {
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    
+    .breadcrumb li:last-child {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .page-title {
+      font-size: 1.75rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-subtitle {
+      color: var(--text-light);
+    }
+    
+    /* Dashboard summary cards */
+    .dashboard-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .summary-card {
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .summary-title {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+    
+    .summary-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .summary-change {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .summary-change.positive {
+      color: var(--success);
+    }
+    
+    .summary-change.negative {
+      color: var(--danger);
+    }
+    
+    .summary-change i {
+      margin-right: 0.25rem;
+    }
+    
+    /* Calendar & Schedule Section */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .schedule-calendar {
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    .upcoming-interviews {
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .section-title {
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .section-actions a {
+      color: var(--secondary);
+      text-decoration: none;
+      margin-left: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .section-actions a:hover {
+      color: var(--primary);
+    }
+    
+    /* Interview Calendar */
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background-color: var(--light-bg);
+    }
+    
+    .month-nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    .month-title {
+      font-weight: 600;
+      margin: 0 1rem;
+    }
+    
+    .calendar-controls button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .calendar-controls button:hover {
+      background-color: var(--background);
+    }
+    
+    .calendar-controls .active {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    
+    /* Calendar Grid */
+    .calendar {
+      padding: 1rem;
+    }
+    
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      color: var(--text-light);
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-auto-rows: minmax(100px, auto);
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+    }
+    
+    .calendar-day {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 0.5rem;
+      min-height: 120px;
+    }
+    
+    .calendar-day.today {
+      background-color: rgba(144, 198, 124, 0.1);
+      border-color: var(--tertiary);
+    }
+    
+    .calendar-day.other-month {
+      background-color: #f9f9f9;
+      color: #ccc;
+    }
+    
+    .day-number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .day-event {
+      background-color: rgba(50, 142, 110, 0.1);
+      border-left: 3px solid var(--primary);
+      padding: 0.25rem 0.5rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.8rem;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all 0.3s ease;
+    }
+    
+    .day-event:hover {
+      background-color: rgba(50, 142, 110, 0.2);
+    }
+    
+    .day-event.tech {
+      border-left-color: #0d6efd;
+      background-color: rgba(13, 110, 253, 0.1);
+    }
+    
+    .day-event.hr {
+      border-left-color: #6f42c1;
+      background-color: rgba(111, 66, 193, 0.1);
+    }
+    
+    .day-event.manager {
+      border-left-color: #fd7e14;
+      background-color: rgba(253, 126, 20, 0.1);
+    }
+    
+    /* Upcoming Interviews List */
+    .interview-list {
+      padding: 0;
+    }
+    
+    .interview-item {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #eee;
+      transition: all 0.3s ease;
+    }
+    
+    .interview-item:hover {
+      background-color: var(--light-bg);
+    }
+    
+    .interview-item:last-child {
+      border-bottom: none;
+    }
+    
+    .interview-time {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+    
+    .interview-candidate {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .interview-position {
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .interview-reviewers {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+    
+    .interview-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .btn i {
+      margin-right: 0.25rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #297a5e;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    /* Recent Activity Section */
+    .recent-activity {
+      background-color: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    
+    .activity-list {
+      padding: 0.5rem 0;
+    }
+    
+    .activity-item {
+      padding: 1rem 1.5rem;
+      display: flex;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--light-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1rem;
+      color: var(--primary);
+    }
+    
+    .activity-content {
+      flex: 1;
+    }
+    
+    .activity-title {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    
+    .activity-time {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    .activity-item.feedback .activity-icon {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: var(--success);
+    }
+    
+    .activity-item.reschedule .activity-icon {
+      background-color: rgba(255, 193, 7, 0.1);
+      color: var(--warning);
+    }
+    
+    .activity-item.cancel .activity-icon {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: var(--danger);
+    }
+    
+    /* Modal for scheduling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    
+    .modal-content {
+      background-color: var(--white);
+      margin: 10% auto;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 80%;
+      max-width: 600px;
+      animation: modalfade 0.3s;
+    }
+    
+    @keyframes modalfade {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .modal-title {
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+    
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(50, 142, 110, 0.2);
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .dashboard-summary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        flex-direction: column;
+        background-color: var(--primary);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem 0;
+      }
+      
+      .nav-menu.active {
+        left: 0;
+      }
+      
+      .nav-item {
+        margin: 1rem 0;
+      }
+      
+      .dropdown-content {
+        position: static;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+        display: none;
+        border-radius: 0;
+      }
+      
+      .dropdown-content a {
+        color: var(--white);
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .calendar-grid {
+        grid-auto-rows: minmax(80px, auto);
+      }
+      
+      .day-event {
+        font-size: 0.7rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .dashboard-summary {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .section-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+      
+      .calendar-nav {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      
+      .calendar-controls {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .calendar-weekdays {
+        font-size: 0.8rem;
+      }
+      
+      .calendar-day {
+        min-height: 80px;
+        padding: 0.25rem;
+      }
+      
+      .day-number {
+        font-size: 0.8rem;
+        margin-bottom: 0.25rem;
+      }
+      
+      .day-event {
+        padding: 0.15rem 0.3rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with navigation - consistent with other JobSensei pages -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <i class="fas fa-briefcase"></i>
+          JobSensei
+        </a>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Jobs <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">View All Jobs</a>
+              <a href="#">Create New Job</a>
+              <a href="#">Archived Jobs</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Candidates <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown-content">
+              <a href="#">All Candidates</a>
+              <a href="#">By Job</a>
+              <a href="#">Shortlisted</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active">Interviews</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Reports</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Page header with breadcrumbs and title -->
+      <div class="page-header">
+        <ul class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li>Interview Management</li>
+        </ul>
+        <h1 class="page-title">Interview Management</h1>
+        <p class="page-subtitle">Schedule, track, and manage candidate interviews</p>
+      </div>
+
+      <!-- Dashboard summary statistics cards -->
+      <div class="dashboard-summary">
+        <div class="summary-card">
+          <div class="summary-title">Scheduled Interviews</div>
+          <div class="summary-value">18</div>
+          <div class="summary-change positive">
+            <i class="fas fa-arrow-up"></i> 12% from last month
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-title">Completed Interviews</div>
+          <div class="summary-value">42</div>
+          <div class="summary-change positive">
+            <i class="fas fa-arrow-up"></i> 8% from last month
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-title">Average Interview Score</div>
+          <div class="summary-value">7.8</div>
+          <div class="summary-change positive">
+            <i class="fas fa-arrow-up"></i> 0.6 points from last month
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-title">Offer Acceptance Rate</div>
+          <div class="summary-value">86%</div>
+          <div class="summary-change negative">
+            <i class="fas fa-arrow-down"></i> 2% from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content grid with calendar and upcoming interviews -->
+      <div class="content-grid">
+        <!-- Calendar Section -->
+        <div class="schedule-calendar">
+          <div class="section-header">
+            <h2 class="section-title">Interview Calendar</h2>
+            <div class="section-actions">
+              <a href="#" id="schedule-interview-btn"><i class="fas fa-plus"></i> Schedule New</a>
+              <a href="#"><i class="fas fa-sync-alt"></i> Refresh</a>
+            </div>
+          </div>
+          <div class="calendar-nav">
+            <div class="month-nav">
+              <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+              <div class="month-title">April 2025</div>
+              <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar-controls">
+              <button class="active">Month</button>
+              <button>Week</button>
+              <button>Day</button>
+              <button>List</button>
+            </div>
+          </div>
+          <div class="calendar">
+            <div class="calendar-weekdays">
+              <div>Sun</div>
+              <div>Mon</div>
+              <div>Tue</div>
+              <div>Wed</div>
+              <div>Thu</div>
+              <div>Fri</div>
+              <div>Sat</div>
+            </div>
+            <div class="calendar-grid">
+              <!-- Row 1 -->
+              <div class="calendar-day other-month">
+                <div class="day-number">30</div>
+              </div>
+              <div class="calendar-day other-month">
+                <div class="day-number">31</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">1</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">2</div>
+                <div class="day-event tech">10:00 AM - Technical (Michael C.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">3</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">4</div>
+                <div class="day-event hr">2:30 PM - HR (Emily R.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">5</div>
+              </div>
+              
+              <!-- Row 2 -->
+              <div class="calendar-day">
+                <div class="day-number">6</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">7</div>
+                <div class="day-event manager">11:15 AM - Manager (Sarah J.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">8</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">9</div>
+                <div class="day-event tech">9:30 AM - Technical (James W.)</div>
+                <div class="day-event hr">3:00 PM - HR (Luis G.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">10</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">11</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">12</div>
+              </div>
+              
+              <!-- Row 3 -->
+              <div class="calendar-day">
+                <div class="day-number">13</div>
+                <div class="day-event manager">1:00 PM - Manager (Olivia S.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">14</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">15</div>
+                <div class="day-event tech">10:30 AM - Technical (Aisha P.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">16</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">17</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">18</div>
+                <div class="day-event hr">11:00 AM - HR (Alex K.)</div>
+              </div>
+              <div class="calendar-day today">
+                <div class="day-number">19</div>
+                <div class="day-event tech">9:00 AM - Technical (Nina L.)</div>
+                <div class="day-event manager">2:00 PM - Manager (David P.)</div>
+              </div>
+              
+              <!-- Row 4 -->
+              <div class="calendar-day">
+                <div class="day-number">20</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">21</div>
+                <div class="day-event tech">10:00 AM - Technical (Marco S.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">22</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">23</div>
+                <div class="day-event manager">1:30 PM - Manager (Jayden T.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">24</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">25</div>
+                <div class="day-event hr">11:30 AM - HR (Sophia M.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">26</div>
+              </div>
+              
+              <!-- Row 5 -->
+              <div class="calendar-day">
+                <div class="day-number">27</div>
+                <div class="day-event tech">3:15 PM - Technical (Wei L.)</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">28</div>
+              </div>
+              <div class="calendar-day">
+                <div class="day-number">29</div>
+                <div class="day-event manager">10:

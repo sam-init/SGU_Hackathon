@@ -22,61 +22,87 @@ from flask import render_template, request, redirect, url_for, flash
 @job_bp.route('/post_job', methods=['POST', 'GET'])
 def post_job():
     if request.method == 'POST':
-        # Get data from the form
-        title = request.form.get('title')
-        company = request.form.get('company')
-        location = request.form.get('location')
+        # Extract form data
+        title = request.form.get('job_title')
         job_type = request.form.get('job_type')
-        salary = request.form.get('salary')
-        raw_skills = request.form.get('skills')
-        description = request.form.get('description')
-        requirements = request.form.get('requirements')
+        department = request.form.get('department')
+        experience = request.form.get('experience_required')
+        location = request.form.get('job_location')
+        deadline = request.form.get('application_deadline')
+        required_skills_raw = request.form.get('required_skills')
+        preferred_skills_raw = request.form.get('preferred_skills')
+        education = request.form.get('education')
+        salary = request.form.get('salary_range')
+        description = request.form.get('job_description')
+        benefits = request.form.get('benefits')
 
-        # Form validation
-        if not title or not company or not location or not job_type or not raw_skills or not description:
+        # Validate required fields
+        if not title or not job_type or not experience or not location or not required_skills_raw or not description:
             flash('Please fill in all required fields.', 'danger')
-            return redirect(url_for('job_bp.post_job'))  # Stay on the same page if validation fails
+            return redirect(url_for('job_bp.post_job'))
 
-        # Process skills (split by commas)
-        skills_list = [s.strip().lower() for s in raw_skills.split(',') if s.strip()]
+        # Process skill strings into lists
+        required_skills_list = [s.strip() for s in required_skills_raw.split(',') if s.strip()]
+        preferred_skills_list = [s.strip() for s in preferred_skills_raw.split(',')] if preferred_skills_raw else []
 
-        # Prepare job data
-        job = {
-            'title': title,
-            'company': company,
-            'location': location,
+        # Prepare job data for Firestore and Algolia
+        job_data = {
+            'job_title': title,
             'job_type': job_type,
-            'salary': salary,
-            'skills': skills_list,
-            'description': description,
-            'requirements': requirements
+            'department': department,
+            'experience_required': experience,
+            'job_location': location,
+            'application_deadline': deadline,
+            'required_skills': required_skills_list,
+            'preferred_skills': preferred_skills_list,
+            'education': education,
+            'salary_range': salary,
+            'job_description': description,
+            'benefits': benefits
         }
 
         try:
-            # 1) Save to Firestore
-            _, doc_ref = db.collection('jobs').add(job)
+            # Save to Firestore
+            _, doc_ref = db.collection('jobs').add(job_data)
             object_id = doc_ref.id
 
-            # 2) Save to Algolia
-            record = {**job, 'objectID': object_id}
+            # Save to Algolia
+            record = {**job_data, 'objectID': object_id}
             save_resp = algolia_client.save_object(index_name=ALGOLIA_INDEX_NAME, body=record)
             algolia_client.wait_for_task(index_name=ALGOLIA_INDEX_NAME, task_id=save_resp.task_id)
 
-            # 3) Append to Google Sheets
+            # Add headers once if the sheet is empty
+            if not SHEET2.get_all_values():
+                SHEET2.insert_row([
+                    'job_title', 'job_type', 'department', 'experience_required', 'job_location', 'application_deadline',
+                    'required_skills', 'preferred_skills', 'education', 'salary_range', 'job_description', 'benefits'
+                ], 1)
+
+            # Save job data
             SHEET2.append_row([
-                title, company, location, job_type,
-                salary, ', '.join(skills_list), description, requirements
+                title,
+                job_type,
+                department,
+                experience,
+                location,
+                deadline,
+                ', '.join(required_skills_list),
+                ', '.join(preferred_skills_list),
+                education,
+                salary,
+                description,
+                benefits
             ])
 
             flash('Job posted successfully!', 'success')
-            return redirect(url_for('auth.login'))  # Redirect to prevent form resubmission
+            return redirect(url_for('auth.login'))
 
         except Exception as e:
             flash(f'Error occurred: {str(e)}', 'danger')
             return redirect(url_for('job_bp.post_job'))
 
-    # If the request is GET, render the form
-    return render_template('Employer.html')
+    return render_template('coop_hr.html')
+
 
 
 
