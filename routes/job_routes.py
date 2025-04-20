@@ -5,7 +5,7 @@ from routes.config import db
 from routes.config import SCOPES
 from routes.config import google_creds
 from algoliasearch.search.client import SearchClientSync
-from routes.config import ALGOLIA_APP_ID, ALGOLIA_API_KEY,ALGOLIA_INDEX_NAME,SHEET2
+from routes.config import ALGOLIA_APP_ID, ALGOLIA_API_KEY,ALGOLIA_INDEX_NAME,SHEET4
 job_bp=Blueprint('job',__name__)
 
 
@@ -17,42 +17,31 @@ from flask import render_template, request, redirect, url_for, flash
 def post_job():
     if request.method == 'POST':
         # Extract form data
+        hr_name = request.form.get('hr_name')
+        job_id = request.form.get('job_id')
         title = request.form.get('job_title')
-        job_type = request.form.get('job_type')
-        department = request.form.get('department')
         experience = request.form.get('experience_required')
         location = request.form.get('job_location')
-        deadline = request.form.get('application_deadline')
         required_skills_raw = request.form.get('required_skills')
-        preferred_skills_raw = request.form.get('preferred_skills')
-        education = request.form.get('education')
-        salary = request.form.get('salary_range')
         description = request.form.get('job_description')
-        benefits = request.form.get('benefits')
 
         # Validate required fields
-        if not title or not job_type or not experience or not location or not required_skills_raw or not description:
+        if not hr_name or not job_id or not title or not experience or not location or not required_skills_raw or not description:
             flash('Please fill in all required fields.', 'danger')
             return redirect(url_for('job_bp.post_job'))
 
-        # Process skill strings into lists
+        # Process skill strings into a list
         required_skills_list = [s.strip() for s in required_skills_raw.split(',') if s.strip()]
-        preferred_skills_list = [s.strip() for s in preferred_skills_raw.split(',')] if preferred_skills_raw else []
 
         # Prepare job data for Firestore and Algolia
         job_data = {
+            'hr_name': hr_name,
+            'job_id': job_id,
             'job_title': title,
-            'job_type': job_type,
-            'department': department,
             'experience_required': experience,
             'job_location': location,
-            'application_deadline': deadline,
             'required_skills': required_skills_list,
-            'preferred_skills': preferred_skills_list,
-            'education': education,
-            'salary_range': salary,
-            'job_description': description,
-            'benefits': benefits
+            'job_description': description
         }
 
         try:
@@ -66,36 +55,32 @@ def post_job():
             algolia_client.wait_for_task(index_name=ALGOLIA_INDEX_NAME, task_id=save_resp.task_id)
 
             # Add headers once if the sheet is empty
-            if not SHEET2.get_all_values():
-                SHEET2.insert_row([
-                    'job_title', 'job_type', 'department', 'experience_required', 'job_location', 'application_deadline',
-                    'required_skills', 'preferred_skills', 'education', 'salary_range', 'job_description', 'benefits'
+            if not SHEET4.get_all_values():
+                SHEET4.insert_row([
+                    'hr_name', 'job_id', 'job_title', 'experience_required', 'job_location',
+                    'required_skills', 'job_description'
                 ], 1)
 
-            # Save job data
-            SHEET2.append_row([
+            # Save job data to Google Sheet
+            SHEET4.append_row([
+                hr_name,
+                job_id,
                 title,
-                job_type,
-                department,
                 experience,
                 location,
-                deadline,
                 ', '.join(required_skills_list),
-                ', '.join(preferred_skills_list),
-                education,
-                salary,
-                description,
-                benefits
+                description
             ])
 
             flash('Job posted successfully!', 'success')
             return redirect(url_for('auth.login'))
 
         except Exception as e:
-            flash(f'Error occurred: {str(e)}', 'danger')
-            return redirect(url_for('job_bp.post_job'))
+            print(f'Error occurred: {str(e)}', 'danger')
+            return redirect(url_for('job.post_job'))
 
     return render_template('coop_hr.html')
+
 
 
 
