@@ -25,7 +25,7 @@ def index():
 
 @app.route('/option')
 def option():
-    return render_template('coop_emp.html')
+    return render_template('hr_options.html')
 
 @app.route('/jobsa')
 def jobsa():

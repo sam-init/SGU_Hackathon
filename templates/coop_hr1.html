@@ -647,6 +647,26 @@
         padding: 0.5rem 1rem;
       }
     }
+      #suggestions {
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 300px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        z-index: 1000;
+      }
+    
+      #suggestions .suggestion-item {
+        padding: 8px 12px;
+      }
+    
+      #suggestions .suggestion-item:hover {
+        background-color: #f0f0f0;
+      }
   </style>
 </head>
 <body>
@@ -713,85 +733,188 @@
     </div>
   </div>
   
-  <main>
-    <section class="job-filter">
-      <h2>Select a Role</h2>
-      <ul class="role-list" id="roleList">
-        <!-- Roles will be inserted dynamically from backend -->
-      </ul>
-    </section>
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Filters Section -->
+    <div class="filters-container">
+      <div class="filters-header">
+        <h2 class="filters-title">Filter Jobs</h2>
+        <div class="search-container">
+          <span class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div style="position: relative;">
+            <input type="text" id="searchBox" placeholder="Type skills or titles..." autocomplete="on" style="width: 300px; padding: 8px;">
+            <ul id="suggestions"></ul>
+          </div>
+        </div>
+      </div>
+      <form class="filters-form">
+        <div class="filter-group">
+          <label for="filter-status">Status</label>
+          <select id="filter-status">
+            <option value="all">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="closed">Closed</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-department">Department</label>
+          <select id="filter-department">
+            <option value="all">All Departments</option>
+            <option value="engineering">Engineering</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="sales">Sales</option>
+            <option value="hr">Human Resources</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-location">Location</label>
+          <select id="filter-location">
+            <option value="all">All Locations</option>
+            <option value="remote">Remote</option>
+            <option value="sf">San Francisco, CA</option>
+            <option value="ny">New York, NY</option>
+            <option value="london">London, UK</option>
+          </select>
+        </div>
+        <div class="filter-actions">
+          <button type="submit" class="btn btn-outline btn-small">Apply Filters</button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Jobs List -->
+    <div class="jobs-container">
+      <div class="jobs-header">
+        <div class="jobs-count">
+          <strong>10</strong> job posts found
+        </div>
+        <div class="jobs-sort">
+          <span>Sort by:</span>
+          <select>
+            <option value="date-desc">Date (Newest)</option>
+            <option value="date-asc">Date (Oldest)</option>
+            <option value="title">Job Title</option>
+            <option value="applications">Most Applications</option>
+          </select>
+        </div>
+      </div>
+      
+      <ul class="jobs-list">
+        <!-- Job Item 1 -->
+        <li class="job-item">
+  
+        </li>
 
-    <section class="job-results">
-      <h2>Matched Candidates</h2>
-      <ul class="jobs-list" id="jobList">
-        <!-- Dynamic job cards rendered here -->
+        <!-- You can add more <li class="job-item"> here dynamically using JavaScript or server-side rendering -->
       </ul>
-    </section>
-  </main>
+    </div>
+
+
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.10.0/dist/instantsearch.production.min.js"></script>
   <script>
-    const jobList = document.getElementById('jobList');
-    const roleList = document.getElementById('roleList');
-    const searchInput = document.getElementById('searchInput');
-
-    let allJobs = [];
-    let allRoles = [];
-
-    async function fetchJobsFromBackend() {
-      try {
-        const res = await fetch('/api/hr/jobs'); // <-- Backend route needed
-        const data = await res.json();
-        allJobs = data;
-        allRoles = [...new Set(data.map(job => job.title))];
-        renderRoles(allRoles);
-        renderJobs(allJobs);
-      } catch (error) {
-        console.error('Failed to fetch jobs:', error);
-      }
-    }
-
-    function renderRoles(roles) {
-      roleList.innerHTML = '';
-      roles.forEach(role => {
-        const li = document.createElement('li');
-        li.textContent = role;
-        li.className = 'role-item';
-        li.addEventListener('click', () => {
-          const filtered = allJobs.filter(j => j.title === role);
-          renderJobs(filtered);
-        });
-        roleList.appendChild(li);
+    document.addEventListener("DOMContentLoaded", function () {
+      const listings = document.querySelector(".jobs-list");
+      const searchInput = document.querySelector("#searchBox");
+      const suggestionsBox = document.querySelector("#suggestions");
+    
+      if (!listings || !searchInput || !suggestionsBox) return;
+    
+      // Autocomplete search
+      searchInput.addEventListener("input", async function (e) {
+        const query = e.target.value;
+        if (!query) {
+          suggestionsBox.innerHTML = "";
+          return;
+        }
+    
+        try {
+          const response = await fetch(`/job/api/search?q=${encodeURIComponent(query)}`);
+          const suggestions = await response.json();
+    
+          suggestionsBox.innerHTML = "";
+          suggestions.forEach(suggestion => {
+            const item = document.createElement("li");
+            item.className = "suggestion-item";
+            item.textContent = suggestion.title;
+            item.style.cursor = "pointer";
+            item.addEventListener("click", async () => {
+              searchInput.value = suggestion.title;
+              suggestionsBox.innerHTML = "";
+    
+              // Fetch results from /results using selected suggestion
+              try {
+                const res = await fetch(`/job/results?query=${encodeURIComponent(suggestion.title)}`);
+                const jobs = await res.json();
+                listings.innerHTML = "";
+                jobs.forEach(job => {
+                  const jobCard = document.createElement("li");
+                  jobCard.className = "job-item";
+                  jobCard.innerHTML = `
+                    <div class="job-info">
+                      <span class="status-badge status-active">${job.status || "Active"}</span>
+                      <h3 class="job-title"><a href="#">${job.job_title}</a></h3>
+                      <div class="job-meta">
+                        <div class="job-meta-item">${job.department || ""}</div>
+                        <div class="job-meta-item">${job.job_location || ""}</div>
+                        <div class="job-meta-item">${job.experience_required || ""} years experience</div>
+                        <div class="job-meta-item">${job.job_type || ""}</div>
+                      </div>
+                      <div class="job-skills">
+                        ${(job.required_skills || "").split(",").map(skill => `<span class="skill-tag">${skill.trim()}</span>`).join("")}
+                      </div>
+                    </div>
+                    <div class="job-actions">
+                      <a href="#" class="btn btn-outline btn-small">View Details</a>
+                      <button class="btn btn-danger btn-small">Close Job</button>
+                    </div>
+                  `;
+                  listings.appendChild(jobCard);
+                });
+              } catch (err) {
+                console.error("Error loading selected result:", err);
+              }
+            });
+            suggestionsBox.appendChild(item);
+          });
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+        }
       });
-    }
-
-    function renderJobs(jobs) {
-      jobList.innerHTML = '';
-      jobs.forEach(job => {
-        const li = document.createElement('li');
-        li.className = 'job-item';
-        li.innerHTML = `
-          <div class="job-info">
-            <h3 class="job-title">${job.title}</h3>
-            <div class="job-meta">
-              <div class="job-meta-item">${job.location}</div>
-              <div class="job-meta-item">${job.job_type || 'Full-time'}</div>
-            </div>
-            <div class="job-skills">
-              ${(job.skills || []).map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-            </div>
-          </div>
-        `;
-        jobList.appendChild(li);
-      });
-    }
-
-    searchInput.addEventListener('input', e => {
-      const searchValue = e.target.value.toLowerCase();
-      const filteredRoles = allRoles.filter(r => r.toLowerCase().includes(searchValue));
-      renderRoles(filteredRoles);
     });
-
-    fetchJobsFromBackend();
-  </script>
+    </script>
+    
+    <style>
+      #suggestions {
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 300px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        z-index: 1000;
+      }
+    
+      #suggestions .suggestion-item {
+        padding: 8px 12px;
+      }
+    
+      #suggestions .suggestion-item:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+    
+    
+  
+    
 </body>
 </html>
