@@ -33,7 +33,7 @@
           <li><a href="#gallery" class="nav-link">Gallery</a></li>
           <li><a href="#contact" class="nav-link">Contact Support</a></li>
         </ul>
-        <button class="btn btn-primary download-btn">Download App</button>
+        <a class="btn btn-primary download-btn" href="{{url_for('auth.login')}}">Download App</a>
         <button class="mobile-menu-toggle">
           <span></span>
           <span></span>
@@ -49,14 +49,16 @@
       <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
         <h1>Connecting Rural India with Employment Opportunities</h1>
         <p>SabKoKaam helps unskilled workers in rural areas find reliable jobs and secure their livelihoods through a simple, accessible platform, while also providing opportunities to connect with job openings in the corporate sector.</p>
+
+        <button class="btn btn-primary">Get Started</button>
+
         <a href="{{ url_for('option') }}" class="btn btn-primary" style="text-decoration: none; color: white;">
           Get Started
         </a>
-        
         </button>
       </div>
       <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
-        <img src="..static/pics/main.png" alt="Rural workers">
+        <img src="../static/pics/working rural indian people.jpg" alt="Rural workers">
       </div>
     </div>
   </section>
@@ -104,8 +106,8 @@
         <div class="about-images" data-aos="fade-right">
           <div class="image-grid">
             <img src="../static/pics/all women working.jpeg" alt="Rural worker">
-            <img src="..static/pics/indian women.jpg" alt="Rural worker">
-            <img src="..static/pics/ramesh worker.jpg" alt="Rural worker">
+            <img src="../static/pics/indian women.jpg" alt="Rural worker">
+            <img src="../static/pics/ramesh worker.jpg" alt="Rural worker">
           </div>
         </div>
         <div class="about-content" data-aos="fade-left">
@@ -170,15 +172,15 @@
           <div class="gallery-caption">Rural workers in action</div>
         </div>
         <div class="gallery-item">
-          <img src="..static/pics/working img.jpg" alt="Rural workers working together">
+          <img src="../static/pics/working img.jpg" alt="Rural workers working together">
           <div class="gallery-caption">All-women workforce</div>
         </div>
         <div class="gallery-item">
-          <img src="..static/pics/Working Workers.jpg" alt="Rural workers collaborating">
+          <img src="../static/pics/Workshop Workers.jpeg" alt="Rural workers collaborating">
           <div class="gallery-caption">Workshops</div>
         </div>
         <div class="gallery-item">
-          <img src="..static/pics/working rural indian people.jpg" alt="Rural workers in a job setting">
+          <img src="../static/pics/working rural indian people.jpg" alt="Rural workers in a job setting">
           <div class="gallery-caption">Outdoor job settings</div>
         </div>
       </div>
@@ -244,7 +246,7 @@
           <button class="btn btn-primary">Get in Contact</button>
         </div>
         <div class="contact-image">
-          <img src="../static/pics/shanking hands.jpg" alt="Contact Support">
+          <img src="../static/pics/shanking hands.jpeg" alt="Contact Support">
         </div>
       </div>
     </div>

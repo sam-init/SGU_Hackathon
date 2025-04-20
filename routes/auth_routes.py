@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 import os, uuid,io
 from googleapiclient.http import MediaIoBaseUpload
 
-import gspread
 auth_bp=Blueprint('auth',__name__)
 
 
@@ -28,11 +27,9 @@ def register():
         country = request.form['country'] 
         state = request.form['state'] 
         city = request.form['city'] 
-        
-        # Optional: Handle photo upload if required (commented out)
-        # photo_file = request.files['photo']
-
+        print("damn")
         try:
+            print("damn1")
             # ✅ Create Firebase user with email/password authentication
             user = auth.create_user(email=email, password=password, display_name=name)
 
@@ -52,7 +49,7 @@ def register():
                 "created_at": firestore.SERVER_TIMESTAMP  # Timestamp for when user was created
             }
 
-
+            print("damn2")
             # Add user data to Firestore (create a new document for the user)
             user_ref = db.collection('users').document(user.uid)  # Use UID as document ID
             user_ref.set(user_data)
@@ -82,10 +79,10 @@ def register():
             SHEET.append_row([name, role, email, aadhaar, dob, phone, phone_alt, country, state, city])'''
 
             # Redirect to login page after successful registration
-            flash("Account created successfully! Please log in.", "success")
             return redirect(url_for('auth.login'))
 
         except Exception as e:
+            print("damn3")
             # Handle any errors that occur during Firebase user creation or data insertion
             flash(f"Error during registration: {e}", "error")
             return render_template('sign-in.html')
@@ -100,10 +97,8 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        print(f"Email: {email}, Password: {password}")  # Debugging line
-
         try:
-            # ✅ Firebase REST API for email/password authentication
+            # Authenticate with Firebase Auth REST API
             payload = {
                 'email': email,
                 'password': password,
@@ -114,34 +109,50 @@ def login():
                 json=payload
             )
 
+            # Check for response status code
             if resp.status_code != 200:
                 error_message = resp.json().get('error', {}).get('message', 'Invalid email or password')
                 flash(f"Login error: {error_message}", 'error')
                 return render_template('login.html')
 
-            # ✅ Firebase Authentication successful, now fetch the user data from Firestore
-            user_data = resp.json()  # Get the user data from the response
-            uid = user_data.get('localId')  # UID of the authenticated user
+            # Get UID from Firebase Auth response
+            user_data = resp.json()
+            uid = user_data.get('localId')
+            print(f"Authenticated UID: {uid}")
 
-            # Retrieve the user's role from Firestore
-            db = firestore.client()
-            user_ref = db.collection('users').document(uid)
-            user_doc = user_ref.get()
+            # 🔍 Search for UID in all 3 collections
+            db_client = firestore.client()
+            collections_to_search = ['users', 'Cemployers', 'Cemployees']
+            user_doc = None
+            found_collection = None
 
-            if not user_doc.exists:
-                flash("No user data found in Firestore.", 'error')
-                return render_template('login.html')
+            for collection in collections_to_search:
+                ref = db_client.collection(collection).document(uid)
+                doc = ref.get()
+                if doc.exists:
+                    user_doc = doc
+                    found_collection = collection
+                    print(f"User found in collection: {found_collection}")
+                    break  # Stop after finding the first match
 
+
+            # Get user data and role
             user_data = user_doc.to_dict()
             role = user_data.get('role')
+            print(f"User Role: {role}")
 
-            if role == 'Employee': 
-                return render_template('Cemployee_sign-in.html')
-            elif role == 'Employer':
+            # 🔀 Redirect based on role
+            if role == "LEmployee":
+                return redirect(url_for('auth.category_selection'))
+            elif role == "LEmployer":
+                return redirect(url_for('lerdash'))
+            elif role == "CEmployee":
+                return redirect(url_for('auth.employee_info'))
+            elif role == "CEmployer":
                 return redirect(url_for('job.post_job'))
             else:
                 flash("No valid role assigned.", 'warning')
-                return render_template('login.html')
+                return render_template('lb_login.html')
 
         except Exception as e:
             flash(f"Login error: {str(e)}", 'error')
@@ -149,31 +160,39 @@ def login():
     return render_template('lb_login.html')
 
 
+
+
 @auth_bp.route('/category-selection', methods=['GET', 'POST'])
 def category_selection():
+    uid = request.cookies.get('uid')  # ✅ Get UID from cookie
+    db = firestore.client()
+    user_ref = db.collection('users').document(uid)
+    user_doc = user_ref.get()
+
+    # ✅ Check if user already selected categories
+    if user_doc.exists:
+        user_data = user_doc.to_dict()
+        if 'categories' in user_data and user_data['categories']:
+            # If categories exist and are not empty, redirect to dashboard
+            return redirect(url_for('auth.dashboard'))
+
+    # ✅ Handle category selection on POST
     if request.method == 'POST':
-        selected_categories = request.form.getlist('category')  # Get the selected categories
+        selected_categories = request.form.getlist('category')  # Get selected categories
 
-        # Get the UID from the session (assuming the user is logged in)
-        uid = session.get('uid')  # Or use `request.form.get('uid')` if passed via form
-
-        # If categories are selected, save them in Firestore
         if selected_categories:
             try:
-                db = firestore.client()
-                user_ref = db.collection('users').document(uid)
-                user_ref.update({"categories": selected_categories})  # Update categories in Firestore
-
-                # Redirect based on role or any other logic
-                return redirect(url_for('auth.dashboard'))  # Example: Redirect to the dashboard or home page
-
+                user_ref.set({"categories": selected_categories}, merge=True)# Save to Firestore
+                return render_template('lb_employee Db.html')
             except Exception as e:
-                flash(f"Error updating categories: {str(e)}", "error")
-                return render_template('category_selection.html')
+                print(f"Error updating categories: {str(e)}", "error")
+                return render_template('map.html')
 
         flash("Please select at least one category.", "warning")
-    
-    return render_template('category_selection.html')
+
+    # ✅ Render category selection form on GET
+    return render_template('category.html')
+
 
 
 @auth_bp.route('/employer-form', methods=['GET', 'POST'])
@@ -241,8 +260,8 @@ def employer_form():
             flash("Form submitted and user registered successfully!", "success")
             
             # Redirect based on role
-            if role == 'Employer':
-                return redirect(url_for('auth.login'))
+            if role == 'CEmployer':
+                return redirect(url_for('job.post_job'))
             else:
                 return redirect(url_for('auth.employee_info'))
 

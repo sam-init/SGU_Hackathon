@@ -1,0 +1,80 @@
+/* styles.css - clean and minimal dashboard */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  #searchInput {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    width: 80%;
+    max-width: 400px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+  }
+  
+  main {
+    padding: 2rem;
+  }
+  
+  .role-section, .results-section {
+    margin-bottom: 2rem;
+  }
+  
+  .role-list, .jobs-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .role-item {
+    background: #fff;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    border-left: 5px solid transparent;
+    transition: 0.3s;
+  }
+  
+  .role-item:hover, .role-item.active {
+    background: #e8f5e9;
+    border-left-color: #4CAF50;
+  }
+  
+  .job-item {
+    background: #fff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #4CAF50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .job-title {
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .job-meta {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  .skill-tag {
+    display: inline-block;
+    background: #e0f2f1;
+    color: #00695c;
+    padding: 0.25rem 0.5rem;
+    margin: 0.2rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+  }
+  

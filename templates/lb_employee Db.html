@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Recommendations - SabKoKaam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E1EEBC;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            background-color: #328E6E;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .welcome-message {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dashboard-avatar {
+            background-color: #67AE6E;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .dashboard-section {
+            margin-bottom: 20px;
+        }
+        
+        .skill-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .skill-tag {
+            background-color: #67AE6E;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .section-title {
+            border-bottom: 2px solid #328E6E;
+            padding-bottom: 10px;
+            color: #328E6E;
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .course-header {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .course-picture {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .course-title {
+            margin: 0 0 5px 0;
+            color: #328E6E;
+        }
+        
+        .course-provider {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .course-body {
+            padding: 15px;
+        }
+        
+        .course-detail {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .course-icon {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .course-info {
+            font-size: 14px;
+        }
+        
+        .course-summary {
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        
+        .watch-button {
+            background-color: #67AE6E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .watch-button:hover {
+            background-color: #328E6E;
+        }
+        
+        .course-footer {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .course-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .course-category {
+            background-color: #e0f2f1;
+            color: #328E6E;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #328E6E;
+        }
+        
+        .video-links {
+            margin-top: 15px;
+            border-top: 1px dashed #ddd;
+            padding-top: 15px;
+        }
+        
+        .video-link {
+            display: block;
+            margin-bottom: 8px;
+            color: #328E6E;
+            text-decoration: none;
+        }
+        
+        .video-link:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #f44336;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffebee;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <div class="welcome-message">
+                <div class="welcome-text">
+                    <h1>Welcome, Rajesh Kumar</h1>
+                    <p>Here are your course recommendations based on your skills</p>
+                </div>
+                <div class="dashboard-avatar">RK</div>
+            </div>
+            
+            <div class="dashboard-section">
+                <h3>Your Selected Skills</h3>
+                <div class="skill-categories">
+                    <span class="skill-tag">Construction</span>
+                    <span class="skill-tag">Carpentry</span>
+                    <span class="skill-tag">Masonry</span>
+                    <span class="skill-tag">Painting</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-section">
+            <h2 class="section-title">Course Recommendations</h2>
+            <div id="loading" class="loading">Loading course recommendations from Google Sheets...</div>
+            <div id="error" class="error-message" style="display: none;"></div>
+            <div id="courseGrid" class="course-grid" style="display: none;">
+                <!-- Courses will be populated here via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for the document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCourses();
+        });
+
+        // Main function to load course data
+        function loadCourses() {
+            const courseGrid = document.getElementById('courseGrid');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            
+            // Google Sheet information
+            const SHEET_ID = '1gz85Kt6E_Lwu4GBiG-7z9jeB_iCIRE34Wtcf47aaa-0';
+            const SHEET_NAME = 'lb_emp_yt_op';
+            const API_KEY = 'AIzaSyAWR3gNd5mWAzdZzpbdbz_fIgHqCHBshFI';
+            
+            // Use public access URL format which works even without publishing the sheet
+            const sheetUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+            
+            // Fetch data from Google Sheets
+            fetch(sheetUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide loading indicator
+                    loading.style.display = 'none';
+                    
+                    if (data.values && data.values.length > 1) {
+                        // First row is headers, so start from second row
+                        const rows = data.values.slice(1);
+                        
+                        if (rows.length === 0) {
+                            error.textContent = 'No course data found in the sheet.';
+                            error.style.display = 'block';
+                            return;
+                        }
+                        
+                        // Display course grid
+                        courseGrid.style.display = 'grid';
+                        
+                        // Process each row and create course cards
+                        rows.forEach(row => {
+                            if (row.length >= 3) {
+                                const name = row[0] || 'Untitled Course';
+                                const summary = row[1] || 'No description available';
+                                const linksText = row[2] || '';
+                                
+                                // Create card element
+                                const card = createCourseCard(name, summary, linksText);
+                                courseGrid.appendChild(card);
+                            }
+                        });
+                    } else {
+                        error.textContent = 'Sheet data is empty or not formatted correctly.';
+                        error.style.display = 'block';
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching data:', err);
+                    loading.style.display = 'none';
+                    error.textContent = `Error loading data: ${err.message}`;
+                    error.style.display = 'block';
+                    
+                    // Load some fallback data so the page isn't empty
+                    loadFallbackData();
+                });
+        }
+
+        // Create a course card element
+        function createCourseCard(name, summary, linksText) {
+            // Create card element
+            const card = document.createElement('div');
+            card.className = 'course-card';
+            
+            // Parse YouTube links from text
+            const youtubeLinks = parseYoutubeLinks(linksText);
+            
+            // Determine appropriate icon and categories
+            const icon = selectIconForCourse(name, summary);
+            const categories = detectCategories(name, summary);
+            
+            // Create video links HTML
+            let linksHTML = '';
+            if (youtubeLinks.length > 0) {
+                linksHTML += '<div class="video-links">';
+                youtubeLinks.forEach(link => {
+                    linksHTML += `
+                        <a href="${link.url}" target="_blank" class="video-link">
+                            ▶️ ${link.title}
+                        </a>
+                    `;
+                });
+                linksHTML += '</div>';
+            }
+            
+            // Build card HTML
+            card.innerHTML = `
+                <div class="course-header">
+                    <div class="course-picture">${icon}</div>
+                    <h3 class="course-title">${name}</h3>
+                    <p class="course-provider">SabKoKaam Training</p>
+                </div>
+                <div class="course-body">
+                    <p class="course-summary">${summary}</p>
+                    ${linksHTML}
+                    ${youtubeLinks.length > 0 ? 
+                        `<a href="${youtubeLinks[0].url}" target="_blank">
+                            <button class="watch-button">Watch Course</button>
+                        </a>` : 
+                        '<p style="color:#666; text-align:center;">No video links available</p>'
+                    }
+                </div>
+                <div class="course-footer">
+                    <div class="course-categories">
+                        ${categories.map(category => `<span class="course-category">${category}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Parse YouTube links from text
+        function parseYoutubeLinks(text) {
+            const links = [];
+            if (!text) return links;
+            
+            // Split by new lines
+            const lines = text.split('\n');
+            
+            lines.forEach(line => {
+                // Match YouTube URLs
+                const urlMatch = line.match(/(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/[^\s]+/);
+                if (urlMatch) {
+                    const url = urlMatch[0];
+                    
+                    // Try to extract title from text before the URL
+                    let title = line.substring(0, line.indexOf(url)).trim();
+                    
+                    // Clean up title - remove trailing colons, dashes, etc.
+                    title = title.replace(/[:|\-–—]\s*$/, '').trim();
+                    
+                    // If no title found, use a default one
+                    if (!title) {
+                        title = "YouTube Video";
+                    }
+                    
+                    links.push({
+                        url: url,
+                        title: title
+                    });
+                }
+            });
+            
+            return links;
+        }
+
+        // Select appropriate icon for course based on content
+        function selectIconForCourse(name, summary) {
+            const content = (name + ' ' + summary).toLowerCase();
+            
+            if (content.includes('safety') || content.includes('hazard')) return '⚠️';
+            if (content.includes('carpentry') || content.includes('wood')) return '🪚';
+            if (content.includes('masonry') || content.includes('brick')) return '🧱';
+            if (content.includes('painting') || content.includes('paint')) return '🎨';
+            if (content.includes('construction') || content.includes('building')) return '🏗️';
+            if (content.includes('tool') || content.includes('equipment')) return '🧰';
+            if (content.includes('plumbing')) return '🔧';
+            if (content.includes('electrical') || content.includes('wiring')) return '⚡';
+            
+            // Default icon
+            return '📚';
+        }
+
+        // Detect relevant categories based on course content
+        function detectCategories(name, summary) {
+            const categories = [];
+            const content = (name + ' ' + summary).toLowerCase();
+            
+            if (content.includes('construction') || content.includes('building')) {
+                categories.push('Construction');
+            }
+            if (content.includes('carpentry') || content.includes('wood')) {
+                categories.push('Carpentry');
+            }
+            if (content.includes('masonry') || content.includes('brick')) {
+                categories.push('Masonry');
+            }
+            if (content.includes('painting') || content.includes('paint')) {
+                categories.push('Painting');
+            }
+            if (content.includes('safety') || content.includes('hazard')) {
+                categories.push('Safety');
+            }
+            if (content.includes('electrical') || content.includes('wiring')) {
+                categories.push('Electrical');
+            }
+            if (content.includes('plumbing')) {
+                categories.push('Plumbing');
+            }
+            
+            // Always return at least one category
+            if (categories.length === 0) {
+                categories.push('Training');
+            }
+            
+            return categories;
+        }
+
+        // Load fallback data if the API call fails
+        function loadFallbackData() {
+            const courseGrid = document.getElementById('courseGrid');
+            courseGrid.style.display = 'grid';
+            
+            // Sample course data
+            const fallbackCourses = [
+                {
+                    name: "Construction Safety Basics",
+                    summary: "Learn essential construction site safety practices including personal protective equipment usage and hazard identification.",
+                    links: "Safety Fundamentals: https://youtube.com/watch?v=example1\nPPE Guidelines: https://youtube.com/watch?v=example2"
+                },
+                {
+                    name: "Carpentry Skills for Beginners",
+                    summary: "Master the fundamental carpentry skills needed for construction work, including measuring, cutting, and joining wood.",
+                    links: "Woodworking Basics: https://youtube.com/watch?v=example3"
+                },
+                {
+                    name: "Masonry Techniques",
+                    summary: "Learn proper techniques for brick laying, mortar mixing, and other essential masonry skills for construction work.",
+                    links: "Brick Laying Tutorial: https://youtube.com/watch?v=example4\nMortar Mixing Guide: https://youtube.com/watch?v=example5"
+                }
+            ];
+            
+            // Create course cards from fallback data
+            fallbackCourses.forEach(course => {
+                const card = createCourseCard(course.name, course.summary, course.links);
+                courseGrid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
