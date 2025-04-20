@@ -6,9 +6,16 @@ experience_required – Experience range
 location – Job location
 job_description – Brief description of the job
 
+<<<<<<< HEAD
+git checkout vtboss 
+git pull origin main  # Make sure main is up to date
+git merge main        # Merge main into vtboss      
+git push origin vtbossackathon>
+=======
 #328E6E (dark green)
 #67AE6E
 #90C67C
 #E1EEBC (light grean)
 
 https://chatgpt.com/share/68030ac8-7a10-8013-8353-41a55423e6dd
+>>>>>>> 0418ecce96016045ce3fc620cab8307d33da37a9
