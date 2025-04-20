@@ -3,7 +3,7 @@ from firebase_admin import auth,firestore
 import requests
 from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.discovery import build
-from routes.config import FIREBASE_WEB_API_KEY,db,SCOPES,google_creds,SHEET1,SHEET3,FOLDER_ID,drive_service
+from routes.config import FIREBASE_WEB_API_KEY,db,SCOPES,google_creds,SHEET1,SHEET3,FOLDER_ID,drive_service,SHEET4
 from werkzeug.utils import secure_filename
 import os, uuid,io
 from googleapiclient.http import MediaIoBaseUpload
@@ -77,7 +77,8 @@ def register():
 
             # Append user data to Google Sheets
             SHEET.append_row([name, role, email, aadhaar, dob, phone, phone_alt, country, state, city])'''
-
+            if role=="LEmployee":
+                return redirect(url_for('uth.category_section'))
             # Redirect to login page after successful registration
             return redirect(url_for('auth.login'))
 
@@ -143,7 +144,7 @@ def login():
 
             # 🔀 Redirect based on role
             if role == "LEmployee":
-                return redirect(url_for('auth.category_selection'))
+                return render_template('lb_employee Db.html')
             elif role == "LEmployer":
                 return redirect(url_for('lerdash'))
             elif role == "CEmployee":
@@ -183,10 +184,10 @@ def category_selection():
         if selected_categories:
             try:
                 user_ref.set({"categories": selected_categories}, merge=True)# Save to Firestore
-                return render_template('lb_employee Db.html')
+                return redirect(url_for('login'))
             except Exception as e:
                 print(f"Error updating categories: {str(e)}", "error")
-                return render_template('map.html')
+                return render_template('category.html')
 
         flash("Please select at least one category.", "warning")
 
