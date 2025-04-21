@@ -9,3 +9,4 @@ routes/__pycache__/config.cpython-313.pyc
 .gcloudignore
 app.yaml
 vertex-ai-456914-c9e08f089482.json
+app.yaml

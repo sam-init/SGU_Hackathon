@@ -17,7 +17,7 @@
 
     body {
         line-height: 1.6;
-        background-color: #f9f9f9;
+        background-color: #90C67C;
         color: var(--dark-color);
         background-image: url('/api/placeholder/1920/1080');
         background-size: cover;
@@ -32,7 +32,7 @@
     .container {
         width: 100%;
         max-width: 800px;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: #E1EEBCf2;
         border-radius: 10px;
         box-shadow: var(--box-shadow);
         overflow: hidden;
