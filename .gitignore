@@ -7,5 +7,5 @@ static/output.mp3
 routes/__pycache__/auth_routes.cpython-313.pyc
 routes/__pycache__/config.cpython-313.pyc
 .gcloudignore
-app.yaml
 vertex-ai-456914-c9e08f089482.json
+app.yaml

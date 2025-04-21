@@ -10,9 +10,21 @@
   <div class="container">
     <div class="form-header" id="content">
       <h1>Join SabKoKaam</h1>
-      <p >Create your account to find work opportunities near you</p>
+      <p >Create your account to find work opportunities near you<br>
+        Click the mic button and say things like:<br>My name is Ramesh Kumar<br>
+        My number is 9876543210<br>
+        My email is ramesh@example.com<br>
+        I live in Mysore<br>
+        My Aadhar number is 123456789012<br>
+      </p>
     </div>
+    <div class="form-message success-message">Your information has been saved successfully!</div>
+    <div class="form-message error-message">Please correct the errors in the form and try again.</div>
   
+
+
+
+
         <!-- Language selection dropdown -->
         <label for="language">Select Language:</label>
         <select id="language">
@@ -20,6 +32,7 @@
           <option value="hi">Hindi</option>
           <option value="kn">Kannada</option>
           <option value="ml">Malayalam</option>
+          <option value="mr">Marathi</option>
         </select>
      
   
@@ -36,43 +49,62 @@
       <form id="signup-form" action="{{ url_for('auth.register') }}" method="post" enctype="multipart/form-data">
         <div class="form-message success-message">Your information has been saved successfully!</div>
         <div class="form-message error-message">Please correct the errors in the form and try again.</div>
-
+      
+        <!-- Full Name -->
         <div class="form-group">
           <label for="fullname">Full Name <span style="color: red">*</span></label>
-          <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
+          <div style="display: flex; align-items: center;">
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required />
+            <button type="button" class="mic-btn" data-input="fullname" title="Speak">🎤</button>
+          </div>
         </div>
-
+      
+        <!-- DOB -->
         <div class="form-group">
           <label for="dob">Date of Birth <span style="color: red">*</span></label>
           <input type="date" id="dob" name="dob" required />
           <div class="helper-text">You must be at least 18 years old to register</div>
         </div>
-
+      
         <div class="input-row">
+          <!-- Contact -->
           <div class="form-group">
             <label for="contact">Contact Number <span style="color: red">*</span></label>
-            <input type="tel" id="contact" name="contact" placeholder="Enter your mobile number" required />
+            <div style="display: flex; align-items: center;">
+              <input type="tel" id="contact" name="contact" placeholder="Enter your mobile number" required />
+              <button type="button" class="mic-btn" data-input="contact" title="Speak">🎤</button>
+            </div>
             <div class="helper-text">We'll send verification code to this number</div>
           </div>
-
+      
+          <!-- Alternate Contact -->
           <div class="form-group">
             <label for="alternate-contact">Alternate Contact</label>
             <input type="tel" id="alternate-contact" name="alternate-contact" placeholder="Enter alternate number (optional)" />
           </div>
         </div>
-
+      
+        <!-- Email -->
         <div class="form-group">
           <label for="email">Email Address <span style="color: red">*</span></label>
-          <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+          <div style="display: flex; align-items: center;">
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+            <button type="button" class="mic-btn" data-input="email" title="Speak">🎤</button>
+          </div>
           <div class="helper-text">You'll use this email to login to your account</div>
         </div>
-
+      
+        <!-- Aadhar -->
         <div class="form-group">
           <label for="aadhar">Aadhar Number <span style="color: red">*</span></label>
-          <input type="text" id="aadhar" name="aadhar" placeholder="Enter your 12-digit Aadhar number" required maxlength="12" />
+          <div style="display: flex; align-items: center;">
+            <input type="text" id="aadhar" name="aadhar" placeholder="Enter your 12-digit Aadhar number" required maxlength="12" />
+            <button type="button" class="mic-btn" data-input="aadhar" title="Speak">🎤</button>
+          </div>
           <div class="helper-text">This helps verify your identity and build trust with employers</div>
         </div>
-
+      
+        <!-- Country and State -->
         <div class="input-row">
           <div class="form-group">
             <label for="country">Country <span style="color: red">*</span></label>
@@ -81,7 +113,7 @@
               <option value="india">India</option>
             </select>
           </div>
-
+      
           <div class="form-group">
             <label for="state">State <span style="color: red">*</span></label>
             <select id="state" name="state" required>
@@ -100,9 +132,9 @@
             </select>
           </div>
         </div>
-
+      
+        <!-- Role -->
         <p><b>Select your role</b></p>
-        <!-- Radio Buttons for Role -->
         <div class="form-group">
           <label>
             <input type="radio" name="role" value="LEmployee"> Employee
@@ -111,15 +143,23 @@
             <input type="radio" name="role" value="LEmployer"> Employer
           </label><br>
         </div>
-
+      
+        <!-- City -->
         <div class="form-group">
           <label for="city">City/Village <span style="color: red">*</span></label>
-          <input type="text" id="city" name="city" placeholder="Enter your city or village name" required />
+          <div style="display: flex; align-items: center;">
+            <input type="text" id="city" name="city" placeholder="Enter your city or village name" required />
+            <button type="button" class="mic-btn" data-input="city" title="Speak">🎤</button>
+          </div>
         </div>
-
+      
+        <!-- Password -->
         <div class="form-group">
           <label for="password">Set Password <span style="color: red">*</span></label>
-          <input type="password" id="password" name="password" placeholder="Create a strong password" required />
+          <div style="display: flex; align-items: center;">
+            <input type="password" id="password" name="password" placeholder="Create a strong password" required />
+            <button type="button" class="mic-btn" data-input="password" title="Speak">🎤</button>
+          </div>
           <div class="password-strength">
             Password Strength: <span id="strength-text">Not entered</span>
             <div class="strength-meter">
@@ -127,12 +167,13 @@
             </div>
           </div>
         </div>
-
+      
+        <!-- Confirm Password -->
         <div class="form-group">
           <label for="confirm-password">Re-enter Password <span style="color: red">*</span></label>
           <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required />
         </div>
-
+      
         <div class="password-tips">
           <strong>Important:</strong> Please write down your password or remember it securely.
           <ul>
@@ -142,15 +183,16 @@
             <li>If you forget your password, you'll need access to your email to reset it</li>
           </ul>
         </div>
-
+      
         <div class="submit-container">
           <button type="submit" class="submit-btn">Create Account</button>
         </div>
-
+      
         <div class="or-login">
           Already have an account? <a href="{{url_for('auth.login')}}" class="login-link">Login here</a>
         </div>
       </form>
+      
     </div>
   </div>
 </div>
