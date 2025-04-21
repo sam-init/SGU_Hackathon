@@ -16,3 +16,5 @@ vertexai
 google-generativeai
 google-cloud-translate
 flask-login
+google-cloud-texttospeech
+
